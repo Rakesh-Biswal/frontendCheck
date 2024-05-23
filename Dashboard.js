@@ -1,3 +1,4 @@
+const apiUrl = "https://backend-recent-1.onrender.com";
 document.addEventListener('DOMContentLoaded', () => {
   const linkBoxes = document.querySelectorAll('.link-box');
   const coinBank = document.getElementById('Total-coin');
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateCoinsOnServer(totalCoins) {
   // Send a request to update coins on the server
-  fetch('http://localhost:3000/update-coins', {
+  fetch('${apiUrl}/update-coins', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

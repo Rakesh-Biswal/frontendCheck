@@ -1,3 +1,4 @@
+const apiUrl = "https://backend-recent-1.onrender.com";
 document.getElementById('withDrawReq').addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -18,7 +19,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     }
 
     try {
-        const postResponse = await fetch('http://localhost:3000/RemainsCoin/${userId}', {
+        const postResponse = await fetch('${apiUrl}/RemainsCoin/${userId}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

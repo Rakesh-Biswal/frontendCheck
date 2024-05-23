@@ -88,7 +88,7 @@
 </body>
 
 <script>
-
+    const apiUrl = "https://backend-recent-1.onrender.com";
     document.addEventListener('DOMContentLoaded', async () => {
         const userId = new URLSearchParams(window.location.search).get('userId');
         if (!userId) {
@@ -97,7 +97,7 @@
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/personal/${userId}`, {
+            const response = await fetch(`${apiUrl}/personal/${userId}`, {
                 method: 'GET',
                 credentials: 'include'
             });
