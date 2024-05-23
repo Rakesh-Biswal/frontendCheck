@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Gym Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>My Gym</h1>
+        <p>Your Fitness Journey Starts Here</p>
+    </header>
+
+    <section>
+        <h2>About Us</h2>
+        <p>Welcome to My Gym, where we are dedicated to helping you achieve your fitness goals. Our experienced trainers
+            and state-of-the-art facilities are here to support you on your fitness journey.</p>
+    </section>
+
+    <section>
+        <h2>Services</h2>
+        <p>Our gym offers a variety of services including:</p>
+        <ul>
+            <li>Personal Training</li>
+            <li>Group Classes</li>
+            <li>Cardio and Strength Training</li>
+            <li>Sauna and Spa Facilities</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Contact Us</h2>
+        <p>Visit us at 123 Fitness Street, Cityville</p>
+        <p>Email: info@mygym.com</p>
+        <p>Phone: 555-1234</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 My Gym. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+    <section class="profile-info">
+        <img class="user-profile-photo" style="margin: 5px; height: 40px; width: 40px; border-radius: 50%;"
+            src="user-profile.svg" alt="">
+        <div class="user-information">
+            <div>
+                <span>Username :</span>
+                <span id="username" class="same"></span>
+            </div>
+            <div>
+                <span>ID :</span>
+                <span id="id" class="same"></span>
+            </div>
+            <div>
+                <span>IP :</span>
+                <span id="ip" class="same"></span>
+            </div>
+        </div>
+        <div class="wallet-info">
+            <div class="balance-info">
+                <span>Balance :</span>
+                <span id="wallet-balance" class="same"></span>
+            </div>
+            <div class="commission-info">
+                <span>Commission :</span>
+                <span id="commission-balance">0</span>
+            </div>
+            <div class="refer-info">
+                <span>Referral bonus :</span>
+                <span id="refer-balance">0</span>
+            </div>
+        </div>
+    </section>
+    <section class="services">
+        <div class="service-sign-in" id="withDrawal">
+
+            <img src="sign-in.png" alt="">
+            <span class="sign-in">Withdrawal</span>
+
+        </div>
+        <div class="service-orders">
+            <a href="/">
+                <img src="orders.png" alt="">
+                <span class="orders">Orders</span>
+            </a>
+        </div>
+        <div class="service-promotion">
+            <a href="/">
+                <img src="promotion.png" alt="">
+                <span class="promotion">Promotion</span>
+            </a>
+        </div>
+        <div class="service-address">
+            <a href="/">
+                <img src="address.png" alt="">
+                <span class="address">Address</span>
+            </a>
+        </div>
+        <div class="service-about">
+            <a href="/">
+                <img src="account-security.png" alt="">
+                <span class="account-security">Account Security</span>
+            </a>
+        </div>
+        <div class="feedback">
+            <a href="/">
+                <img src="about.png" alt="">
+                <span class="about">About</span>
+            </a>
+        </div>
+    </section>
+    <div class="btn" style="display: flex; justify-content: center; margin-top: 70px;">
+        <button class="logout">Logout</button>
+    </div>
+    <span class="assistance">
+        <a href="/"><img src="assistance.png" alt=""></a>
+    </span>
+</body>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userId = new URLSearchParams(window.location.search).get('userId');
+        if (!userId) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/personal/${userId}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('username').textContent = data.name;
+                document.getElementById('id').textContent = data.id;
+                document.getElementById('wallet-balance').textContent = data.coins;
+                document.getElementById('ip').textContent = data.ip;
+                document.getElementById('withDrawal').addEventListener('click',()=>{
+                    window.location.href = `withdraw.html?userId=${data.id}`;
+                });
+
+            } else {
+                console.error('Error:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

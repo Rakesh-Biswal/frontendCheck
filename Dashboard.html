@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="Dashboard.css">
+</head>
+
+<body>
+    <nav id="nav-bar">
+        <div class="welcome-msg">
+            <span>Welcome </span>
+            <span id="username"></span>
+        </div>
+        <div class="nav-items">
+            <img class="user-profile" id="profilePic" src="user-profile.svg" alt="">
+            <a href="index.html" class="user-signOut">Sign out</a>
+        </div>
+        <div class="coin-info">
+            <span>Coin Bank : </span>
+            <span id="coinBank">0</span>
+        </div>
+    </nav>
+
+    <section class="main">
+        <div class="link-box">
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/refrigerator.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=13&utm_term=consumerelectronics"
+                    class="link" data-link-index="0"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2023/10/351678416/BY/YT/AM/6981331/ss-undercounter-refrigerator-1000x1000.jpg"
+                        alt="link1"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/air-coolers.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=19&utm_term=consumerelectronics"
+                    class="link" data-link-index="1"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2023/5/308270389/RJ/TN/PK/2665109/ice-cool-1000x1000.jpeg"
+                        alt="link"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/samsung-split-air-conditioners.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=23&utm_term=consumerelectronics"
+                    class="link" data-link-index="2"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2024/2/394460666/OZ/XE/XF/44326447/samsung-1-0-ton-3-star-inverter-split-ac-1000x1000.jpg"
+                        alt="link"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/modular-kitchens.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=25&utm_term=architecture&interiors"
+                    class="link" data-link-index="3"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2024/3/400273942/BS/XX/VF/9973247/laminated-modular-kitchen-1000x1000.png"
+                        alt="link"></a>
+            </div>
+        </div>
+
+
+        <div class="link-box">
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/bajaj-table-fan.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=3&utm_term=consumerelectronics"
+                    class="link" data-link-index="4"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2023/7/328132425/GT/VN/XS/181066436/gg-500x500.png"
+                        alt="link1"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/wireless-earphone.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=4&utm_term=consumerelectronics"
+                    class="link" data-link-index="5"><img
+                        src="https://5.imimg.com/data5/CG/DL/ZW/SELLER-3629868/jogger-y14-magnetic-fold-able-wireless-neckband-bluetooth-headphone-500x500.jpg"
+                        alt="link"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/agricultural-sprayers.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=4&utm_term=agriculture&farming"
+                    class="link" data-link-index="6"><img
+                        src="https://5.imimg.com/data5/SELLER/Default/2023/9/345497043/NN/YW/IB/1943953/pw-768-a-neptune-power-sprayer-250x250.jpg"
+                        alt="link"></a>
+            </div>
+            <div class="link-img">
+                <a href="https://dir.indiamart.com/impcat/bedroom-furniture.html?utm_source=abmshorts&utm_medium=affiliate&utm_campaign=affiliate_pbp_may_24&utm_content=7&utm_term=furniture&supplies"
+                    class="link" data-link-index="7"><img
+                        src="https://5.imimg.com/data5/ANDROID/Default/2022/6/PN/JJ/MU/149493044/product-jpeg-500x500.jpg"
+                        alt="link"></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/profiles/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('username').textContent = data.name;
+                    document.getElementById('coinBank').textContent = data.coins;
+                    document.getElementById('profilePic').addEventListener('click', () => {
+                        window.location.href = `profile.html?userId=${data.userId}`;
+                    });
+                    const links = document.querySelectorAll('.link');
+                    links.forEach((link, index) => {
+                        const linkStatus = data.linkStatus[index];
+                        const imageSource = link.querySelector('img').src;
+
+                        // Check if the image source is a valid URL
+                        const isValidUrl = isUrlValid(imageSource);
+
+                        if (isValidUrl) {
+                            link.querySelector('img').addEventListener('click', (event) => {
+                                event.preventDefault();
+                            });
+                        }
+
+                        if (linkStatus) {
+                            link.classList.add('clicked');
+                            link.style.pointerEvents = 'none';
+                            link.style.filter = 'blur(3px)';
+                        }
+
+                        link.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            localStorage.setItem('linkClicked', true);
+                            localStorage.setItem('linkIndex', index);
+                            window.location.href = link.href;
+                        });
+                    });
+
+                    function isUrlValid(url) {
+                        // Regular expression to match URLs
+                        const urlPattern = /^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+                        return urlPattern.test(url);
+                    }
+                } else {
+                    console.error('Error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+            const linkClicked = localStorage.getItem('linkClicked');
+            const linkIndex = localStorage.getItem('linkIndex');
+            if (linkClicked && linkIndex !== null) {
+                localStorage.removeItem('linkClicked');
+                localStorage.removeItem('linkIndex');
+
+                const link = document.querySelector(`.link[data-link-index="${linkIndex}"]`);
+                if (link) {
+                    try {
+                        fetch('http://localhost:3000/update-link', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ userId, linkIndex })
+                        }).then(async response => {
+                            if (response.ok) {
+                                link.classList.add('clicked');
+                                link.style.pointerEvents = 'none';
+                                link.style.filter = 'blur(3px)';
+
+                                const updatedData = await response.json();
+                                document.getElementById('coinBank').textContent = updatedData.user.coins;
+                            } else {
+                                console.error('Failed to update link status');
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error updating link status:', error);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
