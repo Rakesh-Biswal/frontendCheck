@@ -1,3 +1,4 @@
+const apiUrl = "https://backend-recent-1.onrender.com";
 document.getElementById("registrationForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     
@@ -20,7 +21,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     };
 
     try {
-        const response = await fetch("/register", {
+        const response = await fetch(`/${apiUrl}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

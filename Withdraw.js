@@ -19,7 +19,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     }
 
     try {
-        const postResponse = await fetch('${apiUrl}/RemainsCoin/${userId}', {
+        const postResponse = await fetch(`${apiUrl}/RemainsCoin/${userId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
