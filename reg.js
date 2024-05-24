@@ -36,7 +36,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             credentials: 'include'
         });
         const data = await response.json();
-        console.log(response);
+        
         if (response.ok) {
             // Registration successful
             showSuccessMessage(data.message);
