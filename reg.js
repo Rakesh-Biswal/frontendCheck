@@ -1,4 +1,3 @@
-const apiUrl = "https://backend-recent-1.onrender.com";
 document.getElementById('registrationForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -27,7 +26,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
 
     try {
         let ip=ss.toString()
-        const response = await fetch(`${apiUrl}/register`, {
+        const response = await fetch(`http://127.0.0.1:${apiUrl}/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
