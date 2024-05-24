@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link rel="stylesheet" href="Dashboard.css">
+    
 </head>
 
 <body>
@@ -81,8 +82,8 @@
         </div>
     </section>
 
+
     <script>
-        
         const apiUrl = "https://backend-recent-2.onrender.com";
         document.addEventListener('DOMContentLoaded', async () => {
             const userId = new URLSearchParams(window.location.search).get('userId');
@@ -107,16 +108,6 @@
                     const links = document.querySelectorAll('.link');
                     links.forEach((link, index) => {
                         const linkStatus = data.linkStatus[index];
-                        const imageSource = link.querySelector('img').src;
-
-                        // Check if the image source is a valid URL
-                        const isValidUrl = isUrlValid(imageSource);
-
-                        if (isValidUrl) {
-                            link.querySelector('img').addEventListener('click', (event) => {
-                                event.preventDefault();
-                            });
-                        }
 
                         if (linkStatus) {
                             link.classList.add('clicked');
@@ -131,12 +122,6 @@
                             window.location.href = link.href;
                         });
                     });
-
-                    function isUrlValid(url) {
-                        // Regular expression to match URLs
-                        const urlPattern = /^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-                        return urlPattern.test(url);
-                    }
                 } else {
                     console.error('Error:', data.message);
                 }
@@ -161,12 +146,15 @@
                             body: JSON.stringify({ userId, linkIndex })
                         }).then(async response => {
                             if (response.ok) {
+                                const updatedData = await response.json();
                                 link.classList.add('clicked');
                                 link.style.pointerEvents = 'none';
                                 link.style.filter = 'blur(3px)';
 
-                                const updatedData = await response.json();
-                                document.getElementById('coinBank').textContent = updatedData.user.coins;
+                                const coinBank = document.getElementById('coinBank');
+                                coinBank.textContent = updatedData.user.coins;
+                                coinBank.classList.add('coin-animate');
+                                setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
                             } else {
                                 console.error('Failed to update link status');
                             }
@@ -180,4 +168,4 @@
     </script>
 </body>
 
-</html> 
+</html>

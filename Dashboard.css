@@ -5,36 +5,45 @@
     font-family: sans-serif;
 }
 
+@keyframes coinUpdate {
+    from {
+        color: gold;
+        transform: scale(1.5);
+    }
+    to {
+        color: inherit;
+        transform: scale(1);
+    }
+}
+
+.coin-animate {
+    animation: coinUpdate 1s ease-in-out;
+}
 
 .rank-number {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
     font-size: 30px;
     font-weight: bold;
-    position: absolute;
-    margin-left: 43%;
-    margin-top: 37%;
 }
 
-#coinBank,#username{
+#coinBank,
+#username {
     color: rgb(248, 0, 202);
     font-weight: bold;
+    transition: all 0.3s ease-in-out;
 }
 
-#coinBank:hover,#username:hover{
+#coinBank:hover,
+#username:hover {
     color: rgb(12, 0, 245);
     font-weight: bold;
-    transform: scale(135%);
-    transition: all 300ms ease-in-out;
-
+    transform: scale(1.1);
 }
 
-
-.link-img:hover{
-    transform: scale(115%);
-    transition: all 300ms ease-in-out;
+.link-img:hover {
+    transform: scale(1.1);
 }
 
 #nav-bar {
@@ -47,12 +56,9 @@
     align-items: center;
     background-color: #89c1a0;
     color: white;
-
 }
 
 .welcome-msg {
-    margin: 2px;
-    padding: 10px;
     font-size: 25px;
 }
 
@@ -66,15 +72,10 @@
     font-size: 17px;
 }
 
-.user-profile:hover {
-    transform: scale(115%);
-    color: red;
-}
-
+.user-profile:hover,
 .user-signOut:hover {
-    transform: scale(115%);
+    transform: scale(1.1);
     color: red;
-    font-weight: bold;
 }
 
 .nav-items a {
@@ -86,41 +87,32 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
-
 }
 
 .coin-info {
     font-size: 17px;
     padding: 1px;
-    margin: 2px;
 }
 
 .main {
     width: 100%;
-    height: calc(100%-80px);
+    height: calc(100vh - 80px);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    row-gap: 40px;
-    column-gap: 100px;
-
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
 
 .link-box {
-    margin: 10px;
     border-radius: 5px;
     background-color: rgb(158, 140, 120);
     border: 2px solid transparent;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-}
-
-.link-img {
-    /* background-color: black; */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    cursor: pointer;
 }
 
 .link-img img {
@@ -128,17 +120,10 @@
     width: 120px;
     border-radius: 50%;
     margin: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
-@media (max-width: 1500px) {
-    #nav-bar {
-        height: 60px;
-    }
-
-    .welcome-msg {
-        font-size: 20px;
-    }
-
+@media (max-width: 768px) {
     .nav-items {
         width: 50vw;
         font-size: 15px;
@@ -153,129 +138,58 @@
         font-size: 15px;
     }
 
+    .welcome-msg {
+        font-size: 20px;
+    }
+
     .main {
-        gap: 50px;
-        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
     }
 
     .link-box {
-        height: 350px;
+        height: auto;
     }
 
     .link-img img {
         height: 80px;
         width: 80px;
-        margin: 5px;
     }
-}
-
-@media (max-width: 1000px) {
-    #nav-bar {
-        height: 60px;
-    }
-
-    .welcome-msg {
-        font-size: 20px;
-    }
-
-    .nav-items {
-        font-size: 15px;
-    }
-
-    .user-profile {
-        height: 30px;
-        width: 30px;
-    }
-
-    .coin-info {
-        font-size: 15px;
-    }
-
-    .main {
-        column-gap: 50px;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .link-box {
-        height: 250px;
-    }
-
-    .link-img img {
-        height: 115px;
-        width: 115px;
-        border-radius: 50%;
-        margin: 10px;
-    }
-
-    .link-img img {
-        height: 120px;
-        width: 120px;
-        margin: 5px;
-    }
-}
-
-@media (max-width: 600px) {
-    .welcome-msg {
-        font-size: 17px;
-    }
-
-    .nav-items {
-        font-size: 11px;
-    }
-
-    .user-profile {
-        height: 30px;
-        width: 30px;
-    }
-
-    .coin-info {
-        font-size: 11px;
-        width: 25vw;
-    }
-
 }
 
 @media (max-width: 500px) {
     #nav-bar {
-        height: 50px;
-    }
-
-    .welcome-msg {
-        font-size: 17px;
+        height: 60px;
     }
 
     .nav-items {
-        font-size: 15px;
+        font-size: 13px;
     }
 
     .user-profile {
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
     }
 
     .coin-info {
-        font-size: 14px;
+        font-size: 13px;
+    }
+
+    .welcome-msg {
+        font-size: 15px;
     }
 
     .main {
-        gap: 10px;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 10px;
     }
 
     .link-box {
-        height: 400px;
+        padding: 10px;
     }
 
     .link-img img {
-        height: 135px;
-        width: 135px;
-        border-radius: 50%;
-        margin: 10px;
-    }
-
-    .link-img img {
-        height: 150px;
-        width: 150px;
-        margin: 5px;
+        height: 70px;
+        width: 70px;
     }
 }
