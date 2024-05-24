@@ -85,19 +85,20 @@
 
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
+    
         document.addEventListener('DOMContentLoaded', async () => {
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
-
+    
             try {
                 const response = await fetch(`${apiUrl}/profiles/${userId}`, {
                     method: 'GET',
                     credentials: 'include'
                 });
-
+    
                 const data = await response.json();
                 if (response.ok) {
                     document.getElementById('username').textContent = data.name;
@@ -105,21 +106,45 @@
                     document.getElementById('profilePic').addEventListener('click', () => {
                         window.location.href = `profile.html?userId=${data.userId}`;
                     });
+    
                     const links = document.querySelectorAll('.link');
                     links.forEach((link, index) => {
                         const linkStatus = data.linkStatus[index];
-
+    
                         if (linkStatus) {
                             link.classList.add('clicked');
                             link.style.pointerEvents = 'none';
-                            link.style.filter = 'blur(3px)';
+                            link.querySelector('img').style.filter = 'blur(3px)';
                         }
-
-                        link.addEventListener('click', (event) => {
+    
+                        link.addEventListener('click', async (event) => {
                             event.preventDefault();
-                            localStorage.setItem('linkClicked', true);
-                            localStorage.setItem('linkIndex', index);
-                            window.location.href = link.href;
+    
+                            try {
+                                const updateResponse = await fetch(`${apiUrl}/update-link`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ userId, linkIndex: index })
+                                });
+    
+                                if (updateResponse.ok) {
+                                    const updatedData = await updateResponse.json();
+                                    link.classList.add('clicked');
+                                    link.style.pointerEvents = 'none';
+                                    link.querySelector('img').style.filter = 'blur(3px)';
+    
+                                    const coinBank = document.getElementById('coinBank');
+                                    coinBank.textContent = updatedData.user.coins;
+                                    coinBank.classList.add('coin-animate');
+                                    setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
+                                } else {
+                                    console.error('Failed to update link status');
+                                }
+                            } catch (error) {
+                                console.error('Error updating link status:', error);
+                            }
                         });
                     });
                 } else {
@@ -128,44 +153,9 @@
             } catch (error) {
                 console.error('Error:', error);
             }
-
-            const linkClicked = localStorage.getItem('linkClicked');
-            const linkIndex = localStorage.getItem('linkIndex');
-            if (linkClicked && linkIndex !== null) {
-                localStorage.removeItem('linkClicked');
-                localStorage.removeItem('linkIndex');
-
-                const link = document.querySelector(`.link[data-link-index="${linkIndex}"]`);
-                if (link) {
-                    try {
-                        fetch(`${apiUrl}/update-link`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ userId, linkIndex })
-                        }).then(async response => {
-                            if (response.ok) {
-                                const updatedData = await response.json();
-                                link.classList.add('clicked');
-                                link.style.pointerEvents = 'none';
-                                link.style.filter = 'blur(3px)';
-
-                                const coinBank = document.getElementById('coinBank');
-                                coinBank.textContent = updatedData.user.coins;
-                                coinBank.classList.add('coin-animate');
-                                setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
-                            } else {
-                                console.error('Failed to update link status');
-                            }
-                        });
-                    } catch (error) {
-                        console.error('Error updating link status:', error);
-                    }
-                }
-            }
         });
     </script>
+    
 </body>
 
 </html>

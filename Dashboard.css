@@ -1,10 +1,12 @@
+/* Reset styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
 }
 
+/* Keyframe animations */
 @keyframes coinUpdate {
     from {
         color: gold;
@@ -16,46 +18,42 @@
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blurOut {
+    from {
+        filter: blur(0);
+    }
+    to {
+        filter: blur(3px);
+    }
+}
+
+/* Apply animation to elements with the class coin-animate */
 .coin-animate {
     animation: coinUpdate 1s ease-in-out;
 }
 
-.rank-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#coinBank,
-#username {
-    color: rgb(248, 0, 202);
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-}
-
-#coinBank:hover,
-#username:hover {
-    color: rgb(12, 0, 245);
-    font-weight: bold;
-    transform: scale(1.1);
-}
-
-.link-img:hover {
-    transform: scale(1.1);
-}
-
+/* Navigation bar styles */
 #nav-bar {
     width: 100%;
     min-width: 400px;
     height: 80px;
-    border: 2px solid black;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-color: #89c1a0;
+    background-color: #3F51B5;
     color: white;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
 }
 
 .welcome-msg {
@@ -63,106 +61,129 @@
 }
 
 .nav-items {
-    height: 70px;
-    width: 35vw;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 15px;
-    font-size: 17px;
-}
-
-.user-profile:hover,
-.user-signOut:hover {
-    transform: scale(1.1);
-    color: red;
-}
-
-.nav-items a {
-    text-decoration: none;
-    color: white;
 }
 
 .user-profile {
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    margin-right: 20px;
+    transition: transform 0.3s ease-in-out;
 }
 
+.user-signOut {
+    font-size: 18px;
+    margin-left: 20px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.user-profile:hover,
+.user-signOut:hover {
+    transform: scale(1.2);
+    color: yellow;
+}
+
+/* Coin info styles */
 .coin-info {
-    font-size: 17px;
-    padding: 1px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 }
 
+/* Main section styles */
 .main {
     width: 100%;
-    height: calc(100vh - 80px);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 20px;
     padding: 20px;
+    animation: fadeIn 1s ease-in-out;
 }
 
+/* Link box styles */
 .link-box {
-    border-radius: 5px;
-    background-color: rgb(158, 140, 120);
-    border: 2px solid transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #ECEFF1;
+    border-radius: 10px;
     padding: 20px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
     cursor: pointer;
 }
 
-.link-img img {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    margin: 10px;
-    transition: all 0.3s ease-in-out;
+.link-box:hover {
+    transform: scale(1.05);
+    background-color: #CFD8DC;
 }
 
-@media (max-width: 768px) {
-    .nav-items {
-        width: 50vw;
-        font-size: 15px;
-    }
+.link-img img {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
 
-    .user-profile {
-        height: 30px;
-        width: 30px;
-    }
+.link-img img:hover {
+    transform: scale(1.1);
+}
 
-    .coin-info {
-        font-size: 15px;
+.link.clicked .link-img img {
+    animation: blurOut 1s ease-in-out forwards;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 1000px) {
+    #nav-bar {
+        height: 60px;
+        padding: 0 10px;
     }
 
     .welcome-msg {
         font-size: 20px;
     }
 
+    .nav-items {
+        flex-direction: column;
+    }
+
+    .user-profile {
+        height: 30px;
+        width: 30px;
+        margin: 0;
+    }
+
+    .user-signOut {
+        font-size: 15px;
+        margin: 0;
+    }
+
+    .coin-info {
+        font-size: 17px;
+    }
+
     .main {
-        gap: 30px;
-    }
-
-    .link-box {
-        height: auto;
-    }
-
-    .link-img img {
-        height: 80px;
-        width: 80px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     #nav-bar {
-        height: 60px;
+        height: 50px;
+        padding: 0 5px;
+    }
+
+    .welcome-msg {
+        font-size: 18px;
     }
 
     .nav-items {
-        font-size: 13px;
+        flex-direction: column;
     }
 
     .user-profile {
@@ -170,26 +191,16 @@
         width: 25px;
     }
 
-    .coin-info {
-        font-size: 13px;
+    .user-signOut {
+        font-size: 14px;
     }
 
-    .welcome-msg {
-        font-size: 15px;
+    .coin-info {
+        font-size: 14px;
     }
 
     .main {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-        padding: 10px;
-    }
-
-    .link-box {
-        padding: 10px;
-    }
-
-    .link-img img {
-        height: 70px;
-        width: 70px;
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 }
