@@ -9,119 +9,113 @@
 </head>
 
 <body>
+    <nav id="nav-bar">
+        <div class="welcome-msg">
+            <span>Welcome </span>
+            <span id="username"></span>
+        </div>
+        <div class="nav-items">
+            <img class="user-profile" id="profilePic" src="user-profile.svg" alt="">
+            <a href="index.html" class="user-signOut">Sign out</a>
+        </div>
+        <div class="coin-info">
+            <span>Coin Bank: </span>
+            <span id="coinBank">0</span>
+        </div>
+    </nav>
+
     <section class="profile-info">
-        <img class="user-profile-photo" style="margin: 5px; height: 40px; width: 40px; border-radius: 50%;"
-            src="user-profile.svg" alt="">
+        <img class="user-profile-photo" src="user-profile.svg" alt="User Profile">
         <div class="user-information">
-            <div>
-                <span>Username :</span>
-                <span id="username" class="same"></span>
-            </div>
-            <div>
-                <span>ID :</span>
-                <span id="id" class="same"></span>
-            </div>
-            <div>
-                <span>IP :</span>
-                <span id="ip" class="same"></span>
-            </div>
+            <div><span>Username:</span><span id="username" class="same"></span></div>
+            <div><span>ID:</span><span id="id" class="same"></span></div>
+            <div><span>IP:</span><span id="ip" class="same"></span></div>
         </div>
         <div class="wallet-info">
             <div class="balance-info">
-                <span>Balance :</span>
-                <span id="wallet-balance" class="same"></span>
-            </div>
-            <div class="commission-info">
-                <span>Commission :</span>
-                <span id="commission-balance">0</span>
-            </div>
-            <div class="refer-info">
-                <span>Referral bonus :</span>
-                <span id="refer-balance">0</span>
+                <span>Balance:</span><span id="wallet-balance" class="same"></span>
             </div>
         </div>
     </section>
+
     <section class="services">
-        <div class="service-sign-in" id="withDrawal">
-
+        <div class="service-item" id="withDrawal">
             <img src="sign-in.png" alt="">
-            <span class="sign-in">Withdrawal</span>
-
+            <span class="service-label">Withdrawal</span>
         </div>
-        <div class="service-orders">
+        <div class="service-item">
             <a href="/">
                 <img src="orders.png" alt="">
-                <span class="orders">Orders</span>
+                <span class="service-label">Orders</span>
             </a>
         </div>
-        <div class="service-promotion">
+        <div class="service-item">
             <a href="/">
                 <img src="promotion.png" alt="">
-                <span class="promotion">Promotion</span>
+                <span class="service-label">Promotion</span>
             </a>
         </div>
-        <div class="service-address">
+        <div class="service-item">
             <a href="/">
                 <img src="address.png" alt="">
-                <span class="address">Address</span>
+                <span class="service-label">Address</span>
             </a>
         </div>
-        <div class="service-about">
+        <div class="service-item">
             <a href="/">
                 <img src="account-security.png" alt="">
-                <span class="account-security">Account Security</span>
+                <span class="service-label">Account Security</span>
             </a>
         </div>
-        <div class="feedback">
+        <div class="service-item">
             <a href="/">
                 <img src="about.png" alt="">
-                <span class="about">About</span>
+                <span class="service-label">About</span>
             </a>
         </div>
     </section>
-    <div class="btn" style="display: flex; justify-content: center; margin-top: 70px;">
+
+    <div class="btn-container">
         <button class="logout">Logout</button>
     </div>
+
     <span class="assistance">
         <a href="/"><img src="assistance.png" alt=""></a>
     </span>
-</body>
 
-<script>
-    const apiUrl = "https://backend-recent-2.onrender.com";
-    document.addEventListener('DOMContentLoaded', async () => {
-        const userId = new URLSearchParams(window.location.search).get('userId');
-        if (!userId) {
-            window.location.href = 'login.html';
-            return;
-        }
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
 
-        try {
-            const response = await fetch(`${apiUrl}/personal/${userId}`, {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                document.getElementById('username').textContent = data.name;
-                document.getElementById('id').textContent = data.id;
-                document.getElementById('wallet-balance').textContent = data.coins;
-                document.getElementById('ip').textContent = data.ip;
-                document.getElementById('withDrawal').addEventListener('click',()=>{
-                    window.location.href = `withdraw.html?userId=${data.id}`;
+            try {
+                const response = await fetch(`${apiUrl}/personal/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
                 });
 
-            } else {
-                console.error('Error:', data.message);
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('username').textContent = data.name;
+                    document.getElementById('id').textContent = data.id;
+                    document.getElementById('wallet-balance').textContent = data.coins;
+                    document.getElementById('ip').textContent = data.ip;
+                    document.getElementById('withDrawal').addEventListener('click', () => {
+                        window.location.href = `withdraw.html?userId=${data.id}`;
+                    });
+
+                } else {
+                    console.error('Error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    })
-
-</script>
-
+        });
+    </script>
 </body>
 
 </html>

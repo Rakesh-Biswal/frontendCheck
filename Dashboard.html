@@ -139,6 +139,9 @@
                                     coinBank.textContent = updatedData.user.coins;
                                     coinBank.classList.add('coin-animate');
                                     setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
+    
+                                    // Navigate to the link's href after the backend update is successful
+                                    window.location.href = link.href;
                                 } else {
                                     console.error('Failed to update link status');
                                 }
@@ -155,6 +158,7 @@
             }
         });
     </script>
+    
     
 </body>
 
