@@ -1,4 +1,4 @@
-const apiUrl = "https://backend-recent-1.onrender.com";
+const apiUrl = "https://backend-recent-2.onrender.com";
 document.addEventListener('DOMContentLoaded', () => {
   const linkBoxes = document.querySelectorAll('.link-box');
   const coinBank = document.getElementById('Total-coin');

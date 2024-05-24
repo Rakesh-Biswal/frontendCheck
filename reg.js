@@ -1,4 +1,4 @@
-const apiUrl = "https://backend-recent-1.onrender.com";
+const apiUrl = "https://backend-recent-2.onrender.com";
 document.getElementById('registrationForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
