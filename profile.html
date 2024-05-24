@@ -81,10 +81,11 @@
     <script>
 
         const apiUrl = "https://backend-recent-2.onrender.com";
-        document.getElementById("logout").addEventListener("click",() => {
-            window.location.href = "index.html";
-        });
+
         document.addEventListener('DOMContentLoaded', async () => {
+            document.getElementById("logout").addEventListener("click", () => {
+                window.location.href = "index.html";
+            });
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
