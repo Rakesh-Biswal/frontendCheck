@@ -236,7 +236,7 @@
 
     #username{
         font-size: 2px;
-        
+        display: none;
     }
 
     .service-item {
