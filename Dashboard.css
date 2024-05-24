@@ -5,21 +5,6 @@
     font-family: sans-serif;
 }
 
-@keyframes coinUpdate {
-    from {
-        color: gold;
-        transform: scale(1.5);
-    }
-    to {
-        color: inherit;
-        transform: scale(1);
-    }
-}
-
-.coin-animate {
-    animation: coinUpdate 1s ease-in-out;
-}
-
 
 
 .rank-number {
