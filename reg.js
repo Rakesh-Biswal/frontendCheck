@@ -7,8 +7,6 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const linkStatus = []; // Initialize with default values or get from the form
-    const ip = ''; // Optionally, include the IP if needed
     const ss = await fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => data.ip)
@@ -34,7 +32,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password, ip, linkStatus }),
+            body: JSON.stringify({ name, phone, email, password,ip}),
             credentials: 'include'
         });
         const data = await response.json();
