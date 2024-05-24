@@ -35,7 +35,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ name, phone, email, password, ip, linkStatus }),
-            
+            credentials: 'include'
         });
         const data = await response.json();
         console.log(response);
