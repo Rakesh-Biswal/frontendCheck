@@ -71,7 +71,7 @@
     </section>
 
     <div class="btn-container">
-        <button class="logout">Logout</button>
+        <button class="logout" id="log">Logout</button>
     </div>
 
     <span class="assistance">
@@ -83,7 +83,7 @@
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
-            document.getElementById("logout").addEventListener("click", () => {
+            document.getElementById("log").addEventListener("click", () => {
                 window.location.href = "index.html";
             });
             const userId = new URLSearchParams(window.location.search).get('userId');
