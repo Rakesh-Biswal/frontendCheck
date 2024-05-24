@@ -112,6 +112,10 @@
     gap: 15px;
 }
 
+.same{
+    color:black;
+}
+
 .service-item {
     width: 100px;
     text-align: center;
