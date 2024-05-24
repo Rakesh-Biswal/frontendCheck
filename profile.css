@@ -274,10 +274,7 @@
 
     /* Responsive design */
     @media (max-width: 768px) {
-        .welcome-msg, .coin-info {
-            margin-bottom: 5px;
-        }
-
+        
 
         #nav-bar {
             

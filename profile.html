@@ -22,7 +22,7 @@
     <section class="profile-info">
         <img class="user-profile-photo" src="user-profile.svg" alt="User Profile">
         <div class="user-information">
-            <div><span>Username:</span><span id="username" class="same"></span></div>
+            <div><span>Username:</span><span id="usernames" class="same"></span></div>
             <div><span>ID:</span><span id="id" class="same"></span></div>
             <div><span>IP:</span><span id="ip" class="same"></span></div>
         </div>
@@ -96,6 +96,7 @@
                 const data = await response.json();
                 if (response.ok) {
                     document.getElementById('username').textContent = data.name;
+                    document.getElementById('usernames').textContent = data.name;
                     document.getElementById('id').textContent = data.id;
                     document.getElementById('wallet-balance').textContent = data.coins;
                     document.getElementById('ip').textContent = data.ip;
