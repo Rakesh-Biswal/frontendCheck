@@ -219,9 +219,7 @@
         padding: 10px;
     }
 
-    .welcome-msg, .coin-info {
-        margin-bottom: 10px;
-    }
+    
 
     .user-profile-photo {
         height: 80px;
@@ -286,10 +284,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
-            background-color: #4CAF50;
-            color: white;
-            padding: 0 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            
+            
         }
 
         .user-profile-photo {
