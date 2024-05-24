@@ -1,21 +1,12 @@
+/* Reset styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+/* Keyframe animation for updating coins */
 @keyframes coinUpdate {
     from {
         color: gold;
@@ -27,36 +18,12 @@
     }
 }
 
+/* Apply animation to elements with the class coin-animate */
 .coin-animate {
     animation: coinUpdate 1s ease-in-out;
 }
 
-.rank-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#coinBank,
-#username {
-    color: rgb(248, 0, 202);
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
-}
-
-#coinBank:hover,
-#username:hover {
-    color: rgb(12, 0, 245);
-    font-weight: bold;
-    transform: scale(1.1);
-}
-
-.link-img:hover {
-    transform: scale(1.1);
-}
-
+/* Navigation bar styles */
 #nav-bar {
     width: 100%;
     height: 60px;
@@ -67,7 +34,6 @@
     color: white;
     padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    animation: fadeInUp 1s ease;
 }
 
 .welcome-msg {
@@ -77,12 +43,14 @@
 .nav-items {
     display: flex;
     align-items: center;
-    gap: 20px;
-    font-size: 17px;
 }
 
 .user-profile,
 .user-signOut {
+    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
     transition: all 0.3s ease-in-out;
 }
 
@@ -91,129 +59,44 @@
     transform: scale(1.1);
 }
 
-.nav-items a {
-    text-decoration: none;
-    color: white;
-}
-
-.user-profile {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-}
-
+/* Coin info styles */
 .coin-info {
     font-size: 17px;
-    padding: 1px;
 }
 
+/* Main section styles */
 .main {
-    width: 100%;
-    min-height: calc(100vh - 60px);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
 }
 
+/* Link box styles */
 .link-box {
-    border-radius: 5px;
-    background-color: rgb(158, 140, 120);
-    border: 2px solid transparent;
+    background-color: #ECEFF1;
+    border-radius: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-box:hover {
+    transform: scale(1.05);
+}
+
+.link-img img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
     transition: all 0.3s ease-in-out;
 }
 
 .link-box.clicked {
     pointer-events: none;
-}
-
-.link-img img {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    margin: 10px;
-    transition: all 0.3s ease-in-out;
-}
-
-.link-box.clicked .link-img img {
     filter: blur(3px);
-}
-
-@media (max-width: 768px) {
-    .nav-items {
-        font-size: 15px;
-    }
-
-    .user-profile {
-        height: 30px;
-        width: 30px;
-    }
-
-    .coin-info {
-        font-size: 15px;
-    }
-
-    .welcome-msg {
-        font-size: 20px;
-    }
-
-    .main {
-        gap: 30px;
-    }
-
-    .link-box {
-        height: auto;
-    }
-
-    .link-img img {
-        height: 80px;
-        width: 80px;
-    }
-}
-
-@media (max-width: 500px) {
-    #nav-bar {
-        height: 50px;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    .nav-items {
-        font-size: 13px;
-    }
-
-    .user-profile {
-        height: 25px;
-        width: 25px;
-    }
-
-    .coin-info {
-        font-size: 13px;
-    }
-
-    .welcome-msg {
-        font-size: 15px;
-    }
-
-    .main {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 15px;
-        padding: 10px;
-    }
-
-    .link-box {
-        padding: 10px;
-    }
-
-    .link-img img {
-        height: 70px;
-        width: 70px;
-    }
 }
