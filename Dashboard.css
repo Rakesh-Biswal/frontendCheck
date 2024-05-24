@@ -6,6 +6,11 @@
     font-family: Arial, sans-serif;
 }
 
+#username,#coinBank{
+    color: rgb(246, 255, 0);
+    font-weight: bolder;
+}
+
 /* Keyframe animations */
 @keyframes coinUpdate {
     from {
