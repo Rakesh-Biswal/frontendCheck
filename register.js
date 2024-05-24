@@ -21,7 +21,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     };
 
     try {
-        const response = await fetch(`/${apiUrl}/register`, {
+        const response = await fetch(`${apiUrl}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
