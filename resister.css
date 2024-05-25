@@ -83,7 +83,7 @@ body {
 
 /* Loading spinner with blurred background */
 #container.blur {
-    filter: blur(5px);
+    filter: blur(1px);
 }
 
 /* Loading spinner with blurred background */
