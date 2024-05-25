@@ -36,14 +36,14 @@
   }
 
   .coin-photos{
-    height: 35px;
-    width:35px;
+    height: 20px;
+    width:20px;
   }
 
   #coinBank{
     padding-left: 5px;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 25px;
   }
   
 

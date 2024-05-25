@@ -64,7 +64,7 @@ body {
 }
 
 .blur {
-    filter: blur(2px);
+    filter: blur(1px);
 }
 
 
