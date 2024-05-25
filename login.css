@@ -3,6 +3,73 @@ body {
     background-color: #f0f0f0;
 }
 
+
+/* Container styling */
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Loading spinner styling */
+.spinner {
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+}
+
+.dot1,
+.dot2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #5652BF;
+    opacity: 0.6;
+    position: absolute;
+    animation: pulsate 1.5s infinite ease-in-out;
+}
+
+.dot2 {
+    animation-delay: -0.75s;
+}
+
+@keyframes pulsate {
+
+    0%,
+    100% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+}
+
+/* Blur overlay styling */
+.blur-overlay {
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 5;
+}
+
+.blur {
+    filter: blur(2px);
+}
+
+
+
+
 .container {
     width: 300px;
     margin: 50px auto;

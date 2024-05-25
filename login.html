@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <h2>Login</h2>
         <form id="loginForm">
             <input type="email" id="email" placeholder="Email" required>
@@ -21,13 +21,26 @@
         <p>Don't have an account? <a href="register.html">Sign up</a></p>
     </div>
 
+    <!-- Loading Spinner and Blur Effect -->
+    <div id="loadingSpinner" class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+    <div id="blurOverlay" class="blur-overlay"></div>
+
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
+
         document.getElementById('loginForm').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+
+            // Show spinner and blur effect
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('blurOverlay').style.display = 'block';
+            document.getElementById('container').classList.add('blur');
 
             try {
                 const response = await fetch(`${apiUrl}/login`, {
@@ -41,6 +54,11 @@
 
                 const data = await response.json();
 
+                // Hide spinner and blur effect
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('blurOverlay').style.display = 'none';
+                document.getElementById('container').classList.remove('blur');
+
                 if (response.ok) {
                     document.getElementById('message').innerText = 'Login successful';
                     localStorage.setItem('userId', data.userId);
@@ -51,6 +69,11 @@
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('message').innerText = 'Login failed';
+
+                // Hide spinner and blur effect in case of error
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('blurOverlay').style.display = 'none';
+                document.getElementById('container').classList.remove('blur');
             }
         });
 
