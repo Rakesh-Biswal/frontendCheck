@@ -9,6 +9,14 @@
     list-style: none;
 }
 
+.regis{
+    border-radius: 27px;
+}
+.closis{
+    border-radius: 20px;
+    background-color: red !important;
+}
+
 *::selection {
     background: crimson;
     color: #fff;

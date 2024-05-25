@@ -98,7 +98,8 @@
     align-items: center;
     background-color: #3F51B5;
     color: white;
-    padding: 0 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in-out;
 }
