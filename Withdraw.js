@@ -1,4 +1,5 @@
 const apiUrl = "https://backend-recent-2.onrender.com";
+
 document.getElementById('withDrawReq').addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -18,6 +19,11 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         return;
     }
 
+    // Show spinner and blur effect
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('blurOverlay').style.display = 'block';
+    document.getElementById('withdrawPage').classList.add('blur');
+
     try {
         const postResponse = await fetch(`${apiUrl}/RemainsCoin/${userId}`, {
             method: 'POST',
@@ -30,6 +36,11 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
         const postData = await postResponse.json();
 
+        // Hide spinner and blur effect
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('withdrawPage').classList.remove('blur');
+
         if (postResponse.ok) {
             message.textContent = "Transaction Successful";
             alert("Money will be credited within 24 hours.");
@@ -40,7 +51,10 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     } catch (postError) {
         console.log(postError);
         message.textContent = 'Transaction failed';
+
+        // Hide spinner and blur effect in case of error
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('withdrawPage').classList.remove('blur');
     }
-
-
 });

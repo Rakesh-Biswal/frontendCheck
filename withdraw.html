@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Withdraw</title>
+    <link rel="stylesheet" href="withdraw.css">
     <style>
         * {
             margin: 0;
@@ -19,6 +20,107 @@
             justify-content: center;
             align-items: center;
             margin-top: 100px;
+        }
+
+
+
+        /* General styling for the page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: rgb(40, 111, 235);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        /* Withdraw page styling */
+        .withdraw-page {
+            height: 60vh;
+            width: 60vw;
+            border: 2px solid goldenrod;
+            border-radius: 5px;
+            background-color: rgba(47, 159, 176, 0.637);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Form styling */
+        .withdraw-form {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        /* Loading spinner styling */
+        .spinner {
+            display: none;
+            /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+        }
+
+        .coin {
+            width: 100%;
+            height: 100%;
+            background-image: url('coin.png');
+            /* Add your coin image here */
+            background-size: cover;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Blur overlay styling */
+        .blur-overlay {
+            display: none;
+            /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 5;
+        }
+
+        .blur {
+            filter: blur(2px);
+        }
+
+        /* Responsive styling */
+        @media (max-width: 500px) {
+            .withdraw-page {
+                height: 75vh;
+                width: 80vw;
+            }
+
+            body {
+                margin-top: 70px;
+            }
         }
 
         img {
@@ -208,7 +310,7 @@
             }
         }
 
-        #coinNo{
+        #coinNo {
             color: gold;
             font-weight: bold;
         }
@@ -216,13 +318,13 @@
 </head>
 
 <body>
-    <div class="withdraw-page">
+    <div class="withdraw-page" id="withdrawPage">
         <span>Withdraw real cash to your Bank account</span>
         <div class="withdraw-info">
-            <span class="child-info">Use your <img class="coin-photo" src="coin.png" alt=""><span> = </span> <span id="coinNo"></span> Coins</span>
+            <span class="child-info">Use your <img class="coin-photo" src="coin.png" alt=""><span> = </span> <span
+                    id="coinNo"></span> Coins</span>
             <span class="child-info"> & get real cash</span>
             <span class="child-info"><img class="coin-photo" src="coin.png" alt="">10=₹1</span>
-
         </div>
         <div>
             <form class="withdraw-form" id="withDrawReq">
@@ -230,15 +332,19 @@
                 <input type="number" id="withdrawn-coin" placeholder="Enter Coins" required>
                 <label for="upi-id">UPI ID:</label>
                 <input type="text" id="upi-id" name="upi-id" required placeholder="Please enter a valid UPI ID">
-
                 <label for="check-password">PASSWORD :</label>
                 <input type="password" id="check-password" placeholder="Enter Your Password" required>
                 <div id="info"></div>
                 <input class="withdraw" type="submit" value="Withdraw">
-
             </form>
         </div>
     </div>
+
+    <!-- Loading Spinner and Blur Effect -->
+    <div id="loadingSpinner" class="spinner">
+        <div class="coin"></div>
+    </div>
+    <div id="blurOverlay" class="blur-overlay"></div>
 
     <script src="Withdraw.js"></script>
 </body>
