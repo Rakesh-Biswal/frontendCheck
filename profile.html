@@ -38,32 +38,32 @@
             <img src="sign-in.png" alt="">
             <span class="service-label">Withdrawal</span>
         </div>
-        <div class="service-item">
-            <a href="/">
+        <div class="service-item" id="construction">
+            <a href="" >
                 <img src="orders.png" alt="">
                 <span class="service-label">Orders</span>
             </a>
         </div>
-        <div class="service-item">
-            <a href="/">
+        <div class="service-item" id="construction">
+            <a href="">
                 <img src="promotion.png" alt="">
                 <span class="service-label">Promotion</span>
             </a>
         </div>
-        <div class="service-item">
-            <a href="/">
+        <div class="service-item" id="construction">
+            <a href="">
                 <img src="address.png" alt="">
                 <span class="service-label">Address</span>
             </a>
         </div>
-        <div class="service-item">
-            <a href="/">
+        <div class="service-item" id="construction">
+            <a href="">
                 <img src="account-security.png" alt="">
                 <span class="service-label">Account Security</span>
             </a>
         </div>
-        <div class="service-item">
-            <a href="/">
+        <div class="service-item" id="construction">
+            <a href="">
                 <img src="about.png" alt="">
                 <span class="service-label">About</span>
             </a>
@@ -86,6 +86,10 @@
             document.getElementById("log").addEventListener("click", () => {
                 window.location.href = "index.html";
             });
+            document.getElementById("construction").addEventListener("click", () => {
+                alert("This site is Under Construction..");
+            });
+
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';

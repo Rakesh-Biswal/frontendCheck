@@ -30,6 +30,21 @@
       transform: rotate(0deg);
     }
   }
+
+  #profilePic:hover{
+    transform: scale(115%);
+  }
+
+  .coin-photos{
+    height: 35px;
+    width:35px;
+  }
+
+  #coinBank{
+    padding-left: 5px;
+    font-weight: bold;
+    font-size: 10px;
+  }
   
 
 

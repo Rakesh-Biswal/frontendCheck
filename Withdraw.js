@@ -24,7 +24,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ withdrawCoin, UpiId, userId,checkPassword}),
+            body: JSON.stringify({ withdrawCoin, UpiId, userId, checkPassword }),
             credentials: 'include'
         });
 
@@ -40,6 +40,27 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     } catch (postError) {
         console.log(postError);
         message.textContent = 'Transaction failed';
+    }
+
+
+
+
+
+    try {
+        const response = await fetch(`${apiUrl}/wdcoin/${userId}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('coinNo').textContent = data.coins;
+
+        } else {
+            console.error('Error:', data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 
 
