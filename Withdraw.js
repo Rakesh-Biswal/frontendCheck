@@ -12,7 +12,6 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     const UpiId = document.getElementById('upi-id').value;
     const checkPassword = document.getElementById('check-password').value;
     const message = document.getElementById('info');
-    const coinNo=document.getElementById('coinNo').textContent;
 
     if (isNaN(withdrawCoin) || withdrawCoin <= 0) {
         message.textContent = "Please enter a valid amount to withdraw.";
@@ -41,28 +40,6 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     } catch (postError) {
         console.log(postError);
         message.textContent = 'Transaction failed';
-    }
-
-
-
-
-
-    try {
-        const response = await fetch(`${apiUrl}/wdcoin/${userId}`, {
-            method: 'GET',
-            credentials: 'include'
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            coinNo = data.coins;
-            console.log(data.coins);
-
-        } else {
-            console.error('Error:', data.message);
-        }
-    } catch (error) {
-        console.error('Error:', error);
     }
 
 
