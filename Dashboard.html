@@ -129,20 +129,23 @@
                                 });
 
                                 if (updateResponse.ok) {
-                                    // Redirect to the clicked link immediately
-                                    window.location.href = link.href;
-
-                                    // Start timer to check if user returns before 5 seconds
+                                    // Start timer to check if user stays on the page for 5 seconds
                                     const startTime = Date.now();
-                                    const timer = setInterval(() => {
-                                        const currentTime = Date.now();
-                                        if (currentTime - startTime >= 5000) {
-                                            clearInterval(timer); // Stop the timer
-                                        } else if (document.visibilityState === 'visible') {
-                                            clearInterval(timer); // Stop the timer
-                                            alert("You cannot get any money because you did not stay at least 5 seconds on the clicked link page.");
+
+                                    const handleVisibilityChange = () => {
+                                        if (document.visibilityState === 'visible') {
+                                            const elapsedTime = Date.now() - startTime;
+                                            if (elapsedTime >= 5000) {
+                                                updateCoinAndLinkState(index);
+                                            } else {
+                                                alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
+                                            }
+                                            document.removeEventListener('visibilitychange', handleVisibilityChange);
                                         }
-                                    }, 1000); // Check every second
+                                    };
+
+                                    document.addEventListener('visibilitychange', handleVisibilityChange);
+                                    window.location.href = link.href; // Redirect to the clicked link
                                 } else {
                                     console.error('Failed to update link status');
                                 }
@@ -158,6 +161,40 @@
                 console.error('Error:', error);
             }
         });
+
+        async function updateCoinAndLinkState(index) {
+            try {
+                const updateResponse = await fetch(`${apiUrl}/update-link`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId, linkIndex: index })
+                });
+
+                if (updateResponse.ok) {
+                    const updatedData = await updateResponse.json();
+                    const coinBank = document.getElementById('coinBank');
+                    coinBank.textContent = updatedData.user.coins;
+                    coinBank.classList.add('coin-animate');
+                    setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
+
+                    const links = document.querySelectorAll('.link');
+                    links.forEach((link, i) => {
+                        if (i === index) {
+                            link.classList.add('clicked');
+                            link.style.pointerEvents = 'none';
+                            link.querySelector('img').style.filter = 'blur(3px)';
+                        }
+                    });
+                } else {
+                    console.error('Failed to update link status');
+                }
+            } catch (error) {
+                console.error('Error updating link status:', error);
+            }
+        }
+
 
     </script>
 
