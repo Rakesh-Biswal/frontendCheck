@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="resister.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <h2>User Registration</h2>
         <form id="registrationForm">
             <input type="text" id="name" placeholder="Name" required>
@@ -18,13 +18,14 @@
             <button type="submit">Register</button>
         </form>
         <p id="message"></p>
-        
-        <!-- Loading Spinner -->
+
+        <!-- Loading Spinner and Blur Effect -->
         <div id="loadingSpinner" class="spinner">
             <svg viewBox="0 0 50 50">
                 <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
             </svg>
         </div>
+        <div id="blurOverlay" class="blur-overlay"></div>
 
         <!-- Sign In button -->
         <p>Already have an account? <a href="login.html">Log In</a></p>

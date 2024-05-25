@@ -5,110 +5,45 @@ body {
 }
 
 .container {
-    width: 350px; /* Increased width for better spacing */
+    width: 350px;
+    /* Increased width for better spacing */
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out; /* Added fade-in animation */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-h2 {
-    margin-bottom: 20px;
-    color: #333;
-    animation: slideInFromLeft 0.5s ease-in-out; /* Added slide-in animation */
-}
-
-@keyframes slideInFromLeft {
-    from { margin-left: -100px; opacity: 0; }
-    to { margin-left: 0; opacity: 1; }
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"],
-button[type="submit"] {
-    width: calc(100% - 40px); /* Adjusted width to maintain consistent size */
-    padding: 12px; /* Increased padding for better spacing */
-    margin-bottom: 20px; /* Increased margin for better spacing */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    outline: none;
-    transition: border-color 0.3s ease-in-out; /* Added transition for border-color */
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-input[type="password"]:focus {
-    border-color: #007bff; /* Changed border color on focus */
-}
-
-button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out; /* Added transition for background-color */
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3; /* Changed background color on hover */
-}
-
-p {
-    font-size: 14px;
-    animation: slideInFromBottom 0.5s ease-in-out; /* Added slide-in animation */
-}
-
-@keyframes slideInFromBottom {
-    from { margin-bottom: -20px; opacity: 0; }
-    to { margin-bottom: 0; opacity: 1; }
-}
-
-a {
-    color: #007bff; /* Changed link color */
-    text-decoration: none;
-    transition: color 0.3s ease-in-out; /* Added transition for link color */
-}
-
-a:hover {
-    color: #0056b3; /* Changed link color on hover */
-    text-decoration: underline;
+    animation: fadeIn 0.5s ease-in-out;
+    /* Added fade-in animation */
 }
 
 
+/* Container styling */
+.container {
+    position: relative;
+    z-index: 1;
+}
 
-
-/* Spinner styles */
+/* Loading spinner styling */
 .spinner {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed position */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Centering trick */
-    z-index: 1000; /* High z-index to overlay other elements */
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
 }
 
 .spinner svg {
+    animation: rotate 2s linear infinite;
     width: 50px;
     height: 50px;
-    animation: rotate 2s linear infinite; /* Rotate the spinner */
 }
 
 .spinner .path {
-    stroke: #5652BF; /* Spinner color */
-    stroke-linecap: round; /* Rounded ends of the spinner */
-    animation: dash 1.5s ease-in-out infinite; /* Dash animation */
+    stroke: #5652BF;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
 }
 
 @keyframes rotate {
@@ -122,10 +57,200 @@ a:hover {
         stroke-dasharray: 1, 150;
         stroke-dashoffset: 0;
     }
+
     50% {
         stroke-dasharray: 90, 150;
         stroke-dashoffset: -35;
     }
+
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+/* Blur overlay styling */
+.blur-overlay {
+    display: none;
+    /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 5;
+}
+
+.blur {
+    filter: blur(2px);
+}
+
+/* Loading spinner with blurred background */
+#container.blur {
+    filter: blur(5px);
+}
+
+
+
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    animation: slideInFromLeft 0.5s ease-in-out;
+    /* Added slide-in animation */
+}
+
+@keyframes slideInFromLeft {
+    from {
+        margin-left: -100px;
+        opacity: 0;
+    }
+
+    to {
+        margin-left: 0;
+        opacity: 1;
+    }
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+button[type="submit"] {
+    width: calc(100% - 40px);
+    /* Adjusted width to maintain consistent size */
+    padding: 12px;
+    /* Increased padding for better spacing */
+    margin-bottom: 20px;
+    /* Increased margin for better spacing */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    /* Added transition for border-color */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    /* Changed border color on focus */
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    /* Added transition for background-color */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    /* Changed background color on hover */
+}
+
+p {
+    font-size: 14px;
+    animation: slideInFromBottom 0.5s ease-in-out;
+    /* Added slide-in animation */
+}
+
+@keyframes slideInFromBottom {
+    from {
+        margin-bottom: -20px;
+        opacity: 0;
+    }
+
+    to {
+        margin-bottom: 0;
+        opacity: 1;
+    }
+}
+
+a {
+    color: #007bff;
+    /* Changed link color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    /* Added transition for link color */
+}
+
+a:hover {
+    color: #0056b3;
+    /* Changed link color on hover */
+    text-decoration: underline;
+}
+
+
+
+
+/* Spinner styles */
+.spinner {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed position */
+    top: 50%;
+    /* Center vertically */
+    left: 50%;
+    /* Center horizontally */
+    transform: translate(-50%, -50%);
+    /* Centering trick */
+    z-index: 1000;
+    /* High z-index to overlay other elements */
+}
+
+.spinner svg {
+    width: 50px;
+    height: 50px;
+    animation: rotate 2s linear infinite;
+    /* Rotate the spinner */
+}
+
+.spinner .path {
+    stroke: #5652BF;
+    /* Spinner color */
+    stroke-linecap: round;
+    /* Rounded ends of the spinner */
+    animation: dash 1.5s ease-in-out infinite;
+    /* Dash animation */
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 150;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+
     100% {
         stroke-dasharray: 90, 150;
         stroke-dashoffset: -124;
@@ -136,4 +261,3 @@ a:hover {
 .spinner.show {
     display: block;
 }
-

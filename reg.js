@@ -1,4 +1,5 @@
 const apiUrl = "https://backend-recent-2.onrender.com";
+
 document.getElementById('registrationForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -27,9 +28,15 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     function showMessage(message) {
         document.getElementById('message').textContent = message;
     }
+
     function showSuccessMessage(message) {
         alert(message);
     }
+
+    // Show spinner and blur effect
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('blurOverlay').style.display = 'block';
+    document.getElementById('container').classList.add('blur');
 
     try {
         const response = await fetch(`${apiUrl}/register`, {
@@ -42,6 +49,11 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         });
 
         const data = await response.json();
+        // Hide spinner and blur effect
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('container').classList.remove('blur');
+
         if (response.ok) {
             showSuccessMessage(data.message);
             window.location.href = "login.html";
@@ -51,5 +63,9 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     } catch (error) {
         console.log('Error:', error);
         showMessage('Registration failed');
+        // Hide spinner and blur effect in case of error
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('container').classList.remove('blur');
     }
 });
