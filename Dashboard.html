@@ -119,39 +119,23 @@
                         link.addEventListener('click', async (event) => {
                             event.preventDefault();
 
-                            try {
-                                const updateResponse = await fetch(`${apiUrl}/update-link`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({ userId, linkIndex: index })
-                                });
+                            // Start timer to check if user stays on the page for 5 seconds
+                            const startTime = Date.now();
 
-                                if (updateResponse.ok) {
-                                    // Start timer to check if user stays on the page for 5 seconds
-                                    const startTime = Date.now();
-
-                                    const handleVisibilityChange = () => {
-                                        if (document.visibilityState === 'visible') {
-                                            const elapsedTime = Date.now() - startTime;
-                                            if (elapsedTime >= 5000) {
-                                                updateCoinAndLinkState(index);
-                                            } else {
-                                                alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
-                                            }
-                                            document.removeEventListener('visibilitychange', handleVisibilityChange);
-                                        }
-                                    };
-
-                                    document.addEventListener('visibilitychange', handleVisibilityChange);
-                                    window.location.href = link.href; // Redirect to the clicked link
-                                } else {
-                                    console.error('Failed to update link status');
+                            const handleVisibilityChange = () => {
+                                if (document.visibilityState === 'visible') {
+                                    const elapsedTime = Date.now() - startTime;
+                                    if (elapsedTime >= 5000) {
+                                        updateCoinAndLinkState(index);
+                                    } else {
+                                        alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
+                                    }
+                                    document.removeEventListener('visibilitychange', handleVisibilityChange);
                                 }
-                            } catch (error) {
-                                console.error('Error updating link status:', error);
-                            }
+                            };
+
+                            document.addEventListener('visibilitychange', handleVisibilityChange);
+                            window.location.href = link.href; // Redirect to the clicked link
                         });
                     });
                 } else {
@@ -194,8 +178,6 @@
                 console.error('Error updating link status:', error);
             }
         }
-
-
     </script>
 
 
