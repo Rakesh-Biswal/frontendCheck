@@ -121,20 +121,20 @@
 
                             const stayTime = 5000; // 5 seconds
 
-                            const redirectTimeout = setTimeout(() => {
-                                // If the user returns before 5 seconds, show alert
+                            const startTime = Date.now();
+                            let timeoutId = setTimeout(() => {
                                 alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
+                                document.removeEventListener('visibilitychange', handleVisibilityChange);
                             }, stayTime);
 
-                            // Start timer to check if user stays on the page for 5 seconds
-                            const startTime = Date.now();
-
                             const handleVisibilityChange = () => {
-                                clearTimeout(redirectTimeout);
                                 if (document.visibilityState === 'visible') {
                                     const elapsedTime = Date.now() - startTime;
+                                    clearTimeout(timeoutId);
                                     if (elapsedTime >= stayTime) {
                                         updateCoinAndLinkState(index);
+                                    } else {
+                                        alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                     }
                                     document.removeEventListener('visibilitychange', handleVisibilityChange);
                                 }
@@ -185,6 +185,7 @@
                 console.error('Error updating link status:', error);
             }
         }
+
 
 
 
