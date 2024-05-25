@@ -12,6 +12,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     const UpiId = document.getElementById('upi-id').value;
     const checkPassword = document.getElementById('check-password').value;
     const message = document.getElementById('info');
+    const coinNo=document.getElementById('coinNo').textContent;
 
     if (isNaN(withdrawCoin) || withdrawCoin <= 0) {
         message.textContent = "Please enter a valid amount to withdraw.";
@@ -54,7 +55,8 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
         const data = await response.json();
         if (response.ok) {
-            document.getElementById('coinNo').textContent = data.coins;
+            coinNo = data.coins;
+            console.log(data.coins);
 
         } else {
             console.error('Error:', data.message);
