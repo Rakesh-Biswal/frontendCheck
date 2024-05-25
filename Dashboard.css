@@ -6,6 +6,11 @@
     font-family: Arial, sans-serif;
 }
 
+#profilePic{
+    height: 40px;
+    width: 50px;
+}
+
 #username,#coinBank{
     color: rgb(246, 255, 0);
     font-weight: bolder;

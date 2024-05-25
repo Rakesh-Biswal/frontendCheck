@@ -8,11 +8,15 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const linkStatus = []; // Initialize with default values or get from the form
-    const ip = ''; // Optionally, include the IP if needed
-    const ss = await fetch('https://api.ipify.org?format=json')
+
+    // Fetch IP address
+    const ip = await fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => data.ip)
-        .catch(error => console.error('Error getting IP:', error));
+        .catch(error => {
+            console.error('Error getting IP:', error);
+            return ''; // Return empty string or handle the error appropriately
+        });
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -28,7 +32,6 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     }
 
     try {
-        let ip = ss.toString()
         const response = await fetch(`${apiUrl}/register`, {
             method: "POST",
             headers: {
@@ -37,14 +40,12 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             body: JSON.stringify({ name, phone, email, password, ip, linkStatus }),
             credentials: 'include'
         });
+
         const data = await response.json();
-        console.log(response);
         if (response.ok) {
-            // Registration successful
             showSuccessMessage(data.message);
             window.location.href = "login.html";
         } else {
-            // Registration failed
             showMessage(data.message);
         }
     } catch (error) {
