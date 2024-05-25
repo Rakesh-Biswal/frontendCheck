@@ -6,10 +6,31 @@
     font-family: Arial, sans-serif;
 }
 
-#profilePic{
-    height: 40px;
-    width: 50px;
+#profilePic {
+  width: 50px; /* Adjust as needed */
+  height: 40px; /* Adjust as needed */
+  animation: popRotate 2s infinite;
+  transform-origin: center;
 }
+
+@keyframes popRotate {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  50% {
+    transform: scale(1) rotate(90deg);
+  }
+  75% {
+    transform: scale(1.2) rotate(135deg);
+  }
+  100% {
+    transform: scale(1) rotate(180deg);
+  }
+}
+
 
 #username,#coinBank{
     color: rgb(246, 255, 0);
