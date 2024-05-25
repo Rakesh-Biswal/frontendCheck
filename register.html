@@ -6,7 +6,88 @@
     <title>User Registration</title>
     <link rel="stylesheet" href="resister.css">
     <style>
-       
+        /* Spinner Styles */
+        .spinner-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            animation: rotate 2s linear infinite;
+        }
+
+        .spinner .face {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #f39c12;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: bounce 0.5s alternate infinite;
+        }
+
+        .spinner .face::before, .spinner .face::after {
+            content: '';
+            position: absolute;
+            width: 20%;
+            height: 20%;
+            border-radius: 50%;
+            background-color: #fff;
+            top: 30%;
+        }
+
+        .spinner .face::before {
+            left: 25%;
+        }
+
+        .spinner .face::after {
+            right: 25%;
+        }
+
+        .spinner .mouth {
+            width: 40%;
+            height: 20%;
+            border-radius: 50%;
+            background-color: #e74c3c;
+            position: absolute;
+            bottom: 30%;
+            left: 30%;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Blur Effect */
+        .blur {
+            filter: blur(2px);
+        }
     </style>
 </head>
 <body>
@@ -24,12 +105,17 @@
 
         <!-- Loading Spinner -->
         <div id="loadingSpinner" class="spinner-overlay">
-            <div class="spinner"></div>
+            <div class="spinner">
+                <div class="face">
+                    <div class="eyes"></div>
+                    <div class="mouth"></div>
+                </div>
+            </div>
         </div>
 
         <!-- Sign In button -->
         <p>Already have an account? <a href="login.html">Log In</a></p>
     </div>
-    <script src="register.js"></script>
+    <script src="reg.js"></script>
 </body>
 </html>
