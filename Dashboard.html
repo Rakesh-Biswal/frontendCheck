@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link rel="stylesheet" href="Dashboard.css">
-
 </head>
-
 <body>
     <nav id="nav-bar">
         <div class="welcome-msg">
@@ -16,7 +13,6 @@
         </div>
         <div class="nav-items">
             <img class="user-profile" id="profilePic" src="user-profile.svg" alt="">
-
         </div>
         <div class="coin-info">
             <img class="coin-photos" src="coin.png" alt="">
@@ -51,9 +47,7 @@
                         alt="link12"></a>
             </div>
         </div>
-
     </section>
-
 
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
@@ -80,8 +74,9 @@
                     });
 
                     const links = document.querySelectorAll('.link');
-                    links.forEach((link, index) => {
-                        const linkStatus = data.linkStatus[index];
+                    links.forEach((link) => {
+                        const linkIndex = parseInt(link.dataset.linkIndex, 10);
+                        const linkStatus = data.linkStatus[linkIndex];
 
                         if (linkStatus) {
                             link.classList.add('clicked');
@@ -93,8 +88,8 @@
                             event.preventDefault();
 
                             const stayTime = 5000; // 5 seconds
-
                             const startTime = Date.now();
+
                             let timeoutId = setTimeout(() => {
                                 alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                 document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -105,7 +100,7 @@
                                     const elapsedTime = Date.now() - startTime;
                                     clearTimeout(timeoutId);
                                     if (elapsedTime >= stayTime) {
-                                        updateCoinAndLinkState(index);
+                                        updateCoinAndLinkState(linkIndex);
                                     } else {
                                         alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                     }
@@ -144,8 +139,9 @@
                     setTimeout(() => coinBank.classList.remove('coin-animate'), 1000);
 
                     const links = document.querySelectorAll('.link');
-                    links.forEach((link, i) => {
-                        if (i === index) {
+                    links.forEach((link) => {
+                        const linkIndex = parseInt(link.dataset.linkIndex, 10);
+                        if (linkIndex === index) {
                             link.classList.add('clicked');
                             link.style.pointerEvents = 'none';
                             link.querySelector('img').style.filter = 'blur(3px)';
@@ -158,13 +154,6 @@
                 console.error('Error updating link status:', error);
             }
         }
-
-
-
-
     </script>
-
-
 </body>
-
 </html>
