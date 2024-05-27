@@ -11,44 +11,43 @@
     height: 40px; /* Adjust as needed */
     transform-origin: top center; /* Set the pivot point at the top center */
     animation: swing 2s ease-in-out infinite;
-  }
-  
-  @keyframes swing {
+}
+
+@keyframes swing {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     25% {
-      transform: rotate(15deg);
+        transform: rotate(15deg);
     }
     50% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     75% {
-      transform: rotate(-15deg);
+        transform: rotate(-15deg);
     }
     100% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
-  }
+}
 
-  #profilePic:hover{
+#profilePic:hover {
     transform: scale(115%);
-  }
+}
 
-  .coin-photos{
+.coin-photos {
     height: 20px;
-    width:20px;
-  }
+    width: 20px;
+}
 
-  #coinBank{
+#coinBank {
     padding-left: 5px;
     font-weight: bold;
     font-size: 25px;
-  }
-  
+}
 
-
-#username,#coinBank{
+#username,
+#coinBank {
     color: rgb(246, 255, 0);
     font-weight: bolder;
 }
@@ -98,8 +97,7 @@
     align-items: center;
     background-color: #3F51B5;
     color: white;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in-out;
 }
@@ -144,8 +142,7 @@
 .main {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
     padding: 20px;
     animation: fadeIn 1s ease-in-out;
@@ -215,7 +212,7 @@
     }
 
     .main {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         gap: 15px;
     }
 }
