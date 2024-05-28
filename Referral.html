@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Page</title>
+    <link rel="stylesheet" href="referral.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Referral Link</h2>
+        <input type="text" id="referralInput" readonly>
+        <button id="copyButton">Copy</button>
+    </div>
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the user ID from the URL query parameters
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Generate the referral link with the user ID
+            const referralLink = `https://click-and-win.netlify.app/register?referralId=${userId}`;
+
+            // Set the referral link value to the input field
+            const inputField = document.getElementById('referralInput');
+            inputField.value = referralLink;
+
+            // Add click event listener to the copy button
+            const copyButton = document.getElementById('copyButton');
+            copyButton.addEventListener('click', () => {
+                // Copy the referral link to the clipboard
+                inputField.select();
+                document.execCommand('copy');
+
+                // Change button text to indicate successful copy
+                copyButton.textContent = 'Copied!';
+
+                // Reset button text after 2 seconds
+                setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                }, 2000);
+            });
+        });
+
+    </script>
+</body>
+
+</html>

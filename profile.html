@@ -22,9 +22,9 @@
     <section class="profile-info">
         <img class="user-profile-photo" src="user-profile.svg" alt="User Profile">
         <div class="user-information">
-            <div><span>Username:</span><span id="usernames" class="same"></span></div>
-            <div><span>ID:</span><span id="id" class="same"></span></div>
-            <div><span>IP:</span><span id="ip" class="same"></span></div>
+            <div><span>Username:</span><span id="usernames"></span></div>
+            <div><span>ID:</span><span id="id" ></span></div>
+            <div><span>IP:</span><span id="ip"></span></div>
         </div>
         <div class="wallet-info">
             <div class="balance-info">
@@ -38,31 +38,31 @@
             <img src="sign-in.png" alt="">
             <span class="service-label">Withdrawal</span>
         </div>
-        <div class="service-item" id="construction">
+        <div class="service-item" id="Orders">
             <a href="" >
                 <img src="orders.png" alt="">
                 <span class="service-label">Orders</span>
             </a>
         </div>
-        <div class="service-item" id="construction">
+        <div class="service-item" id="Promotion">
             <a href="">
                 <img src="promotion.png" alt="">
                 <span class="service-label">Promotion</span>
             </a>
         </div>
-        <div class="service-item" id="construction">
+        <div class="service-item" id="Address">
             <a href="">
                 <img src="address.png" alt="">
                 <span class="service-label">Address</span>
             </a>
         </div>
-        <div class="service-item" id="construction">
+        <div class="service-item" id="Security">
             <a href="">
                 <img src="account-security.png" alt="">
                 <span class="service-label">Account Security</span>
             </a>
         </div>
-        <div class="service-item" id="construction">
+        <div class="service-item" id="About">
             <a href="">
                 <img src="about.png" alt="">
                 <span class="service-label">About</span>
@@ -86,10 +86,7 @@
             document.getElementById("log").addEventListener("click", () => {
                 window.location.href = "index.html";
             });
-            document.getElementById("construction").addEventListener("click", () => {
-                alert("This site is Under Construction..");
-            });
-
+            
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
@@ -110,7 +107,11 @@
                     document.getElementById('wallet-balance').textContent = data.coins;
                     document.getElementById('ip').textContent = data.ip;
                     document.getElementById('withDrawal').addEventListener('click', () => {
-                        window.location.href = `withdraw.html?userId=${data.id}`;
+                        window.location.href = `withdraw.html?userId=${userId}`;
+                    });
+
+                    document.getElementById('Promotion').addEventListener('click', () => {
+                        window.location.href = `Referral.html?userId=${userId}`;
                     });
 
                 } else {
