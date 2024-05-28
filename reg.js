@@ -63,7 +63,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         }
     } catch (error) {
         console.log('Error:', error);
-        showMessage('Registration failed');
+        showMessage('Something wrong happened');
         // Hide spinner and blur effect in case of error
         document.getElementById('loadingSpinner').style.display = 'none';
         document.getElementById('blurOverlay').style.display = 'none';
