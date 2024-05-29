@@ -11,18 +11,21 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     const referrerId = document.getElementById('referralCode').value; // Capture referral code value
     const linkStatus = []; // Initialize with default values or get from the form
 
-    // Fetch IP address
-    const ip = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => data.ip)
-        .catch(error => {
-            console.error('Error getting IP:', error);
-            return ''; // Return empty string or handle the error appropriately
-        });
-
     // Check if passwords match
     if (password !== confirmPassword) {
         showMessage('Passwords do not match');
+        return;
+    }
+
+    // Fetch IP address
+    let ip;
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        ip = data.ip;
+    } catch (error) {
+        console.error('Error getting IP:', error);
+        showMessage('Error fetching IP address');
         return;
     }
 

@@ -9,21 +9,19 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>Referral Link</h2>
-        <input type="text" id="referralInput" readonly>
-        <button id="copyButton">Copy</button>
-    </div>
+    <section>
+        <div class="container">
+            <h2>Referral Link</h2>
+            <input type="text" id="referralInput" readonly>
+            <button id="copyButton">Copy</button>
+        </div>
+    </section>
+
     <script>
-
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             // Get the user ID from the URL query parameters
             const userId = new URLSearchParams(window.location.search).get('userId');
-            if (!userId) {
-                window.location.href = 'login.html';
-                return;
-            }
 
             // Generate the referral link with the user ID
             const referralLink = `https://click-and-win.netlify.app/register?referralId=${userId}`;

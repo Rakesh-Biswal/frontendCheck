@@ -23,7 +23,7 @@
         <img class="user-profile-photo" src="user-profile.svg" alt="User Profile">
         <div class="user-information">
             <div><span>Username:</span><span id="usernames"></span></div>
-            <div><span>ID:</span><span id="id" ></span></div>
+            <div><span>ID:</span><span id="id"></span></div>
             <div><span>IP:</span><span id="ip"></span></div>
         </div>
         <div class="wallet-info">
@@ -39,7 +39,7 @@
             <span class="service-label">Withdrawal</span>
         </div>
         <div class="service-item" id="Orders">
-            <a href="" >
+            <a href="">
                 <img src="orders.png" alt="">
                 <span class="service-label">Orders</span>
             </a>
@@ -79,14 +79,13 @@
     </span>
 
     <script>
-
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById("log").addEventListener("click", () => {
                 window.location.href = "index.html";
             });
-            
+
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
@@ -106,13 +105,14 @@
                     document.getElementById('id').textContent = data.id;
                     document.getElementById('wallet-balance').textContent = data.coins;
                     document.getElementById('ip').textContent = data.ip;
+
                     document.getElementById('withDrawal').addEventListener('click', () => {
                         window.location.href = `withdraw.html?userId=${userId}`;
                     });
 
-                    document.getElementById('Promotion').addEventListener('click', () => {
-                        alert("clicked");
-                        window.location.href = `Referral.html?userId=${userId}`;
+                    document.getElementById('Promotion').addEventListener('click', (event) => {
+                        event.preventDefault();
+                        window.location.href = `referral.html?userId=${userId}`;
                     });
 
                 } else {
