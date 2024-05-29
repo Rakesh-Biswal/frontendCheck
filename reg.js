@@ -8,7 +8,6 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
-    const referrerId = document.getElementById('referralCode').value; // Capture referral code value
     const linkStatus = []; // Initialize with default values or get from the form
 
     // Check if passwords match
@@ -48,7 +47,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referrerId }), // Include referral code in the registration data
+            body: JSON.stringify({ name, phone, email, password, ip, linkStatus}), // Include referral code in the registration data
             credentials: 'include'
         });
 
