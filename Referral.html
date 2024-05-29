@@ -9,44 +9,34 @@
 </head>
 
 <body>
-    <section>
-        <div class="container">
-            <h2>Referral Link</h2>
-            <input type="text" id="referralInput" readonly>
-            <button id="copyButton">Copy</button>
+    <section class="referral-section">
+        <div class="card">
+            <h2>Invite Your Friends!</h2>
+            <p>Share this referral link and invite your friends to join.</p>
+            <div class="referral-link">
+                <input type="text" id="referralInput" readonly>
+                <button id="copyButton">Copy</button>
+            </div>
         </div>
     </section>
 
     <script>
-        
         document.addEventListener('DOMContentLoaded', () => {
-            // Get the user ID from the URL query parameters
             const userId = new URLSearchParams(window.location.search).get('userId');
-
-            // Generate the referral link with the user ID
             const referralLink = `https://click-and-win.netlify.app/register?referralId=${userId}`;
-
-            // Set the referral link value to the input field
             const inputField = document.getElementById('referralInput');
             inputField.value = referralLink;
 
-            // Add click event listener to the copy button
             const copyButton = document.getElementById('copyButton');
             copyButton.addEventListener('click', () => {
-                // Copy the referral link to the clipboard
                 inputField.select();
                 document.execCommand('copy');
-
-                // Change button text to indicate successful copy
                 copyButton.textContent = 'Copied!';
-
-                // Reset button text after 2 seconds
                 setTimeout(() => {
                     copyButton.textContent = 'Copy';
                 }, 2000);
             });
         });
-
     </script>
 </body>
 
