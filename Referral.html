@@ -31,10 +31,15 @@
             copyButton.addEventListener('click', () => {
                 inputField.select();
                 document.execCommand('copy');
+
+                const originalValue = inputField.value;
+                inputField.value = 'Successfully copied!';
                 copyButton.textContent = 'Copied!';
+
                 setTimeout(() => {
+                    inputField.value = originalValue;
                     copyButton.textContent = 'Copy';
-                }, 2000);
+                }, 3000);
             });
         });
     </script>
