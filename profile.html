@@ -107,6 +107,7 @@
                     document.getElementById('ip').textContent = data.ip;
 
                     document.getElementById('withDrawal').addEventListener('click', () => {
+                        alert(userId);
                         window.location.href = `withdraw.html?userId=${userId}`;
                     });
 
