@@ -36,6 +36,10 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         alert(message);
     }
 
+    // Extract referralId from URL if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('referralId') || null;
+
     // Show spinner and blur effect
     document.getElementById('loadingSpinner').style.display = 'block';
     document.getElementById('blurOverlay').style.display = 'block';
@@ -47,7 +51,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password, ip, linkStatus}), // Include referral code in the registration data
+            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }), // Include referralId in the registration data
             credentials: 'include'
         });
 
