@@ -17,16 +17,13 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     }
 
     // Fetch IP address
-    let ip;
-    try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        ip = data.ip;
-    } catch (error) {
-        console.error('Error getting IP:', error);
-        showMessage('Error fetching IP address');
-        return;
-    }
+    const ip = await fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => data.ip)
+        .catch(error => {
+            console.error('Error getting IP:', error);
+            return ''; // Return empty string or handle the error appropriately
+        });
 
     function showMessage(message) {
         document.getElementById('message').textContent = message;
