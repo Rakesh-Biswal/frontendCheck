@@ -23,6 +23,10 @@
             <h3>Your Referrals</h3>
             <ul id="referralList"></ul>
         </div>
+
+        <div class="referral-balance">
+            <h3>Referral Coins : <span id="referralCoins"></span></h3>
+        </div>
     </section>
 
     <script>
@@ -67,6 +71,8 @@
                         listItem.textContent = referral;
                         referralList.appendChild(listItem);
                     });
+
+                    document.getElementById('referralCoins').textContent = data.referralCoins;
                 } else {
                     console.error('Error:', data.message);
                 }
