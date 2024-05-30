@@ -22,9 +22,6 @@
         <div class="referral-status">
             <h3>Your Referrals</h3>
             <ul id="referralList"></ul>
-            <div class="referral-coins">
-                <h3>Referral Balance: <span id="referralCoins">0</span> Coins</h3>
-            </div>
         </div>
     </section>
 
@@ -70,9 +67,6 @@
                         listItem.textContent = referral;
                         referralList.appendChild(listItem);
                     });
-
-                    // Update referral coins
-                    document.getElementById('referralCoins').textContent = data.referralCoins;
                 } else {
                     console.error('Error:', data.message);
                 }

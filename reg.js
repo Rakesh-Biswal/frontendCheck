@@ -16,21 +16,23 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         return;
     }
 
-    // Fetch IP address
-    const ip = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => data.ip)
-        .catch(error => {
-            console.error('Error getting IP:', error);
-            return ''; // Return empty string or handle the error appropriately
-        });
-
     function showMessage(message) {
         document.getElementById('message').textContent = message;
     }
 
     function showSuccessMessage(message) {
         alert(message);
+    }
+
+    // Fetch IP address
+    let ip = '';
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        ip = data.ip;
+    } catch (error) {
+        console.error('Error getting IP:', error);
+        ip = ''; // Set ip to empty string if there's an error
     }
 
     // Extract referralId from URL if present
@@ -53,6 +55,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         });
 
         const data = await response.json();
+
         // Hide spinner and blur effect
         document.getElementById('loadingSpinner').style.display = 'none';
         document.getElementById('blurOverlay').style.display = 'none';
@@ -66,7 +69,8 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         }
     } catch (error) {
         console.log('Error:', error);
-        showMessage('Something wrong happened');
+        showMessage('Something went wrong');
+        
         // Hide spinner and blur effect in case of error
         document.getElementById('loadingSpinner').style.display = 'none';
         document.getElementById('blurOverlay').style.display = 'none';
