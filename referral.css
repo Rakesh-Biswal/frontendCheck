@@ -6,7 +6,8 @@
     font-family: Arial, sans-serif;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -16,7 +17,7 @@ body, html {
 
 .referral-section {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -73,14 +74,56 @@ p {
     background-color: #218838;
 }
 
+.referral-status {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.referral-status h3 {
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#referralList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#referralList li {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    color: #333;
+    font-size: 16px;
+    animation: slideIn 0.5s ease-in-out;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -96,5 +139,9 @@ p {
 
     #copyButton {
         width: 100%;
+    }
+
+    .referral-status {
+        width: 90%;
     }
 }

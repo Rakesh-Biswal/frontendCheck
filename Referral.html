@@ -18,11 +18,21 @@
                 <button id="copyButton">Copy</button>
             </div>
         </div>
+
+        <div class="referral-status">
+            <h3>Your Referrals</h3>
+            <ul id="referralList"></ul>
+        </div>
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
             const referralLink = `https://click-and-win.netlify.app/register?referralId=${userId}`;
             const inputField = document.getElementById('referralInput');
             inputField.value = referralLink;
@@ -41,6 +51,28 @@
                     copyButton.textContent = 'Copy';
                 }, 3000);
             });
+
+            // Fetch user profile to get referral status
+            try {
+                const response = await fetch(`https://backend-recent-2.onrender.com/profiles/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    const referralList = document.getElementById('referralList');
+                    data.referrals.forEach(referral => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = referral;
+                        referralList.appendChild(listItem);
+                    });
+                } else {
+                    console.error('Error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         });
     </script>
 </body>
