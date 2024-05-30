@@ -19,14 +19,12 @@
             </div>
         </div>
 
-        <div class="referral-balance">
-            <h3>Your Referral Balance</h3>
-            <p id="referralBalance">Loading...</p>
-        </div>
-
         <div class="referral-status">
             <h3>Your Referrals</h3>
             <ul id="referralList"></ul>
+            <div class="referral-coins">
+                <h3>Referral Balance: <span id="referralCoins">0</span> Coins</h3>
+            </div>
         </div>
     </section>
 
@@ -73,8 +71,8 @@
                         referralList.appendChild(listItem);
                     });
 
-                    const referralBalance = document.getElementById('referralBalance');
-                    referralBalance.textContent = `${data.referralCoins} Coins`;
+                    // Update referral coins
+                    document.getElementById('referralCoins').textContent = data.referralCoins;
                 } else {
                     console.error('Error:', data.message);
                 }
