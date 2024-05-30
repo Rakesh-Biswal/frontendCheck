@@ -6,13 +6,13 @@
     font-family: Arial, sans-serif;
 }
 
-body,
-html {
+body, html {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    padding: 20px;
 }
 
 .referral-section {
@@ -21,6 +21,7 @@ html {
     align-items: center;
     width: 100%;
     height: 100%;
+    padding: 20px;
 }
 
 .card {
@@ -32,6 +33,7 @@ html {
     width: 90%;
     max-width: 400px;
     animation: fadeIn 1s ease-in-out;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -48,6 +50,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 #referralInput {
@@ -75,32 +78,44 @@ p {
 }
 
 .referral-status {
-    margin-top: 20px;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+    margin-top: 20px;
 }
 
 .referral-status h3 {
+    margin-bottom: 15px;
     color: #333;
-    margin-bottom: 10px;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
 }
 
-#referralList {
-    list-style-type: none;
+.referral-status ul {
+    list-style: none;
     padding: 0;
 }
 
-#referralList li {
-    background: #ffffff;
-    border: 1px solid #ddd;
+.referral-status li {
+    background: #f1f1f1;
     border-radius: 5px;
     padding: 10px;
     margin: 5px 0;
     color: #333;
     font-size: 16px;
     animation: slideIn 0.5s ease-in-out;
+    text-align: center;
+}
+
+.referral-status li:nth-child(odd) {
+    background-color: #ffefef;
+}
+
+.referral-status li:nth-child(even) {
+    background-color: #fff5e6;
 }
 
 @keyframes fadeIn {
@@ -108,7 +123,6 @@ p {
         opacity: 0;
         transform: scale(0.9);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
@@ -118,17 +132,16 @@ p {
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateX(-20px);
     }
-
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
 
 @media (max-width: 600px) {
-    .card {
+    .card, .referral-status {
         width: 90%;
         padding: 15px;
     }
@@ -139,9 +152,5 @@ p {
 
     #copyButton {
         width: 100%;
-    }
-
-    .referral-status {
-        width: 90%;
     }
 }
