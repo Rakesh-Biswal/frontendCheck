@@ -1,6 +1,6 @@
 const apiUrl = "https://backend-recent-2.onrender.com";
 
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
+document.getElementById('registrationForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const name = document.getElementById('name').value;
@@ -16,6 +16,15 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         return;
     }
 
+    // Fetch IP address
+    const ip = await fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => data.ip)
+        .catch(error => {
+            console.error('Error getting IP:', error);
+            return ''; // Return empty string or handle the error appropriately
+        });
+
     function showMessage(message) {
         document.getElementById('message').textContent = message;
     }
@@ -24,56 +33,43 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         alert(message);
     }
 
-    // Fetch IP address
-    let ip = '';
-    axios.get('https://api.ipify.org?format=json')
-        .then(function(response) {
-            ip = response.data.ip;
+    // Extract referralId from URL if present
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('referralId') || null;
 
-            // Extract referralId from URL if present
-            const urlParams = new URLSearchParams(window.location.search);
-            const referralId = urlParams.get('referralId') || null;
+    // Show spinner and blur effect
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('blurOverlay').style.display = 'block';
+    document.getElementById('container').classList.add('blur');
 
-            // Show spinner and blur effect
-            document.getElementById('loadingSpinner').style.display = 'block';
-            document.getElementById('blurOverlay').style.display = 'block';
-            document.getElementById('container').classList.add('blur');
-
-            fetch(`${apiUrl}/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }) // Include referralId in the registration data
-            })
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(data) {
-                // Hide spinner and blur effect
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('blurOverlay').style.display = 'none';
-                document.getElementById('container').classList.remove('blur');
-
-                if (response.ok) {
-                    showSuccessMessage(data.message);
-                    window.location.href = "login.html";
-                } else {
-                    showMessage(data.message);
-                }
-            })
-            .catch(function(error) {
-                console.log('Error:', error);
-                showMessage('Something went wrong');
-                
-                // Hide spinner and blur effect in case of error
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('blurOverlay').style.display = 'none';
-                document.getElementById('container').classList.remove('blur');
-            });
-        })
-        .catch(function(error) {
-            console.error('Error getting IP:', error);
-            ip = ''; // Set ip to empty string if there's an error
+    try {
+        const response = await fetch(`${apiUrl}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }), // Include referralId in the registration data
+            credentials: 'include'
         });
+
+        const data = await response.json();
+        // Hide spinner and blur effect
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('container').classList.remove('blur');
+
+        if (response.ok) {
+            showSuccessMessage(data.message);
+            window.location.href = "login.html";
+        } else {
+            showMessage(data.message);
+        }
+    } catch (error) {
+        console.log('Error:', error);
+        showMessage('Something wrong happened');
+        // Hide spinner and blur effect in case of error
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('container').classList.remove('blur');
+    }
 });
