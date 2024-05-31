@@ -50,8 +50,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }), // Include referralId in the registration data
-            credentials: 'include'
+            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }) // Include referralId in the registration data
         });
 
         const data = await response.json();
