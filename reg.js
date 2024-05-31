@@ -17,13 +17,13 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     }
 
     // Fetch IP address
-    const ip = await fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => data.ip)
-        .catch(error => {
-            console.error('Error getting IP:', error);
-            return ''; // Return empty string or handle the error appropriately
-        });
+    // const ip = await fetch('https://api.ipify.org?format=json')
+    //     .then(response => response.json())
+    //     .then(data => data.ip)
+    //     .catch(error => {
+    //         console.error('Error getting IP:', error);
+    //         return ''; // Return empty string or handle the error appropriately
+    //     });
 
     function showMessage(message) {
         document.getElementById('message').textContent = message;
@@ -48,7 +48,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password, ip, linkStatus, referralId }), // Include referralId in the registration data
+            body: JSON.stringify({ name, phone, email, password,linkStatus, referralId }), // Include referralId in the registration data
             credentials: 'include'
         });
 
