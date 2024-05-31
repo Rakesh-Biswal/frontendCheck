@@ -21,6 +21,7 @@ body, html {
     align-items: center;
     width: 100%;
     height: 100%;
+    padding: 20px;
 }
 
 .card {
@@ -35,44 +36,21 @@ body, html {
     animation: fadeIn 1s ease-in-out;
 }
 
-.referral-status {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-.referral-balance {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-h2, h3 {
+h2 {
     margin-bottom: 10px;
     color: #333;
 }
 
-p, ul {
+p {
     margin-bottom: 20px;
     color: #666;
 }
 
-.referral-link {
+.referral-link, .referral-balance {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 #referralInput {
@@ -99,26 +77,34 @@ p, ul {
     background-color: #218838;
 }
 
-.referral-status ul {
-    list-style: none;
+.referral-status {
+    width: 100%;
 }
 
-.referral-status li {
-    background: #f0f0f0;
-    margin: 5px 0;
+.referral-status h3 {
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+#referralList {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+#referralList li {
+    background: #f9f9f9;
     padding: 10px;
+    margin-bottom: 10px;
     border-radius: 5px;
-    animation: slideIn 0.5s ease-in-out;
+    color: #333;
+    transition: transform 0.3s ease-in-out;
 }
 
-.referral-balance h3 {
-    font-weight: bold;
-    color: #ff9800; /* Bright orange color for coins */
-}
-
-.referral-balance span {
-    font-weight: bold;
-    color: #ff9800; /* Bright orange color for coins */
+#referralList li:hover {
+    transform: scale(1.05);
+    background: #ffedcc;
 }
 
 @keyframes fadeIn {
@@ -132,19 +118,8 @@ p, ul {
     }
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-10%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
 @media (max-width: 600px) {
-    .card, .referral-status, .referral-balance {
+    .card {
         width: 90%;
         padding: 15px;
     }

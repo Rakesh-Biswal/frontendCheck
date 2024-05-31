@@ -17,6 +17,10 @@
                 <input type="text" id="referralInput" readonly>
                 <button id="copyButton">Copy</button>
             </div>
+            <div class="referral-balance">
+                <h3>Your Referral Balance</h3>
+                <p id="referralBalance">0 Coins</p>
+            </div>
         </div>
 
         <div class="referral-status">
@@ -64,9 +68,12 @@
                     const referralList = document.getElementById('referralList');
                     data.referrals.forEach(referral => {
                         const listItem = document.createElement('li');
-                        listItem.textContent = referral;
+                        listItem.textContent = referral.name;
                         referralList.appendChild(listItem);
                     });
+
+                    const referralBalance = document.getElementById('referralBalance');
+                    referralBalance.textContent = `${data.referralCoins} Coins`;
                 } else {
                     console.error('Error:', data.message);
                 }
