@@ -34,13 +34,13 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     }
 
     // Extract referralId from URL if present
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const referralId = urlParams.get('referralId') || null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const referralId = urlParams.get('referralId') || null;
 
     // Show spinner and blur effect
     document.getElementById('loadingSpinner').style.display = 'block';
     document.getElementById('blurOverlay').style.display = 'block';
-    document.getElementById('container').classList.add('blur');
+    document.getElementById('container').classList.add('blur');  
 
     try {
         const response = await fetch(`${apiUrl}/register`, {
@@ -48,7 +48,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password,linkStatus}), // Include referralId in the registration data
+            body: JSON.stringify({ name, phone, email, password,linkStatus,referralId}), // Include referralId in the registration data
             credentials: 'include'
         });
 
