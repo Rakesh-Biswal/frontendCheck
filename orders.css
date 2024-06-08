@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+#nav-bar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.nav-items img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-items a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.orders-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.orders-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    transition: transform 0.3s, background 0.3s;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.order-item:hover {
+    transform: scale(1.02);
+    background: #e9e9e9;
+}
+
+.order-details p {
+    margin: 5px 0;
+}
+
+.order-details span.pending {
+    color: red;
+}
+
+.order-details span.completed {
+    color: green;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

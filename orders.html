@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="orders.css">
+</head>
+
+<body>
+
+    <nav id="nav-bar">
+        <div class="welcome-msg">
+            <span id="username"></span>
+        </div>
+        <div class="nav-items">
+            <img class="user-profile" id="profilePic" src="user-profile.svg" alt="">
+            <a href="index.html" class="user-signOut">Sign out</a>
+        </div>
+    </nav>
+
+    <section class="orders-container">
+        <h1>Withdrawal History</h1>
+        <div id="orders" class="orders-list"></div>
+    </section>
+
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${apiUrl}/orders/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const orders = await response.json();
+                if (response.ok) {
+                    const ordersList = document.getElementById('orders');
+                    orders.forEach(order => {
+                        const orderItem = document.createElement('div');
+                        orderItem.classList.add('order-item');
+                        orderItem.classList.add(order.status.toLowerCase()); // Add class based on status
+
+                        orderItem.innerHTML = `
+                            <div class="order-details">
+                                <p><strong>Amount:</strong> ${order.withdrawCoin}</p>
+                                <p><strong>UPI ID:</strong> ${order.UpiId}</p>
+                                <p><strong>Status:</strong> <span class="${order.status.toLowerCase()}">${order.status}</span></p>
+                                <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
+                            </div>
+                        `;
+                        ordersList.appendChild(orderItem);
+                    });
+                } else {
+                    console.error('Error:', orders.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
