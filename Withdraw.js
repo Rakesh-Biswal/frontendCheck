@@ -42,7 +42,6 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         document.getElementById('withdrawPage').classList.remove('blur');
 
         if (postResponse.ok) {
-            message.textContent = "Transaction Successful";
             window.location.href = `success.html?userId=${userId}`;
         } else {
             message.textContent = postData.message;
