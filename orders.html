@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
     <link rel="stylesheet" href="orders.css">
 </head>
+
 <body>
-    <nav id="nav-bar">
-        <div class="logo">
-            <img src="OrdersLogo.jpg" alt="Logo">
+
+<nav id="nav-bar">
+    <div class="logo">
+        <img src="OrdersLogo.jpg" alt="Logo">
+    </div>
+    <div class="nav-items">
+        <div class="user-profile">
+            <img id="profilePic" src="user-profile.svg" alt="User Profile">
+            <span id="username"></span>
         </div>
-        <div class="nav-items">
-            <div class="nav-links">
+        <div class="dropdown">
+            <button class="dropbtn">Menu</button>
+            <div class="dropdown-content">
                 <div id="profile">Profile</div>
                 <div id="order">Orders</div>
                 <div id="Referrals">Referral</div>
                 <div id="signOut">Sign out</div>
             </div>
-            <div class="user-profile">
-                <img id="profilePic" src="user-profile.svg" alt="User Profile">
-                <span id="username"></span>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">☰</button>
-                <div class="dropdown-content">
-                    <div id="profile-mobile">Profile</div>
-                    <div id="order-mobile">Orders</div>
-                    <div id="Referrals-mobile">Referral</div>
-                    <div id="signOut-mobile">Sign out</div>
-                </div>
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <section id="withdrawal-history">
-        <h2>Withdrawal History</h2>
-        <div id="history-container"></div>
-    </section>
+<section id="withdrawal-history">
+    <h2>Withdrawal History</h2>
+    <div id="history-container"></div>
+</section>
 
-    <script>
-        const apiUrl = "https://backend-recent-2.onrender.com";
+<script>
+    const apiUrl = "https://backend-recent-2.onrender.com";
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const userId = new URLSearchParams(window.location.search).get('userId');
-            if (!userId) {
-                window.location.href = 'login.html';
-                return;
-            }
-            document.getElementById('profile-mobile').addEventListener('click', () => {
-                window.location.href = `profile.html?userId=${userId}`;
-            });
-            document.getElementById('order-mobile').addEventListener('click', () => {
-                window.location.href = `orders.html?userId=${userId}`;
-            });
-            document.getElementById('Referrals-mobile').addEventListener('click', () => {
-                window.location.href = `referral.html?userId=${userId}`;
-            });
-            document.getElementById('signOut-mobile').addEventListener('click', () => {
-                window.location.href = `index.html`;
-            });
-
-            try {
-                const response = await fetch(`${apiUrl}/withdrawal-history/${userId}`, {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-
-                const payments = await response.json();
-                const historyContainer = document.getElementById('history-container');
-
-                if (response.ok) {
-                    payments.forEach(payment => {
-                        const paymentCard = document.createElement('div');
-                        paymentCard.className = 'payment-card';
-                        paymentCard.innerHTML = `
-                            <div class="payment-card-content">
-                                <div><strong>Name:</strong> ${payment.Name}</div>
-                                <div><strong>Withdraw Coin:</strong> ${payment.withdrawCoin}</div>
-                                <div><strong>UPI ID:</strong> ${payment.UpiId}</div>
-                                <div><strong>Status:</strong> <span class="${payment.status}">${payment.status}</span></div>
-                                <div><strong>Date:</strong> ${new Date(payment.createdAt).toLocaleString()}</div>
-                            </div>
-                        `;
-                        historyContainer.appendChild(paymentCard);
-                    });
-                } else {
-                    historyContainer.textContent = 'Failed to load withdrawal history';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userId = new URLSearchParams(window.location.search).get('userId');
+        if (!userId) {
+            window.location.href = 'login.html';
+            return;
+        }
+        document.getElementById('profile').addEventListener('click',()=>{
+            window.location.href =`profile.html?userId=userId`;
         });
-    </script>
+        document.getElementById('order').addEventListener('click',()=>{
+            window.location.href =`orders.html?userId=userId`;
+        });
+        document.getElementById('Referrals').addEventListener('click',()=>{
+            window.location.href =`referral.html?userId=userId`;
+        });
+        document.getElementById('signOut').addEventListener('click',()=>{
+            window.location.href =`index.html`;
+        });
+        
+
+        try {
+            const response = await fetch(`${apiUrl}/withdrawal-history/${userId}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            const payments = await response.json();
+            const historyContainer = document.getElementById('history-container');
+
+            if (response.ok) {
+                payments.forEach(payment => {
+                    const paymentCard = document.createElement('div');
+                    paymentCard.className = 'payment-card';
+                    paymentCard.innerHTML = `
+                        <div class="payment-card-content">
+                            <div><strong>Name:</strong> ${payment.Name}</div>
+                            <div><strong>Withdraw Coin:</strong> ${payment.withdrawCoin}</div>
+                            <div><strong>UPI ID:</strong> ${payment.UpiId}</div>
+                            <div><strong>Status:</strong> <span class="${payment.status}">${payment.status}</span></div>
+                            <div><strong>Date:</strong> ${new Date(payment.createdAt).toLocaleString()}</div>
+                        </div>
+                    `;
+                    historyContainer.appendChild(paymentCard);
+                });
+            } else {
+                historyContainer.textContent = 'Failed to load withdrawal history';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+
 </body>
+
 </html>

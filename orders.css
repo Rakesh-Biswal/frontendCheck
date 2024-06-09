@@ -28,19 +28,18 @@ body {
 #nav-bar .nav-items {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-grow: 1;
+    justify-content: space-between;
     padding: 0 20px;
 }
 
-#nav-bar .nav-links {
+#nav-bar .nav-items .nav-links {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-grow: 1;
 }
 
-#nav-bar .nav-links div {
+#nav-bar .nav-items .nav-links div {
     margin: 0 15px;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -48,7 +47,7 @@ body {
     padding: 8px 16px;
 }
 
-#nav-bar .nav-links div:hover {
+#nav-bar .nav-items .nav-links div:hover {
     color: #007BFF;
     transform: scale(1.1);
 }
@@ -164,35 +163,24 @@ body {
     color: #333;
 }
 
-.payment .approved {
-    color: green;
-    font-weight: bold;
-    font-size: 20px;
-}
-
 .payment-card .pending {
-    color: orange;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.payment-card .rejected {
     color: red;
     font-weight: bold;
-    font-size: 17px;
 }
 
-@media (max-width: 768px) {
-    #nav-bar .nav-links {
-        display: none;
-    }
+.payment-card .success {
+    color: green;
+    font-weight: bold;
+}
 
-    #nav-bar .dropdown {
-        display: block;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-
-    #nav-bar .user-profile {
-        margin: 0 auto;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -205,13 +193,26 @@ body {
     }
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+@media (max-width: 768px) {
+    #nav-bar .nav-links {
+        display: none;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    #nav-bar .dropdown {
+        display: inline-block;
+    }
+
+    #nav-bar .user-profile {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #withdrawal-history h2 {
+        font-size: 24px;
+    }
+
+    .payment-card {
+        max-width: 90%;
     }
 }
