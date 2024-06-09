@@ -2,23 +2,26 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #7e7f7f;
+    background-color: #f0f0f0;
 }
 
 #nav-bar {
     padding: 10px 20px;
-    background-color: rgb(4, 10, 46);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 80px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 #nav-bar .logo img {
     height: 55px;
     width: 55px;
-    border: 2px solid rgb(37, 175, 225);
     border-radius: 50%;
     margin-top: 5px;
 }
@@ -26,28 +29,55 @@ body {
 #nav-bar .nav-items {
     display: flex;
     align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+#nav-bar .nav-items .nav-links {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#nav-bar .nav-items .nav-links div {
+    margin: 0 15px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 18px;
+    padding: 8px 16px;
+}
+
+#nav-bar .nav-items .nav-links div:hover {
+    color: #007BFF;
+    transform: scale(1.1);
 }
 
 #nav-bar .user-profile {
     display: flex;
     align-items: center;
-    margin-right: 20px;
 }
 
 #nav-bar .user-profile img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#nav-bar .user-profile img:hover {
+    transform: scale(1.1);
 }
 
 #nav-bar .dropdown {
     position: relative;
-    display: inline-block;
+    display: none;
 }
 
 #nav-bar .dropbtn {
-    background-color: rgb(47 186 211 / 75%);
+    background-color: rgba(47, 186, 211, 0.75);
     color: white;
     font-size: 20px;
     border: none;
@@ -58,7 +88,7 @@ body {
 }
 
 #nav-bar .dropbtn:hover {
-    background-color: rgb(37, 156, 181 / 75%);
+    background-color: rgba(37, 156, 181, 0.75);
     transform: scale(1.1);
 }
 
@@ -70,9 +100,10 @@ body {
     z-index: 1;
     right: 0;
     border: 0.5px solid rgb(197, 240, 243);
-    border-radius: 3px;
-    width: 200px;
+    border-radius: 8px;
+    width: 250px;
     animation: fadeIn 0.3s ease-in-out;
+    padding: 10px;
 }
 
 #nav-bar .dropdown-content div {
@@ -84,6 +115,7 @@ body {
     margin: 5px 0;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 #nav-bar .dropdown-content div:hover {
@@ -103,7 +135,7 @@ body {
 #withdrawal-history h2 {
     margin-bottom: 20px;
     font-size: 28px;
-    color: white;
+    color: #333;
 }
 
 .payment-card {
@@ -165,13 +197,22 @@ body {
 }
 
 @media (max-width: 768px) {
-    #nav-bar .logo,
-    #nav-bar .nav-items {
-        margin-bottom: 10px;
+    #nav-bar .nav-links {
+        display: none;
     }
 
-    #nav-bar .dropdown-content {
-        right: auto;
+    #nav-bar .dropdown {
+        display: inline-block;
+    }
+
+    #nav-bar .user-profile {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #withdrawal-history h2 {
+        font-size: 24px;
     }
 
     .payment-card {
