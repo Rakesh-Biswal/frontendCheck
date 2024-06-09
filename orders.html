@@ -22,9 +22,9 @@
         <div class="dropdown">
             <button class="dropbtn">Menu</button>
             <div class="dropdown-content">
-                <a href="profile.html?userId=userId">Profile</a>
-                <a href="orders.html?userId=userId">Orders</a>
-                <a href="referral.html?userId=userId">Referral</a>
+                <div id="profile">Profile</a>
+                <div id="order">Orders</a>
+                <div id="Referrals">Referral</a>
                 <a href="index.html">Sign out</a>
             </div>
         </div>
@@ -45,6 +45,16 @@
             window.location.href = 'login.html';
             return;
         }
+        document.getElementById('profile').addEventListener('click',()=>{
+            window.location.href =`profile.html?userId=userId`;
+        });
+        document.getElementById('order').addEventListener('click',()=>{
+            window.location.href =`orders.html?userId=userId`;
+        });
+        document.getElementById('Referrals').addEventListener('click',()=>{
+            window.location.href =`referral.html?userId=userId`;
+        });
+        
 
         try {
             const response = await fetch(`${apiUrl}/withdrawal-history/${userId}`, {
