@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #3b8d99, #6b6b83, #aa4b6b);
+            background-color: #f0f0f0;
         }
 
         .card {
@@ -69,21 +69,9 @@
             }
         }
 
-        .check-mark-box i {
-            color: rgb(4, 169, 15);
-            font-size: 50px;
-            animation: fadeIn 1s ease-in-out 0.5s forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .check-mark-box img {
+            width: 50px;
+            height: 50px;
         }
 
         .text {
@@ -96,31 +84,28 @@
         }
 
         h1 {
-            color: rgb(4, 169, 15);
-            font-weight: 800;
-            font-size: 36px;
+            color: #000;
+            font-weight: 700;
+            font-size: 24px;
         }
 
         h2 {
-            color: #000000d8;
+            color: #000;
             font-size: 20px;
             font-weight: 600;
         }
 
         p {
-            color: #000000;
+            color: #000;
             font-size: 16px;
             margin: 4px 0;
         }
 
-        .amount-highlight {
-            color: #d32f2f;
+        .highlight {
             font-weight: bold;
-            font-size: 24px;
         }
 
-        button,
-        .additional-button {
+        .button {
             padding: 10px;
             width: 80%;
             max-width: 200px;
@@ -134,8 +119,7 @@
             transition: all 0.3s ease-in-out;
         }
 
-        button:hover,
-        .additional-button:hover {
+        .button:hover {
             background-color: #3700b3;
             transform: scale(1.05);
         }
@@ -164,22 +148,42 @@
         .footer-button:hover {
             background-color: #00695c;
         }
+
+        .image-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .image-button img {
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div class="card">
         <div class="check-mark-box">
-            <i class="checkmark">✓</i>
+            <img src="checkmark.png" alt="Checkmark">
         </div>
         <div class="text">
-            <h1>Success</h1>
-            <h2>Withdrawal request of ₹<span id="amount">$$$</span> is received successfully.</h2>
+            <h1>Withdrawal request of ₹<span id="amount">000</span> is received successfully.</h1>
             <p>Amount will be credited to your account within 24 hours.</p>
         </div>
-        <button id="View">View Details</button>
-        <div class="additional-button" id="newReward">New reward earned!</div>
-        <div class="additional-button" id="registerVisa">Register for OTP less payment</div>
+        <div class="button image-button" id="viewDetails">
+            <img src="https://www.freeiconspng.com/thumbs/details-icon/details-icon-png-cc-by-3-0--it-1.png" alt="Details Icon">
+            View Details
+        </div>
+        <div class="button additional-button image-button" id="newReward">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/010/175/187/small/3d-business-wallet-finance-illustration-free-png.png" alt="Reward Icon">
+            New reward earned!
+        </div>
+        <div class="button additional-button image-button" id="registerVisa">
+            <img src="https://www.gepsi.com/wp-content/uploads/2022/12/regular-visitor-visa.png" alt="Visa Icon">
+            Register for OTP less payment
+        </div>
         <div class="footer-button" id="done">Done</div>
     </div>
 
@@ -193,8 +197,11 @@
                 return;
             }
 
-            document.getElementById('View').addEventListener('click', () => {
+            document.getElementById('viewDetails').addEventListener('click', () => {
                 window.location.href = `orders.html?userId=${userId}`;
+            });
+            document.getElementById('done').addEventListener('click', () => {   
+                window.location.href = `Dashboard.html?userId=${userId}`;
             });
 
             try {
@@ -217,18 +224,15 @@
 
         document.getElementById('newReward').addEventListener('click', () => {
             // Handle new reward click
-            alert('New reward earned!');
+            alert('Work On Progress...!');
         });
 
         document.getElementById('registerVisa').addEventListener('click', () => {
             // Handle register for OTP less payment click
-            alert('Register for OTP less payment!');
+            alert('Site is Under Construction...!');
         });
 
-        document.getElementById('done').addEventListener('click', () => {
-            // Handle done button click
-            window.location.href = `Dashboard.html?userId=${userId}`
-        });
+
     </script>
 </body>
 
