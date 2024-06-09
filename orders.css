@@ -164,19 +164,19 @@ body {
     color: #333;
 }
 
-.payment-mobile .approved {
+.payment-card .approved {
     color: green;
     font-weight: bold;
     font: 25px;
 }
 
-.payment-mobile .pending {
+.payment-card .pending {
     color: orange;
     font-weight: bold;
     font: 22px;
 }
 
-.payment-mobile .rejected {
+.payment-card .rejected {
     color: red;
     font-weight: bold;
     font: 25px;
