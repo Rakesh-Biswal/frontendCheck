@@ -12,7 +12,7 @@
 
 <nav id="nav-bar">
     <div class="logo">
-        <img src="logo.svg" alt="Logo">
+        <img src="OrdersLogo.jpg" alt="Logo">
     </div>
     <div class="nav-items">
         <div class="user-profile">
@@ -22,10 +22,10 @@
         <div class="dropdown">
             <button class="dropbtn">Menu</button>
             <div class="dropdown-content">
-                <div id="profile">Profile</a>
-                <div id="order">Orders</a>
-                <div id="Referrals">Referral</a>
-                <a href="index.html">Sign out</a>
+                <div id="profile">Profile</div>
+                <div id="order">Orders</div>
+                <div id="Referrals">Referral</div>
+                <div id="signOut">Sign out</div>
             </div>
         </div>
     </div>
@@ -53,6 +53,9 @@
         });
         document.getElementById('Referrals').addEventListener('click',()=>{
             window.location.href =`referral.html?userId=userId`;
+        });
+        document.getElementById('signOut').addEventListener('click',()=>{
+            window.location.href =`index.html?userId=userId`;
         });
         
 
