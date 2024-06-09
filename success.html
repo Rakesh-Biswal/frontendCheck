@@ -147,8 +147,9 @@
 
                 if (response.ok) {
                     document.getElementById('amount').textContent = payments.withdrawCoin;
+                    console.log(payments.withdrawCoin);
                 } else {
-                    document.getElementById('amount').textContent = 'Not Found';
+                    console.log(" Response is not Ok");
                 }
             } catch (error) {
                 console.error('Error:', error);
