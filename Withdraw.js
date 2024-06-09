@@ -43,8 +43,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
         if (postResponse.ok) {
             message.textContent = "Transaction Successful";
-            alert("Money will be credited within 24 hours.");
-            window.location.href = `dashboard.html?userId=${userId}`;
+            window.location.href = `success.html?userId=${userId}`;
         } else {
             message.textContent = postData.message;
         }

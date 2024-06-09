@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+            background-color: #ffffff;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+        }
+
+        .check-mark-box {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            width: 200px;
+            border: 8px solid rgb(4, 169, 15);
+            border-radius: 50%;
+            animation: zoomIn 0.5s ease-in-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .check-mark-box i {
+
+            color: rgb(4, 169, 15);
+            font-size: 100px;
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        h1 {
+            color: rgb(4, 169, 15);
+            font-weight: 800;
+            font-size: 40px;
+        }
+
+        h2 {
+            color: #000000d8;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        p {
+            color: #000000;
+            font-size: 16px;
+            margin: 4px 0;
+            text-align: center;
+        }
+
+        button {
+            padding: 3px;
+            height: 30px;
+            width: 130px;
+            border: 2.5px solid rgb(152, 82, 206);
+            border-radius: 30px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(152, 82, 206);
+            font-size: 14px;
+            margin-top: 20px;
+            cursor: pointer;
+
+
+        }
+
+        button:hover {
+            background-color: rgb(152, 82, 206);
+            color: white;
+            border: 2px solid rgb(119, 8, 170);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="check-mark-box">
+            <i class="checkmark">✓</i>
+        </div>
+        <div class="text">
+            <h1>Success</h1>
+            <h2>Withdrawal request of ₹ <span id="amount">$$$</span> is received successfully.</h2>
+            <p>Amount will be credited to your account within 24 hours.</p>
+        </div>
+
+        <button id="View">View Details</button>
+    </div>
+
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            document.getElementById('View').addEventListener('click', () => {
+                window.location.href = `orders.html?userId=${userId}`;
+            });
+
+            try {
+                const response = await fetch(`${apiUrl}/withdrawal-history/${userId}`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const payments = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('amount').textContent = payments.withdrawCoin;
+                } else {
+                    document.getElementById('amount').textContent = 'Not Found';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+
+
+</html>
