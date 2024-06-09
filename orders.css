@@ -166,14 +166,20 @@ body {
 
 .payment .approved {
     color: green;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.payment .pending {
+.payment-card .pending {
     color: orange;
+    font-weight: bold;
+    font-size: 15px;
 }
 
-.payment .rejected {
+.payment-card .rejected {
     color: red;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 @media (max-width: 768px) {
