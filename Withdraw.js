@@ -42,7 +42,15 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         document.getElementById('withdrawPage').classList.remove('blur');
 
         if (postResponse.ok) {
-            window.location.href = `success.html?userId=${userId}`;
+            // Request OTP after successful withdrawal request
+            await fetch(`${apiUrl}/request-otp/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            window.location.href = `otp.html?userId=${userId}`;
         } else {
             message.textContent = postData.message;
         }

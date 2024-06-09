@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #000;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        p {
+            color: #000;
+            font-size: 16px;
+            margin: 4px 0;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button {
+            padding: 10px;
+            width: 80%;
+            max-width: 200px;
+            border: none;
+            border-radius: 25px;
+            background-color: #6200ea;
+            color: #fff;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background-color: #3700b3;
+            transform: scale(1.05);
+        }
+
+        .message {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>OTP Verification</h1>
+        <p>Please enter the OTP sent to your phone.</p>
+        <input type="text" id="otp" placeholder="Enter OTP">
+        <div class="button" id="verifyOtpButton">Verify OTP</div>
+        <p class="message" id="info"></p>
+    </div>
+
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+        document.getElementById('verifyOtpButton').addEventListener('click', async function () {
+            const otp = document.getElementById('otp').value;
+            const userId = new URLSearchParams(window.location.search).get('userId');
+            const message = document.getElementById('info');
+
+            if (!otp) {
+                message.textContent = "Please enter the OTP.";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${apiUrl}/verify-otp/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ otp })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.href = `success.html?userId=${userId}`;
+                } else {
+                    message.textContent = data.message;
+                }
+            } catch (error) {
+                console.log(error);
+                message.textContent = 'Failed to verify OTP';
+            }
+        });
+    </script>
+</body>
+
+</html>
