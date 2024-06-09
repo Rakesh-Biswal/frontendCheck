@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +42,6 @@
         }
 
         .check-mark-box i {
-
             color: rgb(4, 169, 15);
             font-size: 100px;
             animation: fadeIn 1s ease-in-out 0.5s forwards;
@@ -97,8 +95,6 @@
             font-size: 14px;
             margin-top: 20px;
             cursor: pointer;
-
-
         }
 
         button:hover {
@@ -108,7 +104,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="card">
         <div class="check-mark-box">
@@ -119,10 +114,8 @@
             <h2>Withdrawal request of ₹ <span id="amount">$$$</span> is received successfully.</h2>
             <p>Amount will be credited to your account within 24 hours.</p>
         </div>
-
         <button id="View">View Details</button>
     </div>
-
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
@@ -132,7 +125,7 @@
                 window.location.href = 'login.html';
                 return;
             }
-            
+
             document.getElementById('View').addEventListener('click', () => {
                 window.location.href = `orders.html?userId=${userId}`;
             });
@@ -145,11 +138,10 @@
 
                 const payments = await response.json();
 
-                if (response.ok) {
-                    document.getElementById('amount').textContent = payments.withdrawCoin;
-                    console.log(payments.withdrawCoin);
+                if (response.ok && payments.length > 0) {
+                    document.getElementById('amount').textContent = payments[0].withdrawCoin;
                 } else {
-                    console.log(" Response is not Ok");
+                    document.getElementById('amount').textContent = 'No recent withdrawals found';
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -157,6 +149,4 @@
         });
     </script>
 </body>
-
-
 </html>
