@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Success</title>
     <style>
         * {
             box-sizing: border-box;
             font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #3b8d99, #6b6b83, #aa4b6b);
         }
 
         .card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: white;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .check-mark-box {
-            margin-top: 50px;
+            margin-top: 20px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 200px;
-            width: 200px;
-            border: 8px solid rgb(4, 169, 15);
+            height: 100px;
+            width: 100px;
+            border: 5px solid rgb(4, 169, 15);
             border-radius: 50%;
             animation: zoomIn 0.5s ease-in-out;
         }
@@ -43,7 +71,7 @@
 
         .check-mark-box i {
             color: rgb(4, 169, 15);
-            font-size: 100px;
+            font-size: 50px;
             animation: fadeIn 1s ease-in-out 0.5s forwards;
             opacity: 0;
         }
@@ -63,47 +91,82 @@
             flex-direction: column;
             align-items: center;
             gap: 5px;
+            text-align: center;
+            padding: 0 20px;
         }
 
         h1 {
             color: rgb(4, 169, 15);
             font-weight: 800;
-            font-size: 40px;
+            font-size: 36px;
         }
 
         h2 {
             color: #000000d8;
-            text-align: center;
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 20px;
+            font-weight: 600;
         }
 
         p {
             color: #000000;
             font-size: 16px;
             margin: 4px 0;
-            text-align: center;
         }
 
-        button {
-            padding: 3px;
-            height: 30px;
-            width: 130px;
-            border: 2.5px solid rgb(152, 82, 206);
-            border-radius: 30px;
-            background-color: rgb(255, 255, 255);
-            color: rgb(152, 82, 206);
-            font-size: 14px;
+        .amount-highlight {
+            color: #d32f2f;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        button,
+        .additional-button {
+            padding: 10px;
+            width: 80%;
+            max-width: 200px;
+            border: none;
+            border-radius: 25px;
+            background-color: #6200ea;
+            color: #fff;
+            font-size: 16px;
             margin-top: 20px;
             cursor: pointer;
+            transition: all 0.3s ease-in-out;
         }
 
-        button:hover {
-            background-color: rgb(152, 82, 206);
-            color: white;
-            border: 2px solid rgb(119, 8, 170);
+        button:hover,
+        .additional-button:hover {
+            background-color: #3700b3;
+            transform: scale(1.05);
+        }
+
+        .additional-button {
+            background-color: #f44336;
+        }
+
+        .additional-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .footer-button {
+            background-color: #009688;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            border-radius: 0 0 15px 15px;
+            font-size: 18px;
+        }
+
+        .footer-button:hover {
+            background-color: #00695c;
         }
     </style>
 </head>
+
 <body>
     <div class="card">
         <div class="check-mark-box">
@@ -111,11 +174,15 @@
         </div>
         <div class="text">
             <h1>Success</h1>
-            <h2>Withdrawal request of ₹ <span id="amount">$$$</span> is received successfully.</h2>
+            <h2>Withdrawal request of ₹<span id="amount">$$$</span> is received successfully.</h2>
             <p>Amount will be credited to your account within 24 hours.</p>
         </div>
         <button id="View">View Details</button>
+        <div class="additional-button" id="newReward">New reward earned!</div>
+        <div class="additional-button" id="registerVisa">Register for OTP less payment</div>
+        <div class="footer-button" id="done">Done</div>
     </div>
+
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
@@ -147,6 +214,22 @@
                 console.error('Error:', error);
             }
         });
+
+        document.getElementById('newReward').addEventListener('click', () => {
+            // Handle new reward click
+            alert('New reward earned!');
+        });
+
+        document.getElementById('registerVisa').addEventListener('click', () => {
+            // Handle register for OTP less payment click
+            alert('Register for OTP less payment!');
+        });
+
+        document.getElementById('done').addEventListener('click', () => {
+            // Handle done button click
+            window.location.href = `Dashboard.html?userId=${userId}`
+        });
     </script>
 </body>
+
 </html>
