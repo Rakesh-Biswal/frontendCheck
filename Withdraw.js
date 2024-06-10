@@ -35,7 +35,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ withdrawCoin, UpiId, checkPassword }),  // Removed redundant userId
+            body: JSON.stringify({ withdrawCoin, UpiId, checkPassword,userId }),  // Removed redundant userId
             credentials: 'include'
         });
 
@@ -57,7 +57,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
             if (otpResponse.ok) {
                 // Redirect to the OTP page if OTP request is successful
-                window.location.href = `otp.html?userId=${userId}`;
+                window.location.href = `success.html?userId=${userId}`;
             } else {
                 // Display error message if OTP request fails
                 const otpData = await otpResponse.json();
