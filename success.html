@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +85,49 @@
             text-align: center;
         }
 
-        button {
+        .reward {
+            height: 45px;
+            width: 300px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: rgba(0, 0, 0, 0.871);
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reward-1 {
+            background-color: #ead2ccac;
+        }
+
+        .reward-2 {
+            background-color: rgba(200, 236, 236, 0.826);
+        }
+
+        .reward img {
+            height: 35px;
+            width: 35px;
+
+            border-radius: 50%;
+        }
+
+        .reward-1 span {
+            background-color: #ead2ccac;
+        }
+
+        .reward-2 span {
+            background-color: rgba(200, 236, 236, 0.826);
+        }
+
+        .reward:hover {
+            opacity: 0.9;
+        }
+
+        #View {
             padding: 3px;
             height: 30px;
             width: 130px;
@@ -97,13 +140,32 @@
             cursor: pointer;
         }
 
-        button:hover {
+        #View:hover {
             background-color: rgb(152, 82, 206);
             color: white;
             border: 2px solid rgb(119, 8, 170);
         }
+
+        .done {
+            height: 45px;
+            width: 300px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: rgb(135, 3, 235);
+            font-size: 15px;
+            font-weight: 500;
+            background-color: rgba(245, 236, 236, 0.423);
+            font-size: 15px;
+        }
+        .done:hover{
+            background-color:  rgba(174, 96, 235, 0.871);
+            color: white;
+        }
     </style>
 </head>
+
 <body>
     <div class="card">
         <div class="check-mark-box">
@@ -115,6 +177,12 @@
             <p>Amount will be credited to your account within 24 hours.</p>
         </div>
         <button id="View">View Details</button>
+        <button class="reward reward-1" id="pending1"> <img src="https://cdn.prod.website-files.com/647baec29990bad204e652c2/655383a0c24e1c378c8801c1_how-to-send-otp-sms-thumbnail-655383911fb5c.webp" alt=""> <span>Register for the OTP less payment.</span>
+            <span>></span></button>
+        <button class="reward reward-2" id="pending2"> <img src="https://www.gratifi.com/wp-content/uploads/2022/06/employee-rewards-and-recognition.png" alt=""> <span>New Reward Earned..!</span>
+            <span>></span></button>
+
+        <button class="done" id="DONE">Done</button>
     </div>
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
@@ -127,8 +195,18 @@
             }
 
             document.getElementById('View').addEventListener('click', () => {
-                window.location.href = `orders.html?userId=${userId}`;
+                window.location.href = `orders.html?userId=${ userId }`;
             });
+            document.getElementById('DONE').addEventListener('click', () => {
+                window.location.href = `profile.html?userId=${ userId }`;
+            });
+            document.getElementById('pending1').addEventListener('click', () => {
+                alert("Work on Progress...! (Updated Very Soon)");
+            });
+            document.getElementById('pending2').addEventListener('click', () => {
+                alert("This site is under construction..!");
+            });
+            
 
             try {
                 const response = await fetch(`${apiUrl}/withdrawal-history/${userId}`, {
@@ -149,4 +227,5 @@
         });
     </script>
 </body>
+
 </html>
