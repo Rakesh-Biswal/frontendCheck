@@ -8,6 +8,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    const otp = document.getElementById('otp').value; // Get OTP input value
     const linkStatus = []; // Initialize with default values or get from the form
 
     // Check if passwords match
@@ -48,7 +49,7 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name, phone, email, password,ip,linkStatus,referralId}), // Include referralId in the registration data
+            body: JSON.stringify({ name, phone, email, password, ip, otp, linkStatus, referralId }), // Include OTP in the registration data
             credentials: 'include'
         });
 
