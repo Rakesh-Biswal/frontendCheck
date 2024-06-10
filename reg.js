@@ -74,3 +74,30 @@ document.getElementById('registrationForm').addEventListener('submit', async (ev
         document.getElementById('container').classList.remove('blur');
     }
 });
+
+// Function to generate and display OTP
+document.getElementById('generateOTP').addEventListener('click', async () => {
+    const email = document.getElementById('email').value;
+
+    try {
+        const response = await fetch(`${apiUrl}/generate-otp`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email }), // Send email to generate OTP
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(data.message); // Display success message
+        } else {
+            alert(data.message); // Display error message
+        }
+    } catch (error) {
+        console.log('Error:', error);
+        alert('Something went wrong while generating OTP');
+    }
+});
