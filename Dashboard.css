@@ -11,6 +11,10 @@
     height: 40px; /* Adjust as needed */
     transform-origin: top center; /* Set the pivot point at the top center */
     animation: swing 2s ease-in-out infinite;
+    cursor: pointer;
+}
+#profilePic:hover {
+    transform: scale(115%);
 }
 
 @keyframes swing {
