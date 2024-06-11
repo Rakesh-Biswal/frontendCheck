@@ -11,7 +11,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
     const withdrawCoin = parseFloat(document.getElementById('withdrawn-coin').value);
     const UpiId = document.getElementById('upi-id').value;
-    const checkPassword = document.getElementById('check-password').value;
+    const checkPassword = document.getElementById('password').value;
     const message = document.getElementById('info');
 
     if (isNaN(withdrawCoin) || withdrawCoin <= 0) {
