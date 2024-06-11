@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
     <link rel="stylesheet" href="orders.css">
 </head>
+
 <body>
+
+    <div id="spinner">
+        <div class="spinner-container">
+            <div class="spinner-bar"></div>
+            <div class="spinner-bar"></div>
+            <div class="spinner-bar"></div>
+            <div class="spinner-bar"></div>
+        </div>
+        <div class="spinner-message">Loading Orders...</div>
+    </div>
+
+
     <nav id="nav-bar">
         <div class="logo">
             <img src="OrdersLogo.jpg" alt="Logo">
@@ -43,11 +57,15 @@
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'flex';
+
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
+
             document.getElementById('profile-mobile').addEventListener('click', () => {
                 window.location.href = `profile.html?userId=${userId}`;
             });
@@ -87,23 +105,29 @@
                         const paymentCard = document.createElement('div');
                         paymentCard.className = 'payment-card';
                         paymentCard.innerHTML = `
-                            <div class="payment-card-content">
-                                <div><strong>Name:</strong> ${payment.Name}</div>
-                                <div><strong>Withdraw Coin:</strong> ${payment.withdrawCoin}</div>
-                                <div><strong>UPI ID:</strong> ${payment.UpiId}</div>
-                                <div><strong>Status:</strong> <span class="${payment.status}">${payment.status}</span></div>
-                                <div><strong>Date:</strong> ${new Date(payment.createdAt).toLocaleString()}</div>
-                            </div>
-                        `;
+                    <div class="payment-card-content">
+                        <div><strong>Name:</strong> ${payment.Name}</div>
+                        <div><strong>Withdraw Coin:</strong> ${payment.withdrawCoin}</div>
+                        <div><strong>UPI ID:</strong> ${payment.UpiId}</div>
+                        <div><strong>Status:</strong> <span class="${payment.status}">${payment.status}</span></div>
+                        <div><strong>Date:</strong> ${new Date(payment.createdAt).toLocaleString()}</div>
+                    </div>
+                `;
                         historyContainer.appendChild(paymentCard);
                     });
                 } else {
                     historyContainer.textContent = 'Failed to load withdrawal history';
                 }
+
+                spinner.style.display = 'none';
             } catch (error) {
                 console.error('Error:', error);
+                document.getElementById('history-container').textContent = 'Failed to load withdrawal history';
+                spinner.style.display = 'none';
             }
         });
+
     </script>
 </body>
+
 </html>
