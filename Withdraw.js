@@ -36,14 +36,19 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
         const postData = await postResponse.json();
 
-        // Hide spinner and blur effect
-        document.getElementById('loadingSpinner').style.display = 'none';
-        document.getElementById('blurOverlay').style.display = 'none';
-        document.getElementById('withdrawPage').classList.remove('blur');
+
 
         if (postResponse.ok) {
+            // Hide spinner and blur effect
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('blurOverlay').style.display = 'none';
+            document.getElementById('withdrawPage').classList.remove('blur');
             window.location.href = `success.html?userId=${userId}`;
         } else {
+            // Hide spinner and blur effect
+            document.getElementById('loadingSpinner').style.display = 'none';
+            document.getElementById('blurOverlay').style.display = 'none';
+            document.getElementById('withdrawPage').classList.remove('blur');
             message.textContent = postData.message;
         }
     } catch (postError) {
