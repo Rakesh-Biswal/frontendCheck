@@ -6,11 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="profile.css">
+    <style>
+        /* Spinner CSS */
+        .spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .spinner {
+            border: 6px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="spinner" class="spinner-overlay">
+    <!-- Spinner -->
+    <div class="spinner-overlay" id="spinner">
         <div class="spinner"></div>
     </div>
 
@@ -46,20 +88,28 @@
             <span class="service-label">Withdrawal</span>
         </div>
         <div class="service-item" id="Orders">
+
             <img src="orders.png" alt="">
             <span class="service-label">Orders</span>
+
         </div>
         <div class="service-item" id="Promotion">
+
             <img src="promotion.png" alt="">
             <span class="service-label">Promotion</span>
+
         </div>
         <div class="service-item" id="Address">
+
             <img src="address.png" alt="">
             <span class="service-label">Address</span>
+
         </div>
         <div class="service-item" id="Security">
+
             <img src="account-security.png" alt="">
             <span class="service-label">Account Security</span>
+
         </div>
         <div class="service-item" id="About">
             <a href="">
@@ -81,10 +131,15 @@
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
-            const spinner = document.getElementById('spinner');
-            const hideSpinner = () => {
-                spinner.style.display = 'none';
-            };
+            // Function to show spinner
+            function showSpinner() {
+                document.getElementById('spinner').style.display = 'flex';
+            }
+
+            // Function to hide spinner
+            function hideSpinner() {
+                document.getElementById('spinner').style.display = 'none';
+            }
 
             document.getElementById("log").addEventListener("click", () => {
                 window.location.href = "index.html";
@@ -97,6 +152,8 @@
             }
 
             try {
+                showSpinner(); // Show spinner before fetching data
+
                 const response = await fetch(`${apiUrl}/personal/${userId}`, {
                     method: 'GET',
                     credentials: 'include'
@@ -111,6 +168,7 @@
                     document.getElementById('ip').textContent = data.ip;
 
                     document.getElementById('withDrawal').addEventListener('click', () => {
+
                         window.location.href = `withdraw.html?userId=${userId}`;
                     });
 
@@ -121,12 +179,13 @@
                         window.location.href = `orders.html?userId=${userId}`;
                     });
 
-                    hideSpinner();
                 } else {
                     console.error('Error:', data.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
+            } finally {
+                hideSpinner(); // Hide spinner after fetching data
             }
         });
     </script>
