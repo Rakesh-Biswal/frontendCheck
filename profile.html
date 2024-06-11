@@ -7,7 +7,18 @@
     <title>Profile</title>
     <link rel="stylesheet" href="profile.css">
     <style>
-        /* Spinner CSS */
+        /* New Spinner CSS */
+        .triangle-spinner {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid #4CAF50;
+            position: relative;
+            animation: rotate 1s linear infinite;
+        }
+
+        /* Spinner Overlay CSS */
         .spinner-overlay {
             position: fixed;
             top: 0;
@@ -16,19 +27,10 @@
             height: 100%;
             background-color: rgba(255, 255, 255, 0.8);
             z-index: 9999;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.5s ease-in-out forwards;
-        }
-
-        .spinner {
-            border: 6px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #4CAF50;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
         }
 
         /* Animations */
@@ -41,7 +43,7 @@
             }
         }
 
-        @keyframes spin {
+        @keyframes rotate {
             100% {
                 transform: rotate(360deg);
             }
@@ -53,7 +55,7 @@
 
     <!-- Spinner -->
     <div class="spinner-overlay" id="spinner">
-        <div class="spinner"></div>
+        <div class="triangle-spinner"></div>
     </div>
 
     <nav id="nav-bar">
@@ -152,15 +154,13 @@
             }
 
             try {
-                showSpinner(); // Show spinner before fetching data
-
                 const response = await fetch(`${apiUrl}/personal/${userId}`, {
                     method: 'GET',
                     credentials: 'include'
                 });
 
-                const data = await response.json();
                 if (response.ok) {
+                    const data = await response.json();
                     document.getElementById('username').textContent = data.name;
                     document.getElementById('usernames').textContent = data.name;
                     document.getElementById('id').textContent = data.id;
@@ -168,7 +168,7 @@
                     document.getElementById('ip').textContent = data.ip;
 
                     document.getElementById('withDrawal').addEventListener('click', () => {
-
+                        showSpinner(); // Show spinner when withdrawal button is clicked
                         window.location.href = `withdraw.html?userId=${userId}`;
                     });
 
@@ -184,8 +184,6 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
-            } finally {
-                hideSpinner(); // Hide spinner after fetching data
             }
         });
     </script>
