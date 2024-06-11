@@ -39,11 +39,12 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
 
         if (postResponse.ok) {
+
+            window.location.href = `success.html?userId=${userId}`;
             // Hide spinner and blur effect
             document.getElementById('loadingSpinner').style.display = 'none';
             document.getElementById('blurOverlay').style.display = 'none';
             document.getElementById('withdrawPage').classList.remove('blur');
-            window.location.href = `success.html?userId=${userId}`;
         } else {
             // Hide spinner and blur effect
             document.getElementById('loadingSpinner').style.display = 'none';
