@@ -5,32 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Withdraw</title>
+    <link rel="stylesheet" href="withdraw.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: sans-serif;
-
-
         }
 
         body {
-            background-color: rgba(255, 255, 255, 0.682);
+            background-color: rgb(40, 111, 235);
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 100px;
         }
 
-        img {
-            height: 22px;
-            width: 22px;
+
+
+        /* General styling for the page */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
         }
 
-        .coin-photo {
-            margin: 0px 5px 0px 5px;
+        body {
+            background-color: rgb(40, 111, 235);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+        }
 
+        /* Withdraw page styling */
+        .withdraw-page {
+            height: 60vh;
+            width: 60vw;
+            border: 2px solid goldenrod;
+            border-radius: 5px;
+            background-color: rgba(47, 159, 176, 0.637);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Form styling */
+        .withdraw-form {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
         }
 
         /* Loading spinner styling */
@@ -83,13 +111,35 @@
             filter: blur(2px);
         }
 
+        /* Responsive styling */
+        @media (max-width: 500px) {
+            .withdraw-page {
+                height: 75vh;
+                width: 80vw;
+            }
+
+            body {
+                margin-top: 70px;
+            }
+        }
+
+        img {
+            height: 22px;
+            width: 22px;
+        }
+
+        .coin-photo {
+            margin: 0px 5px 0px 5px;
+
+        }
+
         .withdraw-page {
 
-            height: 75vh;
+            height: 60vh;
             width: 60vw;
-            border: 2px solid rgba(34, 32, 32, 0.442);
+            border: 2px solid goldenrod;
             border-radius: 5px;
-            background-color: rgba(246, 235, 247, 0.808);
+            background-color: rgba(47, 159, 176, 0.637);
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -111,12 +161,12 @@
         }
 
         .withdraw-page>span:first-of-type {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 700;
             margin: 20px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+            font-family: 'Times New Roman', Times, serif;
             text-wrap: wrap;
-            color: rgb(114, 2, 129);
+            color: gold;
         }
 
         .withdraw-info>.child-info:nth-child(1) {
@@ -125,72 +175,56 @@
             align-items: center;
             font-size: 20px;
             margin: 6px;
-            color: rgb(114, 2, 129);
-            font-weight: 600;
         }
 
         .withdraw-info>.child-info:nth-child(2) {
             font-size: 15px;
-            color: rgb(114, 2, 129);
             margin: 6px;
-            font-weight: 600;
         }
 
         .withdraw-info>.child-info:nth-child(3) {
-            font-size: 17px;
+            font-size: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 6px;
             padding: 1px;
-            border: 3px solid gold;
+            border: 5px solid gold;
             border-radius: 20px;
-            color: rgb(25, 22, 2) !important;
         }
 
         .withdraw-form label {
-            font-size: 14px;
-            margin-left: 4px;
-            margin-top: 8px;
-            margin-bottom: -3px;
-            font-weight: 550;
-            color: rgba(0, 0, 0, 0.923);
+            font-size: 16px;
+            margin: 4px;
         }
 
         .withdraw-form input {
-            height: 38px;
-            width: 260px;
-            border: 1.7px solid rgb(165, 22, 200);
-            border-radius: 6px;
-            color: rgba(0, 0, 0, 0.925);
-            background-color: rgb(255, 255, 255);
+            height: 40px;
+            width: 220px;
+            border: 2px solid rgb(43, 41, 41);
+            border-radius: 3px;
+            color: black;
+            background-color: rgb(202, 242, 138);
             font-size: 15px;
-            margin: 6px;
-
-        }
-
-        .withdraw-form input::placeholder {
-            font-size: 14.5px !important;
+            margin: 4px;
 
         }
 
         .withdraw {
-            border: 2px solid rgb(255, 255, 255) !important;
-            background-color: rgb(128, 35, 200) !important;
-            color: white !important;
-            width: 120px !important;
+            border: 2px solid black;
+            background-color: rgb(178, 5, 5) !important;
+            color: white;
             font-size: 30px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 10px 20px;
-            border-radius: 50px !important;
+            border-radius: 5px;
             cursor: pointer;
-            align-self: center;
 
         }
 
         .withdraw:hover {
-            background-color: rgb(74, 22, 185) !important;
-
+            background-color: rgb(62, 3, 3) !important;
+            color: white;
         }
 
         input[type="number"]::-webkit-inner-spin-button,
@@ -224,19 +258,19 @@
             }
         }
 
-        @media (max-width: 570px) {
+        @media (max-width: 500px) {
 
 
             .withdraw-page {
 
                 height: 75vh;
                 width: 80vw;
-
+                background-color: rgba(47, 159, 176, 0.637);
 
             }
 
             body {
-
+                background-color: rgb(40, 111, 235);
 
                 margin-top: 70px;
             }
@@ -257,48 +291,62 @@
                 margin: 4px;
             }
 
+            #info {
+                font-weight: bold;
+                font-size: 20px;
+                color: rgb(241, 10, 10);
+            }
+
             .withdraw-form input {
                 height: 35px;
                 width: 200px;
-
+                border: 2px solid rgb(43, 41, 41);
                 border-radius: 3px;
+                color: black;
+                background-color: rgb(202, 242, 138);
                 font-size: 15px;
                 margin: 4px;
 
             }
+        }
 
+        #coinNo {
+            color: gold;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <div class="withdraw-page">
+    <div class="withdraw-page" id="withdrawPage">
         <span>Withdraw real cash to your Bank account</span>
         <div class="withdraw-info">
-            <span class="child-info">Use your <img class="coin-photo" src="coin.png" alt="">Super Coins</span>
+            <span class="child-info">Use your <img class="coin-photo" src="coin.png" alt=""><span> = </span> <span
+                    id="coinNo"></span> Coins</span>
             <span class="child-info"> & get real cash</span>
             <span class="child-info"><img class="coin-photo" src="coin.png" alt="">10=₹1</span>
-
         </div>
         <div>
             <form class="withdraw-form" id="withDrawReq">
                 <label for="withdrawn-coin">COIN:</label>
-                <input type="number" id="withdrawn-coin" placeholder="Enter Coins">
+                <input type="number" id="withdrawn-coin" placeholder="Enter Coins" required>
                 <label for="upi-id">UPI ID:</label>
-                <input type="text" id="upi-id" name="upi-id" required pattern="^[\w.-]+@[a-zA-Z]+$"
-                    placeholder="Please enter a valid UPI ID">
-                <label for="password">PASSWORD:</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+                <input type="text" id="upi-id" name="upi-id" required placeholder="Please enter a valid UPI ID">
+                <label for="check-password">PASSWORD :</label>
+                <input type="password" id="check-password" placeholder="Enter Your Password" required>
+                <div id="info"></div>
                 <input class="withdraw" type="submit" value="Withdraw">
             </form>
         </div>
-        <!-- Loading Spinner and Blur Effect -->
-        <div id="loadingSpinner" class="spinner">
-            <div class="coin"></div>
-        </div>
-        <div id="blurOverlay" class="blur-overlay"></div>
     </div>
 
+    <!-- Loading Spinner and Blur Effect -->
+    <div id="loadingSpinner" class="spinner">
+        <div class="coin"></div>
+    </div>
+    <div id="blurOverlay" class="blur-overlay"></div>
+
+    <script src="Withdraw.js"></script>
 </body>
-<script src="Withdraw.js"></script>
+
 </html>
