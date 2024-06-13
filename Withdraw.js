@@ -23,8 +23,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
     message.textContent = '';
 
     if (isNaN(withdrawCoin) || withdrawCoin <= 0) {
-        message.textContent = "Please enter a valid amount to withdraw.";
-        message.classList.add('error');
+        showMessage("Please enter a valid amount to withdraw.", 'error');
         document.getElementById('withdrawn-coin').classList.add('error');
         return;
     }
@@ -46,23 +45,16 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
 
         const postData = await postResponse.json();
 
+        // Hide spinner and blur effect
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('blurOverlay').style.display = 'none';
+        document.getElementById('withdrawPage').classList.remove('blur');
+        
         if (postResponse.ok) {
-            // Hide spinner and blur effect
-            document.getElementById('loadingSpinner').style.display = 'none';
-            document.getElementById('blurOverlay').style.display = 'none';
-            document.getElementById('withdrawPage').classList.remove('blur');
-            
-            message.textContent = postData.message;
-            message.classList.add('success');
+            showMessage(postData.message, 'success');
             window.location.href = `success.html?userId=${userId}`;
         } else {
-            // Hide spinner and blur effect
-            document.getElementById('loadingSpinner').style.display = 'none';
-            document.getElementById('blurOverlay').style.display = 'none';
-            document.getElementById('withdrawPage').classList.remove('blur');
-            
-            message.textContent = postData.message;
-            message.classList.add('error');
+            showMessage(postData.message, 'error');
             
             // Highlight invalid inputs
             if (postData.invalidFields) {
@@ -73,8 +65,7 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         }
     } catch (postError) {
         console.log(postError);
-        message.textContent = 'Transaction failed';
-        message.classList.add('error');
+        showMessage('Transaction failed', 'error');
 
         // Hide spinner and blur effect in case of error
         document.getElementById('loadingSpinner').style.display = 'none';
@@ -82,3 +73,13 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         document.getElementById('withdrawPage').classList.remove('blur');
     }
 });
+
+function showMessage(text, type) {
+    const popup = document.getElementById('popupMessage');
+    popup.textContent = text;
+    popup.className = type;
+    popup.style.display = 'block';
+    setTimeout(() => {
+        popup.style.display = 'none';
+    }, 1000);
+}
