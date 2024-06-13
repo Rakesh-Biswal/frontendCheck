@@ -1,3 +1,4 @@
+const apiUrl = "https://backend-recent-2.onrender.com";
 document.querySelectorAll('.withdraw-form input').forEach(input => {
     input.addEventListener('focus', function () {
         this.style.transform = 'scale(1.05)';
