@@ -247,7 +247,8 @@
                 <label for="withdrawn-coin">COIN:</label>
                 <input type="number" id="withdrawn-coin" placeholder="Enter Coins" required>
                 <label for="upi-id">UPI ID:</label>
-                <input type="text" id="upi-id" name="upi-id" required placeholder="Please enter a valid UPI ID">
+                <input type="text" id="upi-id" name="upi-id" required pattern="^[\w.-]+@[a-zA-Z]+$" required
+                    placeholder="Please enter a valid UPI ID">
                 <label for="check-password">PASSWORD :</label>
                 <input type="password" id="check-password" placeholder="Enter Your Password" required>
                 <div id="info"></div>
