@@ -34,14 +34,12 @@ const apiUrl = "https://backend-recent-2.onrender.com";
             document.getElementById('withdrawPage').classList.add('blur');
 
             try {
-                const postResponse = await fetch(`${apiUrl}/withdraw`, {
+                const postResponse = await fetch(`${apiUrl}/RemainsCoin/${userId}`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Credentials': 'true',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ userId, withdrawCoin, UpiId, checkPassword }),
+                    body: JSON.stringify({ withdrawCoin, UpiId, userId, checkPassword }),
                     credentials: 'include'
                 });
 
