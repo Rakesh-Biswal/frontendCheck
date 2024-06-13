@@ -15,6 +15,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        #coinn{
+            height: 20px;
+            width: 20px;
+        }
+
         body {
             background-color: azure;
             display: flex;
@@ -260,7 +265,7 @@
     <div id="withdrawPage" class="withdraw-page">
         <span>Withdraw Your Coins</span>
         <div class="withdraw-info">
-            <div class="child-info">Min. Withdrawal= <span><img src="coin.png" alt="coin"></span> 500</div>
+            <div class="child-info">Min. Withdrawal= <span><img src="coin.png" id="coinn" alt="coin"></span> 500</div>
             <div class="child-info">Conversion Rate: 1 Coin = $0.01</div>
             <form id="withDrawReq" class="withdraw-form">
                 <label for="withdrawn-coin">COIN:</label>
