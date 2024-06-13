@@ -49,13 +49,13 @@ document.getElementById('withDrawReq').addEventListener('submit', async function
         document.getElementById('loadingSpinner').style.display = 'none';
         document.getElementById('blurOverlay').style.display = 'none';
         document.getElementById('withdrawPage').classList.remove('blur');
-        
+
         if (postResponse.ok) {
             showMessage(postData.message, 'success');
             window.location.href = `success.html?userId=${userId}`;
         } else {
             showMessage(postData.message, 'error');
-            
+
             // Highlight invalid inputs
             if (postData.invalidFields) {
                 postData.invalidFields.forEach(field => {
@@ -81,5 +81,5 @@ function showMessage(text, type) {
     popup.style.display = 'block';
     setTimeout(() => {
         popup.style.display = 'none';
-    }, 2000);
+    }, 1000);
 }
