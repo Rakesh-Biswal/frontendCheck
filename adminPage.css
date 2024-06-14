@@ -75,8 +75,8 @@ button:hover {
     transform: translate(-50%, -50%);
     width: 50px;
     height: 50px;
-    border: 5px solid rgba(0, 0, 0, 0.1);
-    border-top: 5px solid #4CAF50;
+    border: 6px solid #ccc;
+    border-top: 6px solid #4CAF50;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -90,16 +90,15 @@ button:hover {
     }
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Form Row Styles */
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.form-group {
+    flex: 1;
 }
 
 /* Responsive Design */
@@ -107,20 +106,14 @@ button:hover {
     form {
         width: 90%;
     }
+
     .form-row {
-        display: block;
-    }
-    .form-group {
-        width: 100%;
+        flex-direction: column;
     }
 }
 
 @media (min-width: 601px) {
-    .form-row {
-        display: flex;
-        justify-content: space-between;
-    }
-    .form-group {
-        width: 48%;
+    body {
+        flex-direction: column;
     }
 }

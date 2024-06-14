@@ -23,33 +23,58 @@
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPassword').value;
 
-            const response = await fetch(`${apiUrl}/admin/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            try {
+                const response = await fetch(`${apiUrl}/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
 
-            const data = await response.json();
-            hideSpinner();
+                const data = await response.json();
+                hideSpinner();
 
-            if (response.ok) {
-                sessionStorage.setItem('adminLoggedIn', true);
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
-                fetchLinks();
-            } else {
-                alert(data.message);
+                if (response.ok) {
+                    sessionStorage.setItem('adminLoggedIn', true);
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    fetchLinks();
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                hideSpinner();
+                alert('An error occurred. Please try again.');
             }
         }
 
         async function fetchLinks() {
             showSpinner();
-            const response = await fetch(`${apiUrl}/links`);
-            const links = await response.json();
-            document.getElementById('links').innerHTML = JSON.stringify(links, null, 2);
-            hideSpinner();
+            try {
+                const response = await fetch(`${apiUrl}/links`);
+                const links = await response.json();
+                hideSpinner();
+                displayLinks(links);
+            } catch (error) {
+                hideSpinner();
+                alert('An error occurred while fetching links.');
+            }
+        }
+
+        function displayLinks(links) {
+            const linksContainer = document.getElementById('links');
+            linksContainer.innerHTML = '';
+            links.forEach((link, index) => {
+                const linkElement = document.createElement('div');
+                linkElement.classList.add('link-item');
+                linkElement.innerHTML = `
+                    <h4>Link ${index + 1}</h4>
+                    <p><strong>URL:</strong> <a href="${link.url}" target="_blank">${link.url}</a></p>
+                    <p><strong>Image URL:</strong> <a href="${link.imageUrl}" target="_blank">${link.imageUrl}</a></p>
+                `;
+                linksContainer.appendChild(linkElement);
+            });
         }
 
         async function updateLinks(event) {
@@ -62,18 +87,23 @@
                 { url: document.getElementById('affiliateLink4').value, imageUrl: document.getElementById('imageLink4').value },
             ];
 
-            const response = await fetch(`${apiUrl}/links`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ links }),
-            });
+            try {
+                const response = await fetch(`${apiUrl}/links`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ links }),
+                });
 
-            const data = await response.json();
-            hideSpinner();
-            alert(data.message);
-            fetchLinks();
+                const data = await response.json();
+                hideSpinner();
+                alert(data.message);
+                fetchLinks();
+            } catch (error) {
+                hideSpinner();
+                alert('An error occurred while updating links.');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -101,7 +131,7 @@
     <div id="dashboard" class="hidden">
         <h2>Admin Dashboard</h2>
         <button onclick="fetchLinks()">Fetch Links</button>
-        <pre id="links"></pre>
+        <div id="links" class="links-container"></div>
         <form onsubmit="updateLinks(event)">
             <h3>Update Links</h3>
             <div class="form-row">
