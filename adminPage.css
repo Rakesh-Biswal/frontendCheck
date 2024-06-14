@@ -6,14 +6,21 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     overflow: auto;
 }
 
-h2, h3 {
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h2,
+h3 {
     text-align: center;
 }
 
@@ -23,18 +30,19 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 800px;
-    margin: 10px;
+    margin: 20px 0;
     animation: fadeIn 0.8s ease-in-out;
 }
 
 .input-group {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .input-column {
     flex: 0 0 48%;
+    margin-bottom: 20px;
 }
 
 label {
@@ -42,7 +50,11 @@ label {
     margin: 10px 0 5px;
 }
 
-input[type="email"], input[type="password"], input[type="url"], input[type="number"], button {
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+button {
     width: 100%;
     padding: 10px;
     margin: 5px 0 10px;
@@ -78,27 +90,31 @@ button:hover {
 }
 
 .spinner {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: #333;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 6px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #333;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    z-index: 1000;
 }
 
 @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

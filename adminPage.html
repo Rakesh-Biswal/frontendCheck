@@ -31,20 +31,9 @@
                 sessionStorage.setItem('adminLoggedIn', true);
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
-                fetchLinks();
             } else {
                 alert(data.message);
             }
-        }
-
-        async function fetchLinks() {
-            showSpinner();
-
-            const response = await fetch(`${apiUrl}/links`);
-            const links = await response.json();
-            document.getElementById('links').innerHTML = JSON.stringify(links, null, 2);
-
-            hideSpinner();
         }
 
         async function updateLinks(event) {
@@ -84,7 +73,6 @@
 
             const data = await response.json();
             alert(data.message);
-            fetchLinks();
 
             hideSpinner();
         }
@@ -101,66 +89,65 @@
             if (sessionStorage.getItem('adminLoggedIn')) {
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
-                fetchLinks();
             }
         });
     </script>
 </head>
 <body>
     <div id="spinner" class="spinner hidden"></div>
-    <form id="loginForm" onsubmit="loginAdmin(event)">
-        <h2>Admin Login</h2>
-        <label for="adminEmail">Email:</label>
-        <input type="email" id="adminEmail" required><br>
-        <label for="adminPassword">Password:</label>
-        <input type="password" id="adminPassword" required><br>
-        <button type="submit">Login</button>
-    </form>
-
-    <div id="dashboard" class="hidden">
-        <h2>Admin Dashboard</h2>
-        <button onclick="fetchLinks()">Fetch Links</button>
-        <pre id="links"></pre>
-        <form onsubmit="updateLinks(event)">
-            <h3>Update Links</h3>
-            <div class="input-group">
-                <div class="input-column">
-                    <label for="index1">Index 1:</label>
-                    <input type="number" id="index1" placeholder="Enter index 1"><br>
-                    <label for="affiliateLink1">Affiliate Product Link 1:</label>
-                    <input type="url" id="affiliateLink1" placeholder="Enter affiliate product link 1"><br>
-                    <label for="imageLink1">Product Image Link 1:</label>
-                    <input type="url" id="imageLink1" placeholder="Enter product image link 1"><br>
-                </div>
-                <div class="input-column">
-                    <label for="index2">Index 2:</label>
-                    <input type="number" id="index2" placeholder="Enter index 2"><br>
-                    <label for="affiliateLink2">Affiliate Product Link 2:</label>
-                    <input type="url" id="affiliateLink2" placeholder="Enter affiliate product link 2"><br>
-                    <label for="imageLink2">Product Image Link 2:</label>
-                    <input type="url" id="imageLink2" placeholder="Enter product image link 2"><br>
-                </div>
-            </div>
-            <div class="input-group">
-                <div class="input-column">
-                    <label for="index3">Index 3:</label>
-                    <input type="number" id="index3" placeholder="Enter index 3"><br>
-                    <label for="affiliateLink3">Affiliate Product Link 3:</label>
-                    <input type="url" id="affiliateLink3" placeholder="Enter affiliate product link 3"><br>
-                    <label for="imageLink3">Product Image Link 3:</label>
-                    <input type="url" id="imageLink3" placeholder="Enter product image link 3"><br>
-                </div>
-                <div class="input-column">
-                    <label for="index4">Index 4:</label>
-                    <input type="number" id="index4" placeholder="Enter index 4"><br>
-                    <label for="affiliateLink4">Affiliate Product Link 4:</label>
-                    <input type="url" id="affiliateLink4" placeholder="Enter affiliate product link 4"><br>
-                    <label for="imageLink4">Product Image Link 4:</label>
-                    <input type="url" id="imageLink4" placeholder="Enter product image link 4"><br>
-                </div>
-            </div>
-            <button type="submit">Update Links</button>
+    <div class="container">
+        <form id="loginForm" onsubmit="loginAdmin(event)">
+            <h2>Admin Login</h2>
+            <label for="adminEmail">Email:</label>
+            <input type="email" id="adminEmail" required>
+            <label for="adminPassword">Password:</label>
+            <input type="password" id="adminPassword" required>
+            <button type="submit">Login</button>
         </form>
+
+        <div id="dashboard" class="hidden">
+            <h2>Admin Dashboard</h2>
+            <form onsubmit="updateLinks(event)">
+                <h3>Update Links</h3>
+                <div class="input-group">
+                    <div class="input-column">
+                        <label for="index1">Index 1:</label>
+                        <input type="number" id="index1" placeholder="Enter index 1">
+                        <label for="affiliateLink1">Affiliate Product Link 1:</label>
+                        <input type="url" id="affiliateLink1" placeholder="Enter affiliate product link 1">
+                        <label for="imageLink1">Product Image Link 1:</label>
+                        <input type="url" id="imageLink1" placeholder="Enter product image link 1">
+                    </div>
+                    <div class="input-column">
+                        <label for="index2">Index 2:</label>
+                        <input type="number" id="index2" placeholder="Enter index 2">
+                        <label for="affiliateLink2">Affiliate Product Link 2:</label>
+                        <input type="url" id="affiliateLink2" placeholder="Enter affiliate product link 2">
+                        <label for="imageLink2">Product Image Link 2:</label>
+                        <input type="url" id="imageLink2" placeholder="Enter product image link 2">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-column">
+                        <label for="index3">Index 3:</label>
+                        <input type="number" id="index3" placeholder="Enter index 3">
+                        <label for="affiliateLink3">Affiliate Product Link 3:</label>
+                        <input type="url" id="affiliateLink3" placeholder="Enter affiliate product link 3">
+                        <label for="imageLink3">Product Image Link 3:</label>
+                        <input type="url" id="imageLink3" placeholder="Enter product image link 3">
+                    </div>
+                    <div class="input-column">
+                        <label for="index4">Index 4:</label>
+                        <input type="number" id="index4" placeholder="Enter index 4">
+                        <label for="affiliateLink4">Affiliate Product Link 4:</label>
+                        <input type="url" id="affiliateLink4" placeholder="Enter affiliate product link 4">
+                        <label for="imageLink4">Product Image Link 4:</label>
+                        <input type="url" id="imageLink4" placeholder="Enter product image link 4">
+                    </div>
+                </div>
+                <button type="submit">Update Links</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
