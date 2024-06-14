@@ -9,8 +9,17 @@
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
+        function showSpinner() {
+            document.getElementById('spinner').classList.remove('hidden');
+        }
+
+        function hideSpinner() {
+            document.getElementById('spinner').classList.add('hidden');
+        }
+
         async function loginAdmin(event) {
             event.preventDefault();
+            showSpinner();
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPassword').value;
 
@@ -23,6 +32,7 @@
             });
 
             const data = await response.json();
+            hideSpinner();
 
             if (response.ok) {
                 sessionStorage.setItem('adminLoggedIn', true);
@@ -35,13 +45,16 @@
         }
 
         async function fetchLinks() {
+            showSpinner();
             const response = await fetch(`${apiUrl}/links`);
             const links = await response.json();
             document.getElementById('links').innerHTML = JSON.stringify(links, null, 2);
+            hideSpinner();
         }
 
         async function updateLinks(event) {
             event.preventDefault();
+            showSpinner();
             const links = [
                 { url: document.getElementById('affiliateLink1').value, imageUrl: document.getElementById('imageLink1').value },
                 { url: document.getElementById('affiliateLink2').value, imageUrl: document.getElementById('imageLink2').value },
@@ -58,6 +71,7 @@
             });
 
             const data = await response.json();
+            hideSpinner();
             alert(data.message);
             fetchLinks();
         }
@@ -73,6 +87,8 @@
 </head>
 
 <body>
+    <div id="spinner" class="hidden spinner"></div>
+
     <form id="loginForm" onsubmit="loginAdmin(event)">
         <h2>Admin Login</h2>
         <label for="adminEmail">Email:</label>
