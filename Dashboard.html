@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div id="spinner" class="spinner hidden"></div>
     <nav id="nav-bar">
         <div class="welcome-msg">
             <span id="username"></span>
@@ -36,6 +37,8 @@
                 return;
             }
 
+            showSpinner();
+
             try {
                 const profileResponse = await fetch(`${apiUrl}/profiles/${userId}`, {
                     method: 'GET',
@@ -58,7 +61,7 @@
                     });
 
                     const linksContainer = document.getElementById('links-container');
-                    linksContainer.innerHTML = '';  // Clear existing links
+                    linksContainer.innerHTML = ''; // Clear existing links
 
                     linksData.forEach((linkData, index) => {
                         const linkBox = document.createElement('div');
@@ -70,18 +73,18 @@
                         const link = document.createElement('a');
                         link.href = linkData.url;
                         link.classList.add('link');
-                        link.dataset.linkIndex = index;
+                        link.dataset.linkIndex = linkData.index;
 
                         const img = document.createElement('img');
                         img.src = linkData.imageUrl;
-                        img.alt = `link${index}`;
+                        img.alt = `link${linkData.index}`;
 
                         link.appendChild(img);
                         linkImgDiv.appendChild(link);
                         linkBox.appendChild(linkImgDiv);
                         linksContainer.appendChild(linkBox);
 
-                        const linkStatus = profileData.linkStatus[index];
+                        const linkStatus = profileData.linkStatus[linkData.index];
                         if (linkStatus) {
                             link.classList.add('clicked');
                             link.style.pointerEvents = 'none';
@@ -104,7 +107,7 @@
                                     const elapsedTime = Date.now() - startTime;
                                     clearTimeout(timeoutId);
                                     if (elapsedTime >= stayTime) {
-                                        updateCoinAndLinkState(index);
+                                        updateCoinAndLinkState(linkData.index);
                                     } else {
                                         alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                     }
@@ -118,9 +121,13 @@
                     });
                 } else {
                     console.error('Error:', profileData.message);
+                    alert('Failed to load profile or links data.');
                 }
             } catch (error) {
                 console.error('Error:', error);
+                alert('An error occurred while loading the data.');
+            } finally {
+                hideSpinner();
             }
         });
 
@@ -153,10 +160,20 @@
                     });
                 } else {
                     console.error('Failed to update link status');
+                    alert('Failed to update link status.');
                 }
             } catch (error) {
                 console.error('Error updating link status:', error);
+                alert('An error occurred while updating link status.');
             }
+        }
+
+        function showSpinner() {
+            document.getElementById('spinner').classList.remove('hidden');
+        }
+
+        function hideSpinner() {
+            document.getElementById('spinner').classList.add('hidden');
         }
     </script>
 </body>
