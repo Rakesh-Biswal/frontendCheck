@@ -23,9 +23,18 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
     margin: 10px;
     animation: fadeIn 0.8s ease-in-out;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-column {
+    flex: 0 0 48%;
 }
 
 label {
@@ -84,6 +93,7 @@ button:hover {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -97,6 +107,14 @@ button:hover {
 
 /* Responsive Design */
 @media (max-width: 600px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-column {
+        flex: 0 0 100%;
+    }
+
     form {
         width: 90%;
     }
