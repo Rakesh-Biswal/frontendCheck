@@ -22,7 +22,7 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     margin: 10px;
     animation: fadeIn 0.8s ease-in-out;
 }
@@ -84,10 +84,20 @@ button:hover {
     form {
         width: 90%;
     }
+    .form-row {
+        display: block;
+    }
+    .form-group {
+        width: 100%;
+    }
 }
 
 @media (min-width: 601px) {
-    body {
-        flex-direction: column;
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+    }
+    .form-group {
+        width: 48%;
     }
 }
