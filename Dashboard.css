@@ -35,6 +35,10 @@
     }
 }
 
+#profilePic:hover {
+    transform: scale(115%);
+}
+
 .coin-photos {
     height: 20px;
     width: 20px;
@@ -85,31 +89,6 @@
 /* Apply animation to elements with the class coin-animate */
 .coin-animate {
     animation: coinUpdate 1s ease-in-out;
-}
-
-/* Spinner styles */
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    border: 6px solid rgba(0, 0, 0, 0.1);
-    border-top-color: #333;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    z-index: 1001;
-}
-
-.hidden {
-    display: none;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 /* Navigation bar styles */
