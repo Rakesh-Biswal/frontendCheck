@@ -60,7 +60,7 @@
                     const linksContainer = document.getElementById('links-container');
                     linksContainer.innerHTML = '';  // Clear existing links
 
-                    linksData.forEach((linkData, index) => {
+                    linksData.forEach((linkData) => {
                         const linkBox = document.createElement('div');
                         linkBox.classList.add('link-box');
 
@@ -70,18 +70,18 @@
                         const link = document.createElement('a');
                         link.href = linkData.url;
                         link.classList.add('link');
-                        link.dataset.linkIndex = index;
+                        link.dataset.linkIndex = linkData.index; // Use the received index from backend
 
                         const img = document.createElement('img');
                         img.src = linkData.imageUrl;
-                        img.alt = `link${index}`;
+                        img.alt = `link${linkData.index}`;
 
                         link.appendChild(img);
                         linkImgDiv.appendChild(link);
                         linkBox.appendChild(linkImgDiv);
                         linksContainer.appendChild(linkBox);
 
-                        const linkStatus = profileData.linkStatus[index];
+                        const linkStatus = profileData.linkStatus[linkData.index];
                         if (linkStatus) {
                             link.classList.add('clicked');
                             link.style.pointerEvents = 'none';
@@ -104,7 +104,7 @@
                                     const elapsedTime = Date.now() - startTime;
                                     clearTimeout(timeoutId);
                                     if (elapsedTime >= stayTime) {
-                                        updateCoinAndLinkState(index);
+                                        updateCoinAndLinkState(linkData.index);
                                     } else {
                                         alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                     }
