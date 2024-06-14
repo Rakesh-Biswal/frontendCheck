@@ -19,8 +19,7 @@ body {
     box-sizing: border-box;
 }
 
-h2,
-h3 {
+h2, h3 {
     text-align: center;
 }
 
@@ -50,11 +49,7 @@ label {
     margin: 10px 0 5px;
 }
 
-input[type="email"],
-input[type="password"],
-input[type="url"],
-input[type="number"],
-button {
+input[type="email"], input[type="password"], input[type="url"], input[type="number"], button {
     width: 100%;
     padding: 10px;
     margin: 5px 0 10px;
@@ -74,19 +69,6 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-#links {
-    white-space: pre-wrap;
-    background-color: #e8e8e8;
-    padding: 10px;
-    border-radius: 4px;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.hidden {
-    display: none;
 }
 
 .spinner {
@@ -109,12 +91,15 @@ button:hover {
     }
 }
 
+.hidden {
+    display: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
