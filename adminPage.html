@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="adminPage.css">
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+
+        async function loginAdmin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            const response = await fetch(`${apiUrl}/admin/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                sessionStorage.setItem('adminLoggedIn', true);
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                fetchLinks();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        async function fetchLinks() {
+            const response = await fetch(`${apiUrl}/links`);
+            const links = await response.json();
+            document.getElementById('links').innerHTML = JSON.stringify(links, null, 2);
+        }
+
+        async function updateLinks(event) {
+            event.preventDefault();
+            const links = [
+                { url: document.getElementById('affiliateLink1').value, imageUrl: document.getElementById('imageLink1').value },
+                { url: document.getElementById('affiliateLink2').value, imageUrl: document.getElementById('imageLink2').value },
+                { url: document.getElementById('affiliateLink3').value, imageUrl: document.getElementById('imageLink3').value },
+                { url: document.getElementById('affiliateLink4').value, imageUrl: document.getElementById('imageLink4').value },
+            ];
+
+            const response = await fetch(`${apiUrl}/links`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ links }),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            fetchLinks();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('adminLoggedIn')) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                fetchLinks();
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <form id="loginForm" onsubmit="loginAdmin(event)">
+        <h2>Admin Login</h2>
+        <label for="adminEmail">Email:</label>
+        <input type="email" id="adminEmail" required><br>
+        <label for="adminPassword">Password:</label>
+        <input type="password" id="adminPassword" required><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <div id="dashboard" class="hidden">
+        <h2>Admin Dashboard</h2>
+        <button onclick="fetchLinks()">Fetch Links</button>
+        <pre id="links"></pre>
+        <form onsubmit="updateLinks(event)">
+            <h3>Update Links</h3>
+            <label for="affiliateLink1">Affiliate Product Link 1:</label><br>
+            <input type="url" id="affiliateLink1" placeholder="Enter affiliate product link 1"><br>
+            <label for="imageLink1">Product Image Link 1:</label><br>
+            <input type="url" id="imageLink1" placeholder="Enter product image link 1"><br><br>
+
+            <label for="affiliateLink2">Affiliate Product Link 2:</label><br>
+            <input type="url" id="affiliateLink2" placeholder="Enter affiliate product link 2"><br>
+            <label for="imageLink2">Product Image Link 2:</label><br>
+            <input type="url" id="imageLink2" placeholder="Enter product image link 2"><br><br>
+
+            <label for="affiliateLink3">Affiliate Product Link 3:</label><br>
+            <input type="url" id="affiliateLink3" placeholder="Enter affiliate product link 3"><br>
+            <label for="imageLink3">Product Image Link 3:</label><br>
+            <input type="url" id="imageLink3" placeholder="Enter product image link 3"><br><br>
+
+            <label for="affiliateLink4">Affiliate Product Link 4:</label><br>
+            <input type="url" id="affiliateLink4" placeholder="Enter affiliate product link 4"><br>
+            <label for="imageLink4">Product Image Link 4:</label><br>
+            <input type="url" id="imageLink4" placeholder="Enter product image link 4"><br><br>
+
+            <button type="submit">Update Links</button>
+        </form>
+    </div>
+</body>
+
+</html>
