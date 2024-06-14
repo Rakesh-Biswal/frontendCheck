@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,102 +8,93 @@
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
+        async function loginAdmin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            showSpinner();
+
+            const response = await fetch(`${apiUrl}/admin/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            hideSpinner();
+
+            if (response.ok) {
+                sessionStorage.setItem('adminLoggedIn', true);
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                fetchLinks();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        async function fetchLinks() {
+            showSpinner();
+
+            const response = await fetch(`${apiUrl}/links`);
+            const links = await response.json();
+            document.getElementById('links').innerHTML = JSON.stringify(links, null, 2);
+
+            hideSpinner();
+        }
+
+        async function updateLinks(event) {
+            event.preventDefault();
+            const links = [
+                {
+                    url: document.getElementById('affiliateLink1').value,
+                    imageUrl: document.getElementById('imageLink1').value,
+                    index: document.getElementById('index1').value
+                },
+                {
+                    url: document.getElementById('affiliateLink2').value,
+                    imageUrl: document.getElementById('imageLink2').value,
+                    index: document.getElementById('index2').value
+                },
+                {
+                    url: document.getElementById('affiliateLink3').value,
+                    imageUrl: document.getElementById('imageLink3').value,
+                    index: document.getElementById('index3').value
+                },
+                {
+                    url: document.getElementById('affiliateLink4').value,
+                    imageUrl: document.getElementById('imageLink4').value,
+                    index: document.getElementById('index4').value
+                },
+            ];
+
+            showSpinner();
+
+            const response = await fetch(`${apiUrl}/links`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ links }),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            fetchLinks();
+
+            hideSpinner();
+        }
+
         function showSpinner() {
             document.getElementById('spinner').classList.remove('hidden');
         }
 
         function hideSpinner() {
             document.getElementById('spinner').classList.add('hidden');
-        }
-
-        async function loginAdmin(event) {
-            event.preventDefault();
-            showSpinner();
-            const email = document.getElementById('adminEmail').value;
-            const password = document.getElementById('adminPassword').value;
-
-            try {
-                const response = await fetch(`${apiUrl}/admin/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
-
-                const data = await response.json();
-                hideSpinner();
-
-                if (response.ok) {
-                    sessionStorage.setItem('adminLoggedIn', true);
-                    document.getElementById('loginForm').classList.add('hidden');
-                    document.getElementById('dashboard').classList.remove('hidden');
-                    fetchLinks();
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                hideSpinner();
-                alert('An error occurred. Please try again.');
-            }
-        }
-
-        async function fetchLinks() {
-            showSpinner();
-            try {
-                const response = await fetch(`${apiUrl}/links`);
-                const links = await response.json();
-                hideSpinner();
-                displayLinks(links);
-            } catch (error) {
-                hideSpinner();
-                alert('An error occurred while fetching links.');
-            }
-        }
-
-        function displayLinks(links) {
-            const linksContainer = document.getElementById('links');
-            linksContainer.innerHTML = '';
-            links.forEach((link, index) => {
-                const linkElement = document.createElement('div');
-                linkElement.classList.add('link-item');
-                linkElement.innerHTML = `
-                    <h4>Link ${index + 1}</h4>
-                    <p><strong>URL:</strong> <a href="${link.url}" target="_blank">${link.url}</a></p>
-                    <p><strong>Image URL:</strong> <a href="${link.imageUrl}" target="_blank">${link.imageUrl}</a></p>
-                    <p><strong>Index:</strong> ${link.index}</p>
-                `;
-                linksContainer.appendChild(linkElement);
-            });
-        }
-
-        async function updateLinks(event) {
-            event.preventDefault();
-            showSpinner();
-            const links = [
-                { url: document.getElementById('affiliateLink1').value, imageUrl: document.getElementById('imageLink1').value, index: 53 },
-                { url: document.getElementById('affiliateLink2').value, imageUrl: document.getElementById('imageLink2').value, index: 54 },
-                { url: document.getElementById('affiliateLink3').value, imageUrl: document.getElementById('imageLink3').value, index: 55 },
-                { url: document.getElementById('affiliateLink4').value, imageUrl: document.getElementById('imageLink4').value, index: 56 },
-            ];
-
-            try {
-                const response = await fetch(`${apiUrl}/links`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ links }),
-                });
-
-                const data = await response.json();
-                hideSpinner();
-                alert(data.message);
-                fetchLinks();
-            } catch (error) {
-                hideSpinner();
-                alert('An error occurred while updating links.');
-            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -116,10 +106,8 @@
         });
     </script>
 </head>
-
 <body>
-    <div id="spinner" class="hidden spinner"></div>
-
+    <div id="spinner" class="spinner hidden"></div>
     <form id="loginForm" onsubmit="loginAdmin(event)">
         <h2>Admin Login</h2>
         <label for="adminEmail">Email:</label>
@@ -132,52 +120,39 @@
     <div id="dashboard" class="hidden">
         <h2>Admin Dashboard</h2>
         <button onclick="fetchLinks()">Fetch Links</button>
-        <div id="links" class="links-container"></div>
+        <pre id="links"></pre>
         <form onsubmit="updateLinks(event)">
             <h3>Update Links</h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="affiliateLink1">Affiliate Product Link 1:</label>
-                    <input type="url" id="affiliateLink1" placeholder="Enter affiliate product link 1">
-                </div>
-                <div class="form-group">
-                    <label for="imageLink1">Product Image Link 1:</label>
-                    <input type="url" id="imageLink1" placeholder="Enter product image link 1">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="affiliateLink2">Affiliate Product Link 2:</label>
-                    <input type="url" id="affiliateLink2" placeholder="Enter affiliate product link 2">
-                </div>
-                <div class="form-group">
-                    <label for="imageLink2">Product Image Link 2:</label>
-                    <input type="url" id="imageLink2" placeholder="Enter product image link 2">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="affiliateLink3">Affiliate Product Link 3:</label>
-                    <input type="url" id="affiliateLink3" placeholder="Enter affiliate product link 3">
-                </div>
-                <div class="form-group">
-                    <label for="imageLink3">Product Image Link 3:</label>
-                    <input type="url" id="imageLink3" placeholder="Enter product image link 3">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="affiliateLink4">Affiliate Product Link 4:</label>
-                    <input type="url" id="affiliateLink4" placeholder="Enter affiliate product link 4">
-                </div>
-                <div class="form-group">
-                    <label for="imageLink4">Product Image Link 4:</label>
-                    <input type="url" id="imageLink4" placeholder="Enter product image link 4">
-                </div>
-            </div>
+            <label for="index1">Index 1:</label><br>
+            <input type="number" id="index1" placeholder="Enter index 1"><br>
+            <label for="affiliateLink1">Affiliate Product Link 1:</label><br>
+            <input type="url" id="affiliateLink1" placeholder="Enter affiliate product link 1"><br>
+            <label for="imageLink1">Product Image Link 1:</label><br>
+            <input type="url" id="imageLink1" placeholder="Enter product image link 1"><br><br>
+
+            <label for="index2">Index 2:</label><br>
+            <input type="number" id="index2" placeholder="Enter index 2"><br>
+            <label for="affiliateLink2">Affiliate Product Link 2:</label><br>
+            <input type="url" id="affiliateLink2" placeholder="Enter affiliate product link 2"><br>
+            <label for="imageLink2">Product Image Link 2:</label><br>
+            <input type="url" id="imageLink2" placeholder="Enter product image link 2"><br><br>
+
+            <label for="index3">Index 3:</label><br>
+            <input type="number" id="index3" placeholder="Enter index 3"><br>
+            <label for="affiliateLink3">Affiliate Product Link 3:</label><br>
+            <input type="url" id="affiliateLink3" placeholder="Enter affiliate product link 3"><br>
+            <label for="imageLink3">Product Image Link 3:</label><br>
+            <input type="url" id="imageLink3" placeholder="Enter product image link 3"><br><br>
+
+            <label for="index4">Index 4:</label><br>
+            <input type="number" id="index4" placeholder="Enter index 4"><br>
+            <label for="affiliateLink4">Affiliate Product Link 4:</label><br>
+            <input type="url" id="affiliateLink4" placeholder="Enter affiliate product link 4"><br>
+            <label for="imageLink4">Product Image Link 4:</label><br>
+            <input type="url" id="imageLink4" placeholder="Enter product image link 4"><br><br>
+
             <button type="submit">Update Links</button>
         </form>
     </div>
 </body>
-
 </html>
