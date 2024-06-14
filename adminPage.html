@@ -72,6 +72,7 @@
                     <h4>Link ${index + 1}</h4>
                     <p><strong>URL:</strong> <a href="${link.url}" target="_blank">${link.url}</a></p>
                     <p><strong>Image URL:</strong> <a href="${link.imageUrl}" target="_blank">${link.imageUrl}</a></p>
+                    <p><strong>Index:</strong> ${link.index}</p>
                 `;
                 linksContainer.appendChild(linkElement);
             });
@@ -81,10 +82,10 @@
             event.preventDefault();
             showSpinner();
             const links = [
-                { url: document.getElementById('affiliateLink1').value, imageUrl: document.getElementById('imageLink1').value },
-                { url: document.getElementById('affiliateLink2').value, imageUrl: document.getElementById('imageLink2').value },
-                { url: document.getElementById('affiliateLink3').value, imageUrl: document.getElementById('imageLink3').value },
-                { url: document.getElementById('affiliateLink4').value, imageUrl: document.getElementById('imageLink4').value },
+                { url: document.getElementById('affiliateLink1').value, imageUrl: document.getElementById('imageLink1').value, index: 53 },
+                { url: document.getElementById('affiliateLink2').value, imageUrl: document.getElementById('imageLink2').value, index: 54 },
+                { url: document.getElementById('affiliateLink3').value, imageUrl: document.getElementById('imageLink3').value, index: 55 },
+                { url: document.getElementById('affiliateLink4').value, imageUrl: document.getElementById('imageLink4').value, index: 56 },
             ];
 
             try {
