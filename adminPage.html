@@ -15,6 +15,11 @@
             text-align: center;
             font-size: 10px;
             margin: 20px auto;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .spinner>div {
@@ -166,9 +171,11 @@
 
                 if (response.ok) {
                     sessionStorage.setItem('adminLoggedIn', true);
+                    spinner.style.display = 'none'; // Hide spinner after login attempt
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('dashboard').classList.remove('hidden');
                 } else {
+                    spinner.style.display = 'none'; // Hide spinner after login attempt
                     alert(data.message);
                 }
             } catch (error) {
