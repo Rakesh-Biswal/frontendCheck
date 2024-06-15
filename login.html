@@ -64,8 +64,8 @@
                 if (response.ok) {
                     document.getElementById('message').innerText = 'Login successful';
                     localStorage.setItem('userId', data.userId);
-                    alert("Platform is under working, You can try after some time...");
-                    // window.location.href = `dashboard.html?userId=${data.userId}`;
+                    // alert("Platform is under working, You can try after some time...");
+                    window.location.href = `dashboard.html?userId=${data.userId}`;
                 } else {
                     document.getElementById('message').innerText = data.message;
                 }
