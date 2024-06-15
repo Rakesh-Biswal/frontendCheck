@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
     <link rel="stylesheet" href="Dashboard.css">
+    <style>
+        /* Spinner styles */
+        .spinner {
+            margin: 20px auto;
+            width: 70px;
+            text-align: center;
+            display: none;
+            /* Initially hide spinner */
+        }
+
+        .spinner>div {
+            width: 18px;
+            height: 18px;
+            background-color: #333;
+            border-radius: 100%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .spinner .bounce1 {
+            animation-delay: -0.32s;
+        }
+
+        .spinner .bounce2 {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1.0);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -22,6 +62,12 @@
         </div>
     </nav>
 
+    <div id="spinner" class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+
     <section class="main" id="links-container">
         <!-- Links will be dynamically inserted here -->
     </section>
@@ -30,6 +76,9 @@
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block'; // Show spinner initially
+
             const userId = new URLSearchParams(window.location.search).get('userId');
             if (!userId) {
                 window.location.href = 'login.html';
@@ -58,7 +107,7 @@
                     });
 
                     const linksContainer = document.getElementById('links-container');
-                    linksContainer.innerHTML = '';  // Clear existing links
+                    linksContainer.innerHTML = ''; // Clear existing links
 
                     linksData.forEach((linkData) => {
                         const linkBox = document.createElement('div');
@@ -121,6 +170,8 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
+            } finally {
+                spinner.style.display = 'none'; // Hide spinner after loading completes (success or error)
             }
         });
 
