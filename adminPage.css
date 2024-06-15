@@ -13,7 +13,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px; /* Increased max-width for desktop screens */
     padding: 20px;
     box-sizing: border-box;
 }
@@ -67,45 +67,30 @@ button:hover {
     display: none;
 }
 
-/* Spinner Styles */
-.spinner {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.spinner-container {
-    display: flex;
-    align-items: center;
-}
-
-.spinner-dot {
-    width: 12px;
-    height: 12px;
-    margin: 0 3px;
-    background-color: #333;
-    border-radius: 50%;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
     .container {
         padding: 10px;
     }
 
     form {
         padding: 15px;
+    }
+}
+
+.link-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.link-input {
+    flex: 1 1 30%; /* Adjust based on your design preference */
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    .link-input {
+        flex: 1 1 100%;
     }
 }
