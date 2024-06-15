@@ -28,8 +28,6 @@
     </div>
     <div id="blurOverlay" class="blur-overlay"></div>
 
-    
-
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
@@ -61,17 +59,36 @@
                 document.getElementById('blurOverlay').style.display = 'none';
                 document.getElementById('container').classList.remove('blur');
 
+                const messageElement = document.getElementById('message');
+                messageElement.style.display = 'block';
                 if (response.ok) {
-                    document.getElementById('message').innerText = 'Login successful';
+                    messageElement.innerText = 'Login successful';
+                    messageElement.classList.add('success');
+                    messageElement.classList.remove('error');
                     localStorage.setItem('userId', data.userId);
-                    // alert("Platform is under working, You can try after some time...");
-                    window.location.href = `dashboard.html?userId=${data.userId}`;
+                    setTimeout(() => {
+                        window.location.href = `dashboard.html?userId=${data.userId}`;
+                    }, 2000);
                 } else {
-                    document.getElementById('message').innerText = data.message;
+                    messageElement.innerText = data.message;
+                    messageElement.classList.add('error');
+                    messageElement.classList.remove('success');
                 }
+
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 2000);
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('message').innerText = 'Login failed';
+                const messageElement = document.getElementById('message');
+                messageElement.innerText = 'Login failed';
+                messageElement.classList.add('error');
+                messageElement.classList.remove('success');
+                messageElement.style.display = 'block';
+
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 2000);
 
                 // Hide spinner and blur effect in case of error
                 document.getElementById('loadingSpinner').style.display = 'none';
@@ -79,7 +96,6 @@
                 document.getElementById('container').classList.remove('blur');
             }
         });
-
     </script>
 </body>
 
