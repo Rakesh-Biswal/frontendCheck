@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Comic+Neue:wght@700&display=swap');
 
 * {
     margin: 0;
@@ -9,21 +9,8 @@
     list-style: none;
 }
 
-.regis{
-    border-radius: 27px;
-}
-.closis{
-    border-radius: 20px;
-    background-color: red !important;
-}
-
-*::selection {
-    background: crimson;
-    color: #fff;
-}
-
 body {
-    background: url("https://img.freepik.com/premium-photo/market-chart-business-glowing-stock-graph-investment-financial-data-profit-growth-money-diagram-background-with-diagram-exchange-information-3d-rendering_79161-1819.jpg");
+    background: linear-gradient(45deg, #141E30, #243B55);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -44,7 +31,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background: linear-gradient(rgba(39, 39, 39, 0.1), transparent);
+    background: linear-gradient(rgba(39, 39, 39, 0.5), transparent);
     z-index: 100;
     padding: 0 20px;
 }
@@ -219,42 +206,66 @@ body {
     padding: 5px 0;
 }
 
-/* Styles for the typing animation */
-#typed-text {
-    margin-top: 30px;
-    font-family: Arial, sans-serif;
-    font-size: 24px;
-    padding: 10px;
-    border-bottom: 2px solid black;
-    width: fit-content;
-    white-space: nowrap;
-    overflow: hidden;
-
-    animation: typing 5s steps(30, end), blink-caret .75s step-end infinite;
+.intro-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #141E30;
+    z-index: 1000;
+    opacity: 0;
+    animation: introFadeIn 2s forwards;
 }
 
-@keyframes blink-caret {
-    from, to {
-        border-color: transparent;
+.word {
+    font-family: 'Comic Neue', cursive;
+    font-size: 4rem;
+    color: #efc90c;
+    opacity: 0;
+    animation: wordFadeIn 0.5s forwards, scaleUpDown 1s infinite;
+}
+
+.word:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.word:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.word:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes introFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes wordFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUpDown {
+    0%, 100% {
+        transform: scale(1);
     }
     50% {
-        border-color: black;
-    }
-}
-
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 800px) {
-    .nav-logo p {
-        font-size: 20px;
+        transform: scale(1.1);
     }
 }
 
@@ -307,101 +318,36 @@ body {
     .contentz button {
         font-size: 14px;
     }
-}
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 40px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
+    .intro-animation .word {
+        font-size: 2rem;
     }
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translate3d(-40px, 0, 0);
-    }
-    to {
+.fade-out {
+    animation: fadeOut 1s forwards;
+}
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+    animation-delay: 1s;
+}
+
+@keyframes fadeOut {
+    0% {
         opacity: 1;
-        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        display: none;
     }
 }
 
 @keyframes fadeIn {
-    from {
+    0% {
         opacity: 0;
     }
-    to {
+    100% {
         opacity: 1;
     }
-}
-
-
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #fff;
-    overflow: hidden;
-}
-
-#typed-text {
-    font-family: 'Comic Neue', cursive;
-    font-size: 3rem;
-    color: #efc90c;
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
-    animation: fadeIn 2s, movieTextEffect 2s infinite;
-    border: none;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@keyframes movieTextEffect {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #000000;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1000;
-}
-
-button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-}
-
-
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #fff;
-    margin: 0;
-}
-
-#animated-text {
-    font-weight: bold;
 }
