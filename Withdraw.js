@@ -85,5 +85,5 @@ function showMessage(text, type) {
     popup.style.display = 'block';
     setTimeout(() => {
         popup.style.display = 'none';
-    }, 3000);
+    }, 2000);
 }
