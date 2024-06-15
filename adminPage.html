@@ -96,14 +96,24 @@
 </head>
 
 <body>
-    <div id="spinner" class="spinner hidden"></div>
+    <div id="spinner" class="spinner hidden">
+        <div class="spinner-container">
+            <div class="spinner-dot"></div>
+            <div class="spinner-dot"></div>
+            <div class="spinner-dot"></div>
+        </div>
+    </div>
     <div class="container">
         <form id="loginForm" onsubmit="loginAdmin(event)">
             <h2>Admin Login</h2>
-            <label for="adminEmail">Email:</label>
-            <input type="email" id="adminEmail" required>
-            <label for="adminPassword">Password:</label>
-            <input type="password" id="adminPassword" required>
+            <div class="form-group">
+                <label for="adminEmail">Email:</label>
+                <input type="email" id="adminEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">Password:</label>
+                <input type="password" id="adminPassword" required>
+            </div>
             <button type="submit">Login</button>
         </form>
         <div id="dashboard" class="hidden">
