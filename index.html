@@ -10,55 +10,62 @@
 
 <body>
     <div class="home_page">
-        <div class="popup">
-            <button id="close">&times;</button>
-            <h2>This Is A Information</h2>
-            <p>
-                thanks For Visiting Our Website. This Platform makes You RICH Day by Day . So Join This FREE platform & make MONEY
-            </p>
-            <a href="/register.html" class="regis">REGISTER</a>
-            <a id="closeClick" href="#" class="closis">Click to Close</a>
+        <div class="intro-animation">
+            <span class="word">Click</span>
+            <span class="word">and</span>
+            <span class="word">Win</span>
         </div>
-        <nav class="nav">
-            <div class="nav-logo">
-                <a href="/">
-                    <p id="clickAndWin">Click & Win</p>
-                </a>
+        <div class="content-wrapper">
+            <div class="popup">
+                <button id="close">&times;</button>
+                <h2>This Is A Information</h2>
+                <p>
+                    Thanks for visiting our website. This platform makes you RICH day by day. So join this FREE platform & make MONEY.
+                </p>
+                <a href="/register.html" class="regis">REGISTER</a>
+                <a id="closeClick" href="#" class="closis">Click to Close</a>
             </div>
-            <div class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="/" class="link active">Home</a></li>
-                    <li><a href="/adminPage.html" class="link">Admin</a></li>
-                    <li><a href="/tested.html" class="link">tested</a></li>
-                    <li><a href="/about.html" class="link">About</a></li>
-                </ul>
-            </div>
-            <div class="nav-button">
-                <button class="btn white-btn" id="loginBtn" onclick="login()"><a href="/login.html">Sign In</a></button>
-            </div>
-            <div class="nav-menu-btn">
-                <i class="bx bx-menu" id="hamburger" onclick="toggleMenu()">☰</i>
-            </div>
-        </nav>
-        <div class="contentz">
-            <h3 id="typed-text">Your Text Here</h3>
-            <h2>"
-                Click to Cash"<br>
-                <p id="animated-text">Share the joy, under the sky.</p>
-            </h2>
-            <div>
-                <span class="iconify" data-icon="akar-icons"></span>
+            <nav class="nav">
+                <div class="nav-logo">
+                    <a href="/">
+                        <p id="clickAndWin">Click & Win</p>
+                    </a>
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="/" class="link active">Home</a></li>
+                        <li><a href="/adminPage.html" class="link">Admin</a></li>
+                        <li><a href="/tested.html" class="link">Tested</a></li>
+                        <li><a href="/about.html" class="link">About</a></li>
+                    </ul>
+                </div>
+                <div class="nav-button">
+                    <button class="btn white-btn" id="loginBtn" onclick="login()"><a href="/login.html">Sign In</a></button>
+                </div>
+                <div class="nav-menu-btn">
+                    <i class="bx bx-menu" id="hamburger" onclick="toggleMenu()">☰</i>
+                </div>
+            </nav>
+            <div class="contentz">
+                <h3 id="typed-text">Your Text Here</h3>
+                <h2>"Click to Cash"<br>
+                    <p id="animated-text">Share the joy, under the sky.</p>
+                </h2>
+                <div>
+                    <span class="iconify" data-icon="akar-icons"></span>
+                </div>
             </div>
         </div>
-
-        
-
-        
     </div>
 
     <script src="aleart.js"></script>
-    <script src="menu.js"></script> <!-- Add this script tag for the menu toggle script -->
-    
+    <script src="menu.js"></script>
+    <script>
+        setTimeout(() => {
+            document.querySelector('.intro-animation').classList.add('fade-out');
+            document.querySelector('.content-wrapper').classList.add('fade-in');
+        }, 2000);
+    </script>
 </body>
 
 </html>
