@@ -9,11 +9,10 @@
     list-style: none;
 }
 
-.regis {
+.regis{
     border-radius: 27px;
 }
-
-.closis {
+.closis{
     border-radius: 20px;
     background-color: red !important;
 }
@@ -72,8 +71,7 @@ body {
     margin: 0 15px;
 }
 
-.link:hover,
-.active {
+.link:hover, .active {
     border-bottom: 2px solid #fff;
 }
 
@@ -121,10 +119,9 @@ body {
     justify-content: center;
     gap: 1.5rem;
     text-align: center;
-    display: none;
 }
 
-#clickAndWin {
+#clickAndWin{
     font-weight: bold;
 }
 
@@ -136,8 +133,7 @@ body {
     animation: fadeInUp 1s ease-in-out;
 }
 
-.contentz h1,
-h2 {
+.contentz h1, h2 {
     letter-spacing: 2px;
 }
 
@@ -233,15 +229,14 @@ h2 {
     width: fit-content;
     white-space: nowrap;
     overflow: hidden;
+
     animation: typing 5s steps(30, end), blink-caret .75s step-end infinite;
 }
 
 @keyframes blink-caret {
-    from,
-    to {
+    from, to {
         border-color: transparent;
     }
-
     50% {
         border-color: black;
     }
@@ -251,7 +246,6 @@ h2 {
     from {
         width: 0;
     }
-
     to {
         width: 100%;
     }
@@ -320,7 +314,6 @@ h2 {
         opacity: 0;
         transform: translate3d(0, 40px, 0);
     }
-
     to {
         opacity: 1;
         transform: translate3d(0, 0, 0);
@@ -332,7 +325,6 @@ h2 {
         opacity: 0;
         transform: translate3d(-40px, 0, 0);
     }
-
     to {
         opacity: 1;
         transform: translate3d(0, 0, 0);
@@ -343,14 +335,73 @@ h2 {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
 
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-    }
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    overflow: hidden;
+}
+
+#typed-text {
+    font-family: 'Comic Neue', cursive;
+    font-size: 3rem;
+    color: #efc90c;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: fadeIn 2s, movieTextEffect 2s infinite;
+    border: none;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes movieTextEffect {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+    margin: 0;
+}
+
+#animated-text {
+    font-weight: bold;
 }
