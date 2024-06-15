@@ -30,7 +30,7 @@
             font-size: 10px;
         }
 
-        .spinner > div {
+        .spinner>div {
             background-color: #333;
             height: 100%;
             width: 6px;
@@ -52,9 +52,14 @@
         }
 
         @keyframes sk-chase {
-            0%, 40%, 100% { 
+
+            0%,
+            40%,
+            100% {
                 transform: scaleY(0.4);
-            }  20% { 
+            }
+
+            20% {
                 transform: scaleY(1.0);
             }
         }
@@ -142,13 +147,11 @@
                 <button type="submit">Update Links</button>
             </form>
         </div>
-        <div id="spinnerOverlay" class="spinner-overlay">
-            <div id="spinner" class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-            </div>
+        <div id="spinner" class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
         </div>
     </div>
 
@@ -160,8 +163,8 @@
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPassword').value;
 
-            const spinnerOverlay = document.getElementById('spinnerOverlay');
-            spinnerOverlay.style.display = 'flex'; // Show spinner
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block'; // Show spinner
 
             try {
                 const response = await fetch(`${apiUrl}/admin/login`, {
@@ -184,7 +187,7 @@
             } catch (error) {
                 alert('An error occurred while logging in.');
             } finally {
-                spinnerOverlay.style.display = 'none'; // Hide spinner after login attempt
+                spinner.style.display = 'none'; // Hide spinner after login attempt
             }
         }
 
@@ -213,8 +216,8 @@
                 },
             ];
 
-            const spinnerOverlay = document.getElementById('spinnerOverlay');
-            spinnerOverlay.style.display = 'flex'; // Show spinner
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block'; // Show spinner
 
             try {
                 const response = await fetch(`${apiUrl}/links`, {
@@ -230,7 +233,7 @@
             } catch (error) {
                 alert('An error occurred while updating links.');
             } finally {
-                spinnerOverlay.style.display = 'none'; // Hide spinner after update attempt
+                spinner.style.display = 'none'; // Hide spinner after update attempt
             }
         }
 
