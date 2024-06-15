@@ -6,93 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="adminPage.css">
-    <script>
-        const apiUrl = "https://backend-recent-2.onrender.com";
-
-        async function loginAdmin(event) {
-            event.preventDefault();
-            const email = document.getElementById('adminEmail').value;
-            const password = document.getElementById('adminPassword').value;
-
-            showSpinner();
-
-            const response = await fetch(`${apiUrl}/admin/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            hideSpinner();
-
-            if (response.ok) {
-                sessionStorage.setItem('adminLoggedIn', true);
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
-            } else {
-                alert(data.message);
-            }
-        }
-
-        async function updateLinks(event) {
-            event.preventDefault();
-            const links = [
-                {
-                    url: document.getElementById('affiliateLink1').value,
-                    imageUrl: document.getElementById('imageLink1').value,
-                    index: parseInt(document.getElementById('index1').value)
-                },
-                {
-                    url: document.getElementById('affiliateLink2').value,
-                    imageUrl: document.getElementById('imageLink2').value,
-                    index: parseInt(document.getElementById('index2').value)
-                },
-                {
-                    url: document.getElementById('affiliateLink3').value,
-                    imageUrl: document.getElementById('imageLink3').value,
-                    index: parseInt(document.getElementById('index3').value)
-                },
-                {
-                    url: document.getElementById('affiliateLink4').value,
-                    imageUrl: document.getElementById('imageLink4').value,
-                    index: parseInt(document.getElementById('index4').value)
-                },
-            ];
-
-            showSpinner();
-
-            const response = await fetch(`${apiUrl}/links`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ links }),
-            });
-
-            const data = await response.json();
-            alert(data.message);
-
-            hideSpinner();
-        }
-
-        function showSpinner() {
-            document.getElementById('spinner').classList.remove('hidden');
-        }
-
-        function hideSpinner() {
-            document.getElementById('spinner').classList.add('hidden');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('adminLoggedIn')) {
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
-            }
-        });
-    </script>
 </head>
 
 <body>
@@ -156,6 +69,101 @@
             </form>
         </div>
     </div>
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+
+        async function loginAdmin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            showSpinner();
+
+            try {
+                const response = await fetch(`${apiUrl}/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    sessionStorage.setItem('adminLoggedIn', true);
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('An error occurred while logging in.');
+            } finally {
+                hideSpinner();
+            }
+        }
+
+        async function updateLinks(event) {
+            event.preventDefault();
+            const links = [
+                {
+                    url: document.getElementById('affiliateLink1').value,
+                    imageUrl: document.getElementById('imageLink1').value,
+                    index: parseInt(document.getElementById('index1').value)
+                },
+                {
+                    url: document.getElementById('affiliateLink2').value,
+                    imageUrl: document.getElementById('imageLink2').value,
+                    index: parseInt(document.getElementById('index2').value)
+                },
+                {
+                    url: document.getElementById('affiliateLink3').value,
+                    imageUrl: document.getElementById('imageLink3').value,
+                    index: parseInt(document.getElementById('index3').value)
+                },
+                {
+                    url: document.getElementById('affiliateLink4').value,
+                    imageUrl: document.getElementById('imageLink4').value,
+                    index: parseInt(document.getElementById('index4').value)
+                },
+            ];
+
+            showSpinner();
+
+            try {
+                const response = await fetch(`${apiUrl}/links`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ links }),
+                });
+
+                const data = await response.json();
+                alert(data.message);
+            } catch (error) {
+                alert('An error occurred while updating links.');
+            } finally {
+                hideSpinner();
+            }
+        }
+
+        function showSpinner() {
+            document.getElementById('spinner').classList.remove('hidden');
+        }
+
+        function hideSpinner() {
+            document.getElementById('spinner').classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('adminLoggedIn')) {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
 
 </html>

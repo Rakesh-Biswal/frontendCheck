@@ -30,7 +30,8 @@ form {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-h2, h3 {
+h2,
+h3 {
     text-align: center;
     color: #333;
 }
@@ -45,7 +46,11 @@ label {
     color: #555;
 }
 
-input[type="email"], input[type="password"], input[type="text"], input[type="number"], button {
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"],
+button {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -76,6 +81,7 @@ button:hover {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -120,10 +126,31 @@ button:hover {
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-15px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    form {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"],
+    input[type="number"],
+    button {
+        font-size: 14px;
     }
 }
