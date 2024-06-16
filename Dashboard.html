@@ -132,6 +132,7 @@
                     });
 
                     const linksContainer = document.getElementById('links-container');
+                    linksContainer.innerHTML = ''; // Clear existing links
 
                     linksData.forEach((linkData) => {
                         const linkBox = document.createElement('div');
