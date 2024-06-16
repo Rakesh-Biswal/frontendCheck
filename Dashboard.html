@@ -99,6 +99,15 @@
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
+        // Function to insert links at the beginning of the container
+        function insertLinkAtBeginning(container, linkBox) {
+            if (container.firstChild) {
+                container.insertBefore(linkBox, container.firstChild);
+            } else {
+                container.appendChild(linkBox);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             const spinnerOverlay = document.getElementById('spinner-overlay');
             spinnerOverlay.style.display = 'flex'; // Show spinner initially
@@ -132,7 +141,6 @@
                     });
 
                     const linksContainer = document.getElementById('links-container');
-                    linksContainer.innerHTML = ''; // Clear existing links
 
                     linksData.forEach((linkData) => {
                         const linkBox = document.createElement('div');
@@ -153,7 +161,8 @@
                         link.appendChild(img);
                         linkImgDiv.appendChild(link);
                         linkBox.appendChild(linkImgDiv);
-                        linksContainer.appendChild(linkBox);
+
+                        insertLinkAtBeginning(linksContainer, linkBox); // Insert new link at the beginning
 
                         const linkStatus = profileData.linkStatus[linkData.index];
                         if (linkStatus) {
