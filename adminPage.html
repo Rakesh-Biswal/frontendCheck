@@ -85,11 +85,11 @@
             margin-left: 10px;
         }
 
-        .holdData{
+        .holdData {
             display: flex;
             align-items: center;
             justify-content: center;
-            column-gap:3vw;
+            column-gap: 3vw;
         }
 
         @media screen and (max-width: 600px) {
@@ -123,10 +123,11 @@
                 <div class="title">Our Company History</div>
 
                 <div class="holdData">
-                    <div id="linkClicks">Link Clicks Today: <span id="ClickValue" style="font-weight: bold;"></span> </div>
+                    <div id="linkClicks">Link Clicks Today: <span id="ClickValue" style="font-weight: bold;"></span>
+                    </div>
                     <div id="totalUsers">Total Users: <span id="UserValue" style="font-weight: bold;"></span> </div>
                 </div>
-                
+
             </div>
             <h2>Admin Dashboard</h2>
             <form id="linkForm" onsubmit="updateLinks(event)">
@@ -207,7 +208,7 @@
             const password = document.getElementById('adminPassword').value;
 
             const spinner = document.getElementById('spinner');
-            spinner.style.display = 'block'; 
+            spinner.style.display = 'block';
 
             try {
                 const response = await fetch(`${apiUrl}/admin/login`, {
@@ -227,7 +228,7 @@
                     document.getElementById('dashboard').classList.remove('hidden');
                     await fetchStatistics();
                 } else {
-                    spinner.style.display = 'none'; 
+                    spinner.style.display = 'none';
                     alert(data.message);
                 }
             } catch (error) {
@@ -243,9 +244,9 @@
                 const response = await fetch(`${apiUrl}/statistics`);
                 const data = await response.json();
 
-                document.getElementById('ClickValue').textContent =data.linkClicksToday;
+                document.getElementById('ClickValue').textContent = data.linkClicksToday;
                 console.log(data.linkClicksToday);
-                document.getElementById('UserValue').textContent =data.totalUsers;
+                document.getElementById('UserValue').textContent = data.totalUsers;
                 console.log(data.totalUsers);
             } catch (error) {
                 console.error('Error fetching statistics:', error);
@@ -297,7 +298,7 @@
             } catch (error) {
                 alert('An error occurred while updating links.');
             } finally {
-                spinner.style.display = 'none'; 
+                spinner.style.display = 'none';
             }
         }
 
@@ -305,6 +306,7 @@
             if (sessionStorage.getItem('adminLoggedIn')) {
                 document.getElementById('loginForm').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
+                fetchStatistics();
             }
         });
     </script>
