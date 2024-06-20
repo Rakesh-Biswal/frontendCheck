@@ -225,7 +225,7 @@
                     spinner.style.display = 'none';
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('dashboard').classList.remove('hidden');
-                    fetchStatistics();
+                    await fetchStatistics();
                 } else {
                     spinner.style.display = 'none'; 
                     alert(data.message);
