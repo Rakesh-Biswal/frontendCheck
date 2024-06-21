@@ -37,7 +37,7 @@
             text-align: center;
         }
 
-        .spinner > div {
+        .spinner>div {
             width: 18px;
             height: 18px;
             background-color: #333;
@@ -55,6 +55,7 @@
         }
 
         @keyframes bounce {
+
             0%,
             80%,
             100% {
@@ -135,10 +136,17 @@
                 const linksData = await linksResponse.json();
 
                 if (profileResponse.ok && linksResponse.ok) {
-                    document.getElementById('username').textContent = profileData.name;
+
+                    let displayName = profileData.name.split(' ')[0];
+
+                    // Fallback: truncate if the name is still too long
+                    if (displayName.length > 10) {
+                        displayName = displayName.substring(0, 10) + '...';
+                    }
+                    document.getElementById('username').textContent = displayName;
                     document.getElementById('coinBank').textContent = profileData.coins;
                     document.getElementById('profilePic').addEventListener('click', () => {
-                        window.location.href =`profile.html?userId=${profileData.userId}`;
+                        window.location.href = `profile.html?userId=${profileData.userId}`;
                     });
 
                     const linksContainer = document.getElementById('links-container');
