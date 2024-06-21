@@ -17,6 +17,13 @@
     background-color: red !important;
 }
 
+.regis:hover{
+   transform: scale(120%);
+}
+.closis:hover{
+    transform: scale(120%);
+}
+
 *::selection {
     background: crimson;
     color: #fff;
@@ -379,7 +386,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #000000;
+    background: #413f3f;
     padding: 20px;
     border-radius: 10px;
     z-index: 1000;
@@ -389,6 +396,11 @@ button {
     margin: 10px;
     padding: 10px 20px;
     font-size: 1rem;
+}
+
+.scanImage{
+    height: 320px;
+    width: 400px;
 }
 
 
