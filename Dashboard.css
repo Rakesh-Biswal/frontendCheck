@@ -6,37 +6,19 @@
     font-family: Arial, sans-serif;
 }
 
+body {
+    background-color: rgb(1, 45, 63);
+}
+
 #profilePic {
     width: 50px; /* Adjust as needed */
-    height: 40px; /* Adjust as needed */
+    height: 50px; /* Adjust as needed */
     transform-origin: top center; /* Set the pivot point at the top center */
-    animation: swing 2s ease-in-out infinite;
     cursor: pointer;
 }
-#profilePic:hover {
-    transform: scale(115%);
-}
-
-@keyframes swing {
-    0% {
-        transform: rotate(0deg);
-    }
-    25% {
-        transform: rotate(15deg);
-    }
-    50% {
-        transform: rotate(0deg);
-    }
-    75% {
-        transform: rotate(-15deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
 
 #profilePic:hover {
-    transform: scale(115%);
+    transform: scale(108%);
 }
 
 .coin-photos {
@@ -50,7 +32,11 @@
     font-size: 25px;
 }
 
-#username,
+#username {
+    color: white;
+    font-weight: 500;
+}
+
 #coinBank {
     color: rgb(246, 255, 0);
     font-weight: bolder;
@@ -99,11 +85,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #3F51B5;
+    background: linear-gradient(90deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
     color: white;
     padding: 0 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1s ease-in-out;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-radius: 0 0 10px 10px;
 }
 
 .welcome-msg {
@@ -140,6 +130,7 @@
     font-size: 20px;
     display: flex;
     align-items: center;
+    padding-right: 10px;
 }
 
 /* Main section styles */
