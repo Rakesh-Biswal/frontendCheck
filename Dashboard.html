@@ -65,81 +65,6 @@
                 transform: scale(1.0);
             }
         }
-
-        /* Advertisement Styles */
-        #ad-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 500px;
-            background-color: rgb(130, 126, 126);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            display: none;
-            z-index: 1001;
-            animation: popUp 0.5s ease-in-out;
-        }
-
-        #ad-container img {
-            width: 100%;
-            border-bottom: 1px solid #ccc;
-            cursor: pointer;
-        }
-
-        #ad-close {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #ff5c5c;
-            border: none;
-            border-radius: 50%;
-            width: 43px;
-            height: 43px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        #ad-close svg {
-            fill: white;
-            width: 30px;
-            height: 30px;
-        }
-
-        #timer {
-            position: absolute;
-            top: 8px;
-            right: 40px;
-            background: #333;
-            color: rgb(251, 255, 0);
-            border-radius: 12px;
-            padding: 4px 8px;
-            font-size: 25px;
-        }
-
-        @keyframes popUp {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -40%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            #ad-container {
-                width: 90%;
-            }
-        }
     </style>
 </head>
 
@@ -165,26 +90,16 @@
         </div>
     </div>
 
-    <div id="ad-container">
-        <img src="add.jpg" id="ad-image" alt="Advertisement">
-        <button id="ad-close">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12 10.585l4.95-4.95 1.415 1.415L13.415 12l4.95 4.95-1.415 1.415L12 13.415l-4.95 4.95-1.415-1.415L10.585 12 5.635 7.05 7.05 5.635z"/>
-            </svg>
-        </button>
-        <div id="timer" style="font-weight: bold;">5s</div>
-    </div>
-
     <div id="content">
         <section class="main" id="links-container">
-            <!-- Links wil be gene..-->
+            <!-- Links will be dynamically inserted here -->
         </section>
     </div>
 
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
-        
+        // Function to insert links at the beginning of the container
         function insertLinkAtBeginning(container, linkBox) {
             if (container.firstChild) {
                 container.insertBefore(linkBox, container.firstChild);
@@ -195,7 +110,7 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             const spinnerOverlay = document.getElementById('spinner-overlay');
-            spinnerOverlay.style.display = 'flex';
+            spinnerOverlay.style.display = 'flex'; // Show spinner initially
             document.body.classList.add('spinner-active');
 
             const userId = new URLSearchParams(window.location.search).get('userId');
@@ -222,7 +137,7 @@
                     document.getElementById('username').textContent = profileData.name;
                     document.getElementById('coinBank').textContent = profileData.coins;
                     document.getElementById('profilePic').addEventListener('click', () => {
-                        window.location.href = `profile.html?userId=${profileData.userId}`;
+                        window.location.href =`profile.html?userId=${profileData.userId}`;
                     });
 
                     const linksContainer = document.getElementById('links-container');
@@ -237,7 +152,7 @@
                         const link = document.createElement('a');
                         link.href = linkData.url;
                         link.classList.add('link');
-                        link.dataset.linkIndex = linkData.index;
+                        link.dataset.linkIndex = linkData.index; // Use the received index from backend
 
                         const img = document.createElement('img');
                         img.src = linkData.imageUrl;
@@ -247,7 +162,7 @@
                         linkImgDiv.appendChild(link);
                         linkBox.appendChild(linkImgDiv);
 
-                        insertLinkAtBeginning(linksContainer, linkBox);
+                        insertLinkAtBeginning(linksContainer, linkBox); // Insert new link at the beginning
 
                         const linkStatus = profileData.linkStatus[linkData.index];
                         if (linkStatus) {
@@ -259,7 +174,7 @@
                         link.addEventListener('click', async (event) => {
                             event.preventDefault();
 
-                            const stayTime = 5000;
+                            const stayTime = 5000; // 5 seconds
                             const startTime = Date.now();
 
                             let timeoutId = setTimeout(() => {
@@ -281,7 +196,7 @@
                             };
 
                             document.addEventListener('visibilitychange', handleVisibilityChange);
-                            window.location.href = link.href;
+                            window.location.href = link.href; // Redirect to the clicked link
                         });
                     });
                 } else {
@@ -290,50 +205,9 @@
             } catch (error) {
                 console.error('Error:', error);
             } finally {
-                spinnerOverlay.style.display = 'none'; 
+                spinnerOverlay.style.display = 'none'; // Hide spinner after loading completes (success or error)
                 document.body.classList.remove('spinner-active');
             }
-
-            
-            const adContainer = document.getElementById('ad-container');
-            const adCloseButton = document.getElementById('ad-close');
-            const adImage = document.getElementById('ad-image');
-            const timer = document.getElementById('timer');
-            let countdown = 5;
-
-            
-            adContainer.style.display = 'block';
-            document.body.classList.add('spinner-active');
-
-            
-            const timerInterval = setInterval(() => {
-                countdown -= 1;
-                timer.textContent = `${countdown}s`;
-
-                if (countdown <= 0) {
-                    clearInterval(timerInterval);
-                    adCloseButton.style.pointerEvents = 'auto';
-                    adCloseButton.style.opacity = '1';
-                    timer.style.display = 'none';
-                }
-            }, 1000);
-
-            
-            setTimeout(() => {
-                adContainer.style.display = 'none';
-                document.body.classList.remove('spinner-active');
-            }, 9000);
-
-            
-            adCloseButton.addEventListener('click', () => {
-                adContainer.style.display = 'none';
-                document.body.classList.remove('spinner-active');
-            });
-
-            
-            adImage.addEventListener('click', () => {
-                window.location.href = `referral.html?userId=${userId}`;
-            });
         });
 
         async function updateCoinAndLinkState(index) {
