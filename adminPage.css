@@ -11,6 +11,11 @@ body {
     min-height: 100vh;
 }
 
+.link-input-row{
+    display: flex;
+    column-gap: 20px;
+}
+
 .container {
     width: 100%;
     max-width: 1200px; /* Increased max-width for desktop screens */
