@@ -9,21 +9,18 @@
 body, html {
     height: 100%;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    overflow: auto; /* Ensure the page can scroll */
+    overflow-y: auto; /* Ensure vertical scrolling */
 }
 
 .referral-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 100%;
     padding: 20px;
+    min-height: 100vh; /* Ensure the section takes full viewport height */
 }
 
 .card {
@@ -36,7 +33,6 @@ body, html {
     max-width: 400px;
     margin-bottom: 20px;
     animation: fadeIn 1s ease-in-out;
-    overflow: hidden; /* Prevent overflow within the card */
 }
 
 h2 {
@@ -82,6 +78,7 @@ p {
 
 .referral-status {
     width: 100%;
+    max-width: 400px;
 }
 
 .referral-status h3 {
@@ -94,6 +91,7 @@ p {
     list-style-type: none;
     padding: 0;
     text-align: center;
+    width: 100%;
 }
 
 #referralList li {
@@ -103,6 +101,7 @@ p {
     border-radius: 5px;
     color: #333;
     transition: transform 0.3s ease-in-out;
+    width: 100%;
 }
 
 #referralList li:hover {
