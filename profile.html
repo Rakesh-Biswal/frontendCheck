@@ -7,14 +7,14 @@
     <title>Profile</title>
     <link rel="stylesheet" href="profile.css">
     <style>
-        /* Spinner CSS */
-        .spinner-overlay {
+        
+         .spinner-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.318);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -24,12 +24,12 @@
 
         .spinner {
             border: 6px solid rgba(0, 0, 0, 0.1);
-            border-left-color: #4CAF50;
+            border-left-color: #05135b;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
-        }
+        } 
 
         /* Animations */
         @keyframes fadeIn {
@@ -51,33 +51,27 @@
 
 <body>
 
-    <!-- Spinner -->
+    
     <div class="spinner-overlay" id="spinner">
         <div class="spinner"></div>
     </div>
 
-    <nav id="nav-bar">
-        <div class="welcome-msg">
-            <span id="username"></span>
-        </div>
-        <div class="nav-items">
-            <img class="user-profile" id="profilePic" src="user-profile.svg" alt="">
-            <a href="index.html" class="user-signOut">Sign out</a>
-        </div>
-    </nav>
-
+    <div class="company-logo">
+        <img src="titleLogo.jpg" alt="">
+    </div>
     <section class="profile-info">
-        <img class="user-profile-photo" src="user-profile.svg" alt="User Profile">
+        <img class="user-profile-photo" src="user-profile.jpg" alt="User Profile">
         <div class="user-information">
-            <div><span>Username:</span><span id="usernames"></span></div>
-            <div><span>ID:</span><span id="id"></span></div>
-            <div><span>IP:</span><span id="ip"></span></div>
+            <div class="profile-name"><span id="usernames"></span></div>
+            
+            <div><span>ID : </span><span id="id"></span></div>
+            <div><span>Successful Referrals : </span><span id="referrals">...</span></div>
+            <div><span>Unvisited Links : </span><span id="unvisited-link">...</span></div>
+            <div class="balance-info"><span> Coin Balance :</span><span id="wallet-balance" class="same"></span></div>
         </div>
-        <div class="wallet-info">
-            <div class="balance-info">
-                <span>Balance:</span><span id="wallet-balance" class="same"></span>
-            </div>
-        </div>
+        <!-- <div class="wallet-info">
+            
+        </div> -->
     </section>
 
     <script src="//code.tidio.co/y52anw0agxaj9ehjys9kl4woyzquvmsn.js" async></script>
@@ -96,7 +90,7 @@
         <div class="service-item" id="Promotion">
 
             <img src="promotion.png" alt="">
-            <span class="service-label">Promotion</span>
+            <span class="service-label">Refer a Friend</span>
 
         </div>
         <div class="service-item" id="Address">
@@ -112,10 +106,10 @@
 
         </div>
         <div class="service-item" id="About">
-            <a href="">
-                <img src="about.png" alt="">
+            
+                <img src="about.png" alt="About">
                 <span class="service-label">About</span>
-            </a>
+            
         </div>
     </section>
 
@@ -124,19 +118,19 @@
     </div>
 
     <span class="assistance">
-        <a href="/"><img src="assistance.png" alt=""></a>
+        <a href="https://chat.whatsapp.com/IQiv8Zh88HuIMUwlwNE9ml"><img style=" filter: brightness(100);" src="https://w0.peakpx.com/wallpaper/544/862/HD-wallpaper-whatsapp-development-brand.jpg" alt=""></a>
     </span>
 
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
         document.addEventListener('DOMContentLoaded', async () => {
-            // Function to show spinner
+            
             function showSpinner() {
                 document.getElementById('spinner').style.display = 'flex';
             }
 
-            // Function to hide spinner
+            
             function hideSpinner() {
                 document.getElementById('spinner').style.display = 'none';
             }
@@ -152,7 +146,7 @@
             }
 
             try {
-                showSpinner(); // Show spinner before fetching data
+                showSpinner();
 
                 const response = await fetch(`${apiUrl}/personal/${userId}`, {
                     method: 'GET',
@@ -161,11 +155,13 @@
 
                 const data = await response.json();
                 if (response.ok) {
-                    document.getElementById('username').textContent = data.name;
+                    
                     document.getElementById('usernames').textContent = data.name;
                     document.getElementById('id').textContent = data.id;
                     document.getElementById('wallet-balance').textContent = data.coins;
-                    document.getElementById('ip').textContent = data.ip;
+                    document.getElementById('referrals').textContent = data.totalReferrals;
+                    document.getElementById('unvisited-link').textContent = data.totalUnvisitedLinks;
+                    
 
                     document.getElementById('withDrawal').addEventListener('click', () => {
 
@@ -185,7 +181,7 @@
             } catch (error) {
                 console.error('Error:', error);
             } finally {
-                hideSpinner(); // Hide spinner after fetching data
+                hideSpinner();
             }
         });
     </script>
