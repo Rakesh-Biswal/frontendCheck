@@ -112,12 +112,12 @@
 
         async function updateStatus(paymentId, status) {
             try {
-                const response = await fetch(`${apiUrl}/adminRes/${paymentId}`, {
+                const response = await fetch(`${apiUrl}/adminRes`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ status })
+                    body: JSON.stringify({ status,paymentId})
                 });
 
                 if (response.ok) {
