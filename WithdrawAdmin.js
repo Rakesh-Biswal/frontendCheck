@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <p>UPI ID: ${withdrawal.UpiId}</p>
           <p>Date: ${new Date(withdrawal.createdAt).toLocaleDateString()}</p>
           <div class="buttons">
-            <button onclick="updateStatus('${withdrawal._id}', 'success')">Approve</button>
+            <button onclick="updateStatus('${withdrawal._id}', 'approved')">Approve</button>
             <button onclick="updateStatus('${withdrawal._id}', 'rejected')">Reject</button>
           </div>
         `;
