@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function updateStatus(paymentId, status) {
   try {
-    const response = await fetch(`${apiUrl}/admin/withdraw-requests/${paymentId}`, {
+    const response = await fetch(`${apiUrl}/adminRes/${paymentId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
