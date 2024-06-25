@@ -93,7 +93,7 @@
         }
 
         @media screen and (max-width: 600px) {
-            .navbar{
+            .navbar {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -120,14 +120,17 @@
         </form>
         <div id="dashboard" class="hidden">
             <div class="navbar">
-                
+
                 <div class="holdData">
-                    <div id="linkClicks">Total Link Clicked : <span id="ClickValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
+                    <div id="linkClicks">Total Link Clicked : <span id="ClickValue"
+                            style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
                     </div>
-                    <div id="totalUsers">Total Users  : <span id="UserValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span> </div>
+                    <div id="totalUsers">Total Users : <span id="UserValue"
+                            style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span> </div>
                 </div>
                 <div class="Withdrawal">
-                    <button value="WithDrawal" name="Withdrawal" id="WithdrawStatus" style="font-weight: Bold; cursor: pointer; font-size: 30px; padding: 10px; border-radius: 23px; margin: auto;">WithDrawal</button>
+                    <button value="WithDrawal" name="Withdrawal" id="WithdrawStatus"
+                        style="font-weight: Bold; cursor: pointer; font-size: 30px; padding: 10px; border-radius: 23px; margin: auto;">WithDrawal</button>
                 </div>
 
             </div>
@@ -228,9 +231,6 @@
                     spinner.style.display = 'none';
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('dashboard').classList.remove('hidden');
-                    document.getElementById('WithdrawStatus').addEventListener('click',()=>{
-                        window.location.href = 'WithdrawAdmin.html';
-                    });
                     await fetchStatistics();
                 } else {
                     spinner.style.display = 'none';
@@ -253,6 +253,9 @@
                 console.log(data.linkClicksToday);
                 document.getElementById('UserValue').textContent = data.totalUsers;
                 console.log(data.totalUsers);
+                document.getElementById('WithdrawStatus').addEventListener('click', () => {
+                    window.location.href = 'WithdrawAdmin.html';
+                });
             } catch (error) {
                 console.error('Error fetching statistics:', error);
                 alert('Failed to fetch statistics.');
