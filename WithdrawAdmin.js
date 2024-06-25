@@ -39,18 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function updateStatus(paymentId, status) {
   try {
-    const response = await fetch(`${apiUrl}/admin/withdrawal-requests/${paymentId}`, {
+    const response = await fetch(`${apiUrl}/admin/withdraw-requests/${paymentId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ status })
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to update withdrawal request status: ${errorText}`);
-    }
 
     // Remove the card from the UI
     document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
