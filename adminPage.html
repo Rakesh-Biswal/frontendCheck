@@ -126,6 +126,9 @@
                     </div>
                     <div id="totalUsers">Total Users  : <span id="UserValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span> </div>
                 </div>
+                <div class="Withdrawal">
+                    <button value="WithDrawal" name="Withdrawal" id="WithdrawStatus" style="font-weight: Bold; cursor: pointer; font-size: 30px; padding: 10px; border-radius: 23px; margin: auto;">WithDrawal</button>
+                </div>
 
             </div>
             <h2>Admin Dashboard</h2>
@@ -225,6 +228,9 @@
                     spinner.style.display = 'none';
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('dashboard').classList.remove('hidden');
+                    document.getElementById('WithdrawStatus').addEventListener('click',()=>{
+                        window.location.href = 'WithdrawAdmin.html';
+                    });
                     await fetchStatistics();
                 } else {
                     spinner.style.display = 'none';

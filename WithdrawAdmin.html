@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Withdrawal Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .admin-withdrawals {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .withdrawal-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .withdrawal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .withdrawal-card h3 {
+            margin-top: 0;
+        }
+
+        .withdrawal-card .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .withdrawal-card button {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .withdrawal-card button:hover {
+            background-color: #0056b3;
+        }
+
+        .withdrawal-card button:nth-child(2) {
+            background-color: #dc3545;
+        }
+
+        .withdrawal-card button:nth-child(2):hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="withdrawal-requests" class="admin-withdrawals"></div>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
