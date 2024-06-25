@@ -55,7 +55,6 @@
 
         .withdrawal-card button:hover {
             background-color: #0056b3;
-            
         }
 
         .withdrawal-card button:nth-child(2) {
@@ -64,7 +63,6 @@
 
         .withdrawal-card button:nth-child(2):hover {
             background-color: #c82333;
-            
         }
     </style>
 </head>
@@ -72,7 +70,67 @@
 <body>
     <div id="withdrawal-requests" class="admin-withdrawals"></div>
 
-    <script src="WithdrawAdmin.js"></script>
+    <script>
+        const apiUrl = "https://backend-recent-2.onrender.com";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchWithdrawals();
+
+            async function fetchWithdrawals() {
+                try {
+                    const response = await fetch(`${apiUrl}/admin/withdrawal-requests`);
+                    const withdrawals = await response.json();
+                    displayWithdrawals(withdrawals);
+                } catch (error) {
+                    console.error('Error fetching withdrawal requests:', error);
+                }
+            }
+
+            function displayWithdrawals(withdrawals) {
+                const container = document.getElementById('withdrawal-requests');
+                container.innerHTML = '';
+
+                withdrawals.forEach((withdrawal) => {
+                    const card = document.createElement('div');
+                    card.className = 'withdrawal-card';
+
+                    card.innerHTML = `
+                        <h3>${withdrawal.userId.name}</h3>
+                        <p>Withdrawal Amount: ${withdrawal.withdrawCoin}</p>
+                        <p>UPI ID: ${withdrawal.UpiId}</p>
+                        <p>Date: ${new Date(withdrawal.createdAt).toLocaleDateString()}</p>
+                        <div class="buttons">
+                            <button onclick="updateStatus('${withdrawal._id}', 'approved')">Approve</button>
+                            <button onclick="updateStatus('${withdrawal._id}', 'rejected')">Reject</button>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+            }
+        });
+
+        async function updateStatus(paymentId, status) {
+            try {
+                const response = await fetch(`${apiUrl}/adminRes/${paymentId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    // Remove the card from the UI
+                    document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
+                } else {
+                    console.error('Error updating withdrawal request status:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error updating withdrawal request status:', error);
+            }
+        }
+    </script>
 </body>
 
 </html>
