@@ -123,9 +123,10 @@
                 if (response.ok) {
                     // Remove the card from the UI
                     document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
-                } else {
-                    const errorText = await response.text();
-                    console.error('Error updating withdrawal request status:', response.statusText, errorText);
+                } 
+                else {
+                    
+                    console.error('Error updating withdrawal request status..');
                 }
             } catch (error) {
                 console.error('Error updating withdrawal request status:', error);
