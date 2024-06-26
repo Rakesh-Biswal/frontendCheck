@@ -95,15 +95,15 @@
                     card.className = 'withdrawal-card';
 
                     card.innerHTML = `
-                <h3>${withdrawal.userId.name}</h3>
-                <p>Withdrawal Amount: ${withdrawal.withdrawCoin}</p>
-                <p>UPI ID: ${withdrawal.UpiId}</p>
-                <p>Date: ${new Date(withdrawal.createdAt).toLocaleDateString()}</p>
-                <div class="buttons">
-                    <button onclick="updateStatus('${withdrawal._id}', 'approved')">Approve</button>
-                    <button onclick="updateStatus('${withdrawal._id}', 'rejected')">Reject</button>
-                </div>
-            `;
+                        <h3>${withdrawal.userId.name}</h3>
+                        <p>Withdrawal Amount: ${withdrawal.withdrawCoin}</p>
+                        <p>UPI ID: ${withdrawal.UpiId}</p>
+                        <p>Date: ${new Date(withdrawal.createdAt).toLocaleDateString()}</p>
+                        <div class="buttons">
+                            <button onclick="updateStatus('${withdrawal._id}', 'approved')">Approve</button>
+                            <button onclick="updateStatus('${withdrawal._id}', 'rejected')">Reject</button>
+                        </div>
+                    `;
 
                     container.appendChild(card);
                 });
@@ -112,27 +112,24 @@
 
         async function updateStatus(paymentId, status) {
             try {
-                const response = await fetch(`${apiUrl}/adminRes`, {
+                const response = await fetch(`${apiUrl}/adminRes?paymentId=${paymentId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ status, paymentId })
+                    body: JSON.stringify({ status })
                 });
 
                 if (response.ok) {
                     // Remove the card from the UI
                     document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
-                } 
-                else {
-                    
-                    console.error('Error updating withdrawal request status..');
+                } else {
+                    console.error('Error updating withdrawal request status:', response.statusText);
                 }
             } catch (error) {
                 console.error('Error updating withdrawal request status:', error);
             }
         }
-
     </script>
 </body>
 
