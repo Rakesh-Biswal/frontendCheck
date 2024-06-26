@@ -112,17 +112,18 @@
 
         async function updateStatus(paymentId, status) {
             try {
-                const response = await fetch(`${apiUrl}/adminRes?paymentId=${paymentId}`, {
+                const response = await fetch(`${apiUrl}/adminRes`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ status })
+                    body: JSON.stringify({paymentId, status })
                 });
 
                 if (response.ok) {
+                    alert("suuccessful payment");
                     // Remove the card from the UI
-                    document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
+                    //document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
                 } else {
                     console.error('Error updating withdrawal request status:', response.statusText);
                 }
