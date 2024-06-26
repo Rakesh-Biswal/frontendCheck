@@ -4,131 +4,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Withdrawal Requests</title>
+    <title>Withdrawal Requests</title>
+    <link rel="stylesheet" href="adminPage.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-
-        .admin-withdrawals {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .withdrawal-card {
-            background-color: #fff;
+        .card {
             border: 1px solid #ccc;
             border-radius: 8px;
-            padding: 20px;
+            padding: 16px;
+            margin: 16px;
             width: 300px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            vertical-align: top;
         }
 
-        .withdrawal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .card button {
+            margin: 4px;
         }
 
-        .withdrawal-card h3 {
-            margin-top: 0;
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            font-size: 10px;
+            margin: 20px auto;
         }
 
-        .withdrawal-card .buttons {
-            display: flex;
-            justify-content: space-between;
+        .spinner>div {
+            background-color: #333;
+            height: 100%;
+            width: 6px;
+            display: inline-block;
+            margin-right: 3px;
+            animation: sk-chase 1.4s infinite ease-in-out;
         }
 
-        .withdrawal-card button {
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .spinner .rect2 {
+            animation-delay: -1.2s;
         }
 
-        .withdrawal-card button:hover {
-            background-color: #0056b3;
+        .spinner .rect3 {
+            animation-delay: -1.1s;
         }
 
-        .withdrawal-card button:nth-child(2) {
-            background-color: #dc3545;
+        .spinner .rect4 {
+            animation-delay: -1.0s;
         }
 
-        .withdrawal-card button:nth-child(2):hover {
-            background-color: #c82333;
+        @keyframes sk-chase {
+
+            0%,
+            40%,
+            100% {
+                transform: scaleY(0.4);
+            }
+
+            20% {
+                transform: scaleY(1.0);
+            }
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <div id="withdrawal-requests" class="admin-withdrawals"></div>
+    <div class="container">
+        <h2>Pending Withdrawal Requests</h2>
+        <div id="requestsContainer"></div>
+        <div id="spinner" class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+        </div>
+    </div>
 
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchWithdrawals();
+        document.addEventListener('DOMContentLoaded', async () => {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block';
 
-            async function fetchWithdrawals() {
-                try {
-                    const response = await fetch(`${apiUrl}/admin/withdrawal-requests`);
-                    const withdrawals = await response.json();
-                    displayWithdrawals(withdrawals);
-                } catch (error) {
-                    console.error('Error fetching withdrawal requests:', error);
+            try {
+                const response = await fetch(`${apiUrl}/withdrawals/pending`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const requestsContainer = document.getElementById('requestsContainer');
+                    requestsContainer.innerHTML = '';
+
+                    data.requests.forEach(request => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+
+                        card.innerHTML = `
+                            <p><strong>User ID:</strong> ${request.userId}</p>
+                            <p><strong>Amount:</strong> $${request.amount}</p>
+                            <p><strong>Date:</strong> ${new Date(request.createdAt).toLocaleString()}</p>
+                            <button onclick="handleApprove('${request._id}')">Approve</button>
+                            <button onclick="handleReject('${request._id}')">Reject</button>
+                        `;
+
+                        requestsContainer.appendChild(card);
+                    });
+                } else {
+                    alert(data.message);
                 }
-            }
-
-            function displayWithdrawals(withdrawals) {
-                const container = document.getElementById('withdrawal-requests');
-                container.innerHTML = '';
-
-                withdrawals.forEach((withdrawal) => {
-                    const card = document.createElement('div');
-                    card.className = 'withdrawal-card';
-
-                    card.innerHTML = `
-                        <h3>${withdrawal.userId.name}</h3>
-                        <p>Withdrawal Amount: ${withdrawal.withdrawCoin}</p>
-                        <p>UPI ID: ${withdrawal.UpiId}</p>
-                        <p>Date: ${new Date(withdrawal.createdAt).toLocaleDateString()}</p>
-                        <div class="buttons">
-                            <button onclick="updateStatus('${withdrawal._id}', 'approved')">Approve</button>
-                            <button onclick="updateStatus('${withdrawal._id}', 'rejected')">Reject</button>
-                        </div>
-                    `;
-
-                    container.appendChild(card);
-                });
+            } catch (error) {
+                alert('An error occurred while fetching withdrawal requests.');
+            } finally {
+                spinner.style.display = 'none';
             }
         });
 
-        async function updateStatus(paymentId, status) {
+        async function handleApprove(requestId) {
             try {
-                const response = await fetch(`${apiUrl}/adminRes`, {
+                const response = await fetch(`${apiUrl}/withdrawals/approve`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({paymentId, status })
+                    body: JSON.stringify({ requestId }),
                 });
 
                 if (response.ok) {
-                    alert("suuccessful payment");
-                    // Remove the card from the UI
-                    //document.querySelector(`button[onclick="updateStatus('${paymentId}', '${status}')"]`).closest('.withdrawal-card').remove();
+                    alert('Withdrawal request approved.');
+                    location.reload();
                 } else {
-                    console.error('Error updating withdrawal request status:', response.statusText);
+                    const data = await response.json();
+                    alert(data.message);
                 }
             } catch (error) {
-                console.error('Error updating withdrawal request status:', error);
+                alert('An error occurred while approving the request.');
+            }
+        }
+
+        async function handleReject(requestId) {
+            try {
+                const response = await fetch(`${apiUrl}/withdrawals/reject`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ requestId }),
+                });
+
+                if (response.ok) {
+                    alert('Withdrawal request rejected.');
+                    location.reload();
+                } else {
+                    const data = await response.json();
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert('An error occurred while rejecting the request.');
             }
         }
     </script>
