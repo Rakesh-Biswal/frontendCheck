@@ -94,29 +94,28 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-          <h3>${request.Name}</h3>
-          <p>Coins: ${request.withdrawCoin}</p>
-          <p>UPI ID: ${request.UpiId}</p>
-          <div class="buttons">
-            <button class="button approve" onclick="updateRequestStatus('${request._id}', 'approve')">Approve</button>
-            <button class="button reject" onclick="updateRequestStatus('${request._id}', 'reject')">Reject</button>
-          </div>
-        `;
+                    <h3>${request.Name}</h3>
+                    <p>Coins: ${request.withdrawCoin}</p>
+                    <p>UPI ID: ${request.UpiId}</p>
+                    <div class="buttons">
+                        <button class="button approve" onclick="updateRequestStatus('${request._id}', 'approve')">Approve</button>
+                        <button class="button reject" onclick="updateRequestStatus('${request._id}', 'reject')">Reject</button>
+                    </div>
+                `;
                 container.appendChild(card);
             });
         }
 
         async function updateRequestStatus(requestId, action) {
-            console.log(requestId);
-            const url = `${apiUrl}/withdrawal-requests/${requestId}/${action}`;
+            const url = `${apiUrl}/withdrawal-requests/${action}`;
             try {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    body: JSON.stringify({ requestId }),
                     credentials: 'include'
-
                 });
                 const result = await response.json();
                 alert(result.message);
