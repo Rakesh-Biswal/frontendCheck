@@ -139,6 +139,7 @@
                     <h3>${request.Name}</h3>
                     <p>Coins: ${request.withdrawCoin}</p>
                     <p>UPI ID: ${request.UpiId}</p>
+                    <p>Date: ${new Date(request.createdAt).toLocaleDateString()}</p>
                     <div class="buttons">
                         <button class="button approve" onclick="updateRequestStatus('${request._id}', 'approve')">Approve</button>
                         <button class="button reject" onclick="updateRequestStatus('${request._id}', 'reject')">Reject</button>
