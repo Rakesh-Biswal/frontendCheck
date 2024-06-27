@@ -96,6 +96,7 @@
     }
 
     async function updateRequestStatus(requestId, action) {
+        console.log(requestId);
       const url = `${apiUrl}/withdrawal-requests/${requestId}/${action}`;
       try {
         const response = await fetch(url, {
