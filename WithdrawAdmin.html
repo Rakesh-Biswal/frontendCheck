@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdrawal Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .card h3 {
+      margin: 0 0 10px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .approve {
+      background-color: #4caf50;
+      color: #fff;
+    }
+    .approve:hover {
+      background-color: #45a049;
+    }
+    .reject {
+      background-color: #f44336;
+      color: #fff;
+    }
+    .reject:hover {
+      background-color: #e41e26;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pending Withdrawal Requests</h1>
+  <div id="request-container"></div>
+
+  <script>
+    const apiUrl = "https://backend-recent-2.onrender.com";
+
+    async function fetchPendingRequests() {
+      try {
+        const response = await fetch(`${apiUrl}/withdrawal-requests`);
+        const requests = await response.json();
+        displayRequests(requests);
+      } catch (error) {
+        console.error('Error fetching pending requests:', error);
+      }
+    }
+
+    function displayRequests(requests) {
+      const container = document.getElementById('request-container');
+      container.innerHTML = '';
+
+      requests.forEach(request => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${request.Name}</h3>
+          <p>Coins: ${request.withdrawCoin}</p>
+          <p>UPI ID: ${request.UpiId}</p>
+          <div class="buttons">
+            <button class="button approve" onclick="updateRequestStatus('${request._id}', 'approve')">Approve</button>
+            <button class="button reject" onclick="updateRequestStatus('${request._id}', 'reject')">Reject</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function updateRequestStatus(requestId, action) {
+      const url = `${apiUrl}/withdrawal-requests/${requestId}/${action}`;
+      try {
+        const response = await fetch(url, {
+          method: 'POST'
+        });
+        const result = await response.json();
+        alert(result.message);
+        fetchPendingRequests();
+      } catch (error) {
+        console.error(`Error ${action}ing request:`, error);
+      }
+    }
+
+    fetchPendingRequests();
+  </script>
+</body>
+</html>
