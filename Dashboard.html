@@ -66,6 +66,81 @@
                 transform: scale(1.0);
             }
         }
+
+        /* Advertisement Styles */
+        #ad-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: none;
+            z-index: 1001;
+            animation: popUp 0.5s ease-in-out;
+        }
+
+        #ad-container img {
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        #ad-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff5c5c;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #ad-close svg {
+            fill: white;
+            width: 16px;
+            height: 16px;
+        }
+
+        #timer {
+            position: absolute;
+            top: 8px;
+            right: 40px;
+            background: #333;
+            color: white;
+            border-radius: 12px;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        @keyframes popUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #ad-container {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 
@@ -90,6 +165,17 @@
             <div class="bounce2"></div>
             <div class="bounce3"></div>
         </div>
+    </div>
+
+    <div id="ad-container">
+        <img src="offerB.png" id="ad-image" alt="Advertisement">
+        <button id="ad-close">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                    d="M12 10.585l4.95-4.95 1.415 1.415L13.415 12l4.95 4.95-1.415 1.415L12 13.415l-4.95 4.95-1.415-1.415L10.585 12 5.635 7.05 7.05 5.635z" />
+            </svg>
+        </button>
+        <div id="timer">5s</div>
     </div>
 
     <div id="content">
@@ -217,6 +303,50 @@
                 spinnerOverlay.style.display = 'none'; // Hide spinner after loading completes (success or error)
                 document.body.classList.remove('spinner-active');
             }
+
+
+            // Ad display logic
+            const adContainer = document.getElementById('ad-container');
+            const adCloseButton = document.getElementById('ad-close');
+            const adImage = document.getElementById('ad-image');
+            const timer = document.getElementById('timer');
+            let countdown = 5;
+
+            // Show the ad with animation
+            adContainer.style.display = 'block';
+            document.body.classList.add('spinner-active'); // Blur the background
+
+            // Update the timer every second
+            const timerInterval = setInterval(() => {
+                countdown -= 1;
+                timer.textContent = `${countdown}s`;
+
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    adCloseButton.style.pointerEvents = 'auto';
+                    adCloseButton.style.opacity = '1';
+                    timer.style.display = 'none';
+                }
+            }, 1000);
+
+            // Set a timeout to remove the ad automatically after 7 seconds
+            setTimeout(() => {
+                adContainer.style.display = 'none';
+                document.body.classList.remove('spinner-active'); // Remove background blur
+            }, 7000);
+
+            // Close the ad when the close button is clicked
+            adCloseButton.addEventListener('click', () => {
+                adContainer.style.display = 'none';
+                document.body.classList.remove('spinner-active'); // Remove background blur
+            });
+
+            // Redirect to referral page when the ad image is clicked
+            adImage.addEventListener('click', () => {
+                alert('This site Under Working...!!!');
+            });
+
+
         });
 
         async function updateCoinAndLinkState(index) {
