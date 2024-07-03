@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .terms {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 5px solid rgba(0, 123, 255, 0.1);
+            border-top-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .alert {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Register</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="text" id="mobile" name="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label for="nickname">Name of Buyer..</label>
+                    <input type="text" id="nickname" name="nickname" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="submitBtn">Submit</button>
+                </div>
+            </form>
+            <p class="terms">Terms and Conditions: Make sure that the buyer, whatever he/she buys, must be an bulk order.
+                Single orders shouldn't be taken into offer consideration.</p>
+            <div id="spinner" class="spinner" style="display: none;"></div>
+            <div id="alert" class="alert"></div>
+        </div>
+    </div>
+
+    <script>
+
+        const apiUrl = "https://backend-recent-2.onrender.com";
+        
+        document.getElementById('registrationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const mobile = document.getElementById('mobile').value;
+            const nickname = document.getElementById('nickname').value;
+            const spinner = document.getElementById('spinner');
+            const alert = document.getElementById('alert');
+
+            spinner.style.display = 'block';
+            alert.style.display = 'none';
+
+            try {
+                const response = await fetch(`${apiUrl}/buyer-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ mobile, nickname }),
+                });
+
+                const result = await response.json();
+                spinner.style.display = 'none';
+
+                if (response.ok) {
+                    alert.textContent = result.message;
+                    alert.className = 'alert alert-success';
+                    window.location.href='Dashboard.html';
+                } else {
+                    alert.textContent = result.message;
+                    alert.className = 'alert alert-error';
+                }
+            } catch (error) {
+                spinner.style.display = 'none';
+                alert.textContent = 'An error occurred. Please try again.';
+                alert.className = 'alert alert-error';
+            }
+
+            alert.style.display = 'block';
+        });
+
+    </script>
+</body>
+
+</html>
