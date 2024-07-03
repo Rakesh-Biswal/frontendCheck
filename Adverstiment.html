@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Page</title>
+    <title>Buyer Details</title>
     <style>
         body,
         html {
@@ -215,7 +215,7 @@
 <body>
     <div class="container">
         <div class="card">
-            <h2>Register</h2>
+            <h2>Buyer Details</h2>
             <form id="registrationForm">
                 <div class="form-group">
                     <label for="mobile">Mobile Number</label>
@@ -264,9 +264,11 @@
                 if (response.ok) {
                     alert.textContent = result.message;
                     alert.className = 'alert alert-success';
+                    alert("Thanks For being Connect with Us..! We will contact you very soon...");
+
                     setTimeout(() => {
                         window.location.href = 'index.html';
-                    }, 2000);
+                    }, 500);
                 } else {
                     alert.textContent = result.message;
                     alert.className = 'alert alert-error';
