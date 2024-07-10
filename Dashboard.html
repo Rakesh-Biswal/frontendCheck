@@ -98,7 +98,7 @@
         <div class="nav-items">
             <img class="user-profile" id="profilePic" src="UserLogo.jpg" alt="">
         </div>
-        <div class="coin-info">
+        <div class="coin-info" style="visibility: hidden;">
             <img class="coin-photos" src="coin.png" alt="">
             <span id="coinBank">0</span>
         </div>
@@ -167,7 +167,8 @@
                     document.getElementById('username').textContent = displayName;
                     document.getElementById('coinBank').textContent = profileData.coins;
                     document.getElementById('profilePic').addEventListener('click', () => {
-                        window.location.href = `profile.html?userId=${profileData.userId}`;
+                        alert("This site is under Working..");
+                        // window.location.href = `profile.html?userId=${profileData.userId}`;
                     });
 
                     const linksContainer = document.getElementById('links-container');
