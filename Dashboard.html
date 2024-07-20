@@ -35,7 +35,7 @@
     <div id="ad-overlay" class="ad-overlay" data-link-index="1">
         <div class="ad-container">
             <div class="textDiv">
-                <h2>Click & Visit For 10S to Enable Ur Dashboard</h2>
+                <h3>Click & Visit For 10S to Enable Ur Dashboard</h3>
             </div>
             <br>
             <a id="ad-link" href="https://youtu.be/4uth_xVrMjg?si=6tUoGDUmFgps4KfM" target="_blank">
@@ -67,14 +67,14 @@
             const adImage = document.getElementById('ad-image');
             const adLink = document.getElementById('ad-link');
             const userId = new URLSearchParams(window.location.search).get('userId');
-            const adIndexKey = 'ad-viewed-index'; // Key for ad index in localStorage
+            const adIndexKey = 'ad-viewed-index'; 
 
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
 
-            spinnerOverlay.style.display = 'flex'; // Show spinner initially
+            spinnerOverlay.style.display = 'flex'; 
             document.body.classList.add('spinner-active');
 
             try {
