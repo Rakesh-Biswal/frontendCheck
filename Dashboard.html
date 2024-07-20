@@ -31,6 +31,14 @@
         </div>
     </div>
 
+    <!-- Ad Section -->
+    <div id="ad-overlay" class="ad-overlay" data-link-index="1">
+        <div class="ad-container">
+            <a id="ad-link" href="https://youtu.be/4uth_xVrMjg?si=6tUoGDUmFgps4KfM" target="_blank">
+                <img id="ad-image" src="https://img1.exportersindia.com/product_images/bc-full/dir_51/1509902/fmcg-products-1857341.jpg" alt="Ad Image">
+            </a>
+        </div>
+    </div>
 
     <div id="content">
         <section class="main" id="links-container">
@@ -41,7 +49,6 @@
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
-        // Function to insert links at the beginning of the container
         function insertLinkAtBeginning(container, linkBox) {
             if (container.firstChild) {
                 container.insertBefore(linkBox, container.firstChild);
@@ -52,14 +59,19 @@
 
         document.addEventListener('DOMContentLoaded', async () => {
             const spinnerOverlay = document.getElementById('spinner-overlay');
-            spinnerOverlay.style.display = 'flex'; // Show spinner initially
-            document.body.classList.add('spinner-active');
-
+            const adOverlay = document.getElementById('ad-overlay');
+            const adImage = document.getElementById('ad-image');
+            const adLink = document.getElementById('ad-link');
             const userId = new URLSearchParams(window.location.search).get('userId');
+            const adIndexKey = 'ad-viewed-index'; // Key for ad index in localStorage
+
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
+
+            spinnerOverlay.style.display = 'flex'; // Show spinner initially
+            document.body.classList.add('spinner-active');
 
             try {
                 const profileResponse = await fetch(`${apiUrl}/profiles/${userId}`, {
@@ -76,22 +88,17 @@
                 const linksData = await linksResponse.json();
 
                 if (profileResponse.ok && linksResponse.ok) {
-
                     let displayName = profileData.name.split(' ')[0];
-
-                    // Fallback: truncate if the name is still too long
                     if (displayName.length > 10) {
                         displayName = displayName.substring(0, 10) + '...';
                     }
                     document.getElementById('username').textContent = displayName;
                     document.getElementById('coinBank').textContent = profileData.coins;
                     document.getElementById('profilePic').addEventListener('click', () => {
-
                         window.location.href = `profile.html?userId=${profileData.userId}`;
                     });
 
                     const linksContainer = document.getElementById('links-container');
-
                     linksData.forEach((linkData) => {
                         const linkBox = document.createElement('div');
                         linkBox.classList.add('link-box');
@@ -102,7 +109,7 @@
                         const link = document.createElement('a');
                         link.href = linkData.url;
                         link.classList.add('link');
-                        link.dataset.linkIndex = linkData.index; // Use the received index from backend
+                        link.dataset.linkIndex = linkData.index;
 
                         const img = document.createElement('img');
                         img.src = linkData.imageUrl;
@@ -112,7 +119,7 @@
                         linkImgDiv.appendChild(link);
                         linkBox.appendChild(linkImgDiv);
 
-                        insertLinkAtBeginning(linksContainer, linkBox); // Insert new link at the beginning
+                        insertLinkAtBeginning(linksContainer, linkBox);
 
                         const linkStatus = profileData.linkStatus[linkData.index];
                         if (linkStatus) {
@@ -123,8 +130,9 @@
 
                         link.addEventListener('click', async (event) => {
                             event.preventDefault();
+                            const linkIndex = linkData.index;
 
-                            const stayTime = 5000; // 5 seconds
+                            const stayTime = 5000;
                             const startTime = Date.now();
 
                             let timeoutId = setTimeout(() => {
@@ -137,7 +145,7 @@
                                     const elapsedTime = Date.now() - startTime;
                                     clearTimeout(timeoutId);
                                     if (elapsedTime >= stayTime) {
-                                        updateCoinAndLinkState(linkData.index);
+                                        updateCoinAndLinkState(linkIndex);
                                     } else {
                                         alert("You did not stay at least 5 seconds on the clicked link page. You won't receive any coins.");
                                     }
@@ -146,21 +154,63 @@
                             };
 
                             document.addEventListener('visibilitychange', handleVisibilityChange);
-                            window.location.href = link.href; // Redirect to the clicked link
+                            window.location.href = link.href;
                         });
                     });
+
+                    // Ad Handling
+                    const viewedAdIndexes = JSON.parse(localStorage.getItem(adIndexKey)) || {};
+                    const currentAdIndex = parseInt(adOverlay.dataset.linkIndex);
+
+                    if (!viewedAdIndexes[userId] || viewedAdIndexes[userId] !== currentAdIndex) {
+                        adOverlay.style.display = 'flex';
+                        document.body.classList.add('ad-active');
+
+                        adLink.addEventListener('click', (event) => {
+                            event.preventDefault();
+
+                            const stayTime = 10000;
+                            const startTime = Date.now();
+
+                            let timeoutId = setTimeout(() => {
+                                viewedAdIndexes[userId] = currentAdIndex;
+                                localStorage.setItem(adIndexKey, JSON.stringify(viewedAdIndexes));
+                                adOverlay.style.display = 'none';
+                                document.body.classList.remove('ad-active');
+                            }, stayTime);
+
+                            const handleVisibilityChange = () => {
+                                if (document.visibilityState === 'visible') {
+                                    const elapsedTime = Date.now() - startTime;
+                                    clearTimeout(timeoutId);
+                                    if (elapsedTime >= stayTime) {
+                                        viewedAdIndexes[userId] = currentAdIndex;
+                                        localStorage.setItem(adIndexKey, JSON.stringify(viewedAdIndexes));
+                                        adOverlay.style.display = 'none';
+                                        document.body.classList.remove('ad-active');
+                                    } else {
+                                        alert("You did not stay at least 10 seconds on the ad page. The ad will reappear.");
+                                    }
+                                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                                }
+                            };
+
+                            document.addEventListener('visibilitychange', handleVisibilityChange);
+                            window.location.href = adLink.href;
+                        });
+                    } else {
+                        adOverlay.style.display = 'none';
+                        document.body.classList.remove('ad-active');
+                    }
                 } else {
                     console.error('Error:', profileData.message);
                 }
             } catch (error) {
                 console.error('Error:', error);
             } finally {
-                spinnerOverlay.style.display = 'none'; // Hide spinner after loading completes (success or error)
+                spinnerOverlay.style.display = 'none';
                 document.body.classList.remove('spinner-active');
             }
-
-
-
         });
 
         async function updateCoinAndLinkState(index) {
@@ -194,7 +244,7 @@
                     console.error('Failed to update link status');
                 }
             } catch (error) {
-                console.error('Error updating link status:', error);
+                console.error('Error:', error);
             }
         }
     </script>
