@@ -39,7 +39,9 @@
             </div>
             <br>
             <a id="ad-link" href="https://youtu.be/4uth_xVrMjg?si=6tUoGDUmFgps4KfM" target="_blank">
-                <img id="ad-image" src="https://img1.exportersindia.com/product_images/bc-full/dir_51/1509902/fmcg-products-1857341.jpg" alt="Ad Image">
+                <img id="ad-image"
+                    src="https://img1.exportersindia.com/product_images/bc-full/dir_51/1509902/fmcg-products-1857341.jpg"
+                    alt="Ad Image">
             </a>
         </div>
     </div>
@@ -67,15 +69,34 @@
             const adImage = document.getElementById('ad-image');
             const adLink = document.getElementById('ad-link');
             const userId = new URLSearchParams(window.location.search).get('userId');
-            const adIndexKey = 'ad-viewed-index'; 
+            const adIndexKey = 'ad-viewed-index';
 
             if (!userId) {
                 window.location.href = 'login.html';
                 return;
             }
 
-            spinnerOverlay.style.display = 'flex'; 
+            spinnerOverlay.style.display = 'flex';
             document.body.classList.add('spinner-active');
+
+
+
+            try {
+                const adResponse = await fetch(`${apiUrl}/admin/get-ad`);
+                const adData = await adResponse.json();
+
+                if (adData) {
+                    adOverlay.dataset.linkIndex = adData.linkIndex;
+                    adLink.href = adData.adLink;
+                    adImage.src = adData.adImage;
+
+                } else {
+                    console.log('No ad data found');
+                }
+            } catch (error) {
+                console.error('Error fetching ad data:', error);
+            }
+
 
             try {
                 const profileResponse = await fetch(`${apiUrl}/profiles/${userId}`, {
@@ -251,6 +272,8 @@
                 console.error('Error:', error);
             }
         }
+
+
     </script>
 </body>
 
