@@ -123,7 +123,7 @@
             const adImage = document.getElementById('ad-image').value;
 
             const response = await fetch(`${apiUrl}/admin/update-ad`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
