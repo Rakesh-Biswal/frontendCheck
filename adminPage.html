@@ -25,26 +25,19 @@
             <button type="submit">Login</button>
         </form>
         <div id="dashboard" class="hidden">
+            <!-- Navbar Section in your existing HTML -->
             <div class="navbar">
-                <div class="nav-item">
-                    <div id="linkClicks">Total Link Clicked Today: 
-                        <span id="ClickValue" class="nav-data">Load...</span>
-                    </div>
+                <div class="nav-item" id="linkClicks">
+                    Total Link Clicked Today: <span id="ClickValue" class="nav-data">Load...</span>
                 </div>
-                <div class="nav-item">
-                    <div id="totalUsers">Total Users: 
-                        <span id="UserValue" class="nav-data">Load...</span>
-                    </div>
+                <div class="nav-item" id="totalUsers">
+                    Total Users: <span id="UserValue" class="nav-data">Load...</span>
                 </div>
-                <div class="nav-item">
-                    <div id="pastClicks">
-                        <label for="pastDate">Select Date:</label>
-                        <input type="date" id="pastDate">
-                        <button onclick="fetchClicksByDate()">Search</button>
-                        <div>Past Clicks: 
-                            <span id="pastClicksValue" class="nav-data"></span>
-                        </div>
-                    </div>
+                <div class="nav-item" id="pastClicks">
+                    <label for="pastDate">Select Date:</label>
+                    <input type="date" id="pastDate">
+                    <button onclick="fetchClicksByDate()">Search</button>
+                    <div>Past Clicks: <span id="pastClicksValue" class="nav-data"></span></div>
                 </div>
                 <div class="nav-item">
                     <button id="WithdrawStatus" onclick="window.location.href='WithdrawAdmin.html'">
@@ -55,6 +48,7 @@
                     <a href="AdUpload.html" class="nav-link">Ad-Upload</a>
                 </div>
             </div>
+
             <h2>Admin Dashboard</h2>
             <form id="linkForm" onsubmit="updateLinks(event)">
                 <h3>Update Affiliate Links</h3>
