@@ -28,11 +28,20 @@
             <div class="navbar">
 
                 <div class="holdData">
-                    <div id="linkClicks">Total Link Clicked : <span id="ClickValue"
-                            style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
+                    <div id="linkClicks">Total Link Clicked Today: 
+                        <span id="ClickValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
                     </div>
-                    <div id="totalUsers">Total Users : <span id="UserValue"
-                            style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span> </div>
+                    <div id="totalUsers">Total Users: 
+                        <span id="UserValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
+                    </div>
+                    <div id="pastClicks">
+                        <label for="pastDate">Select Date:</label>
+                        <input type="date" id="pastDate">
+                        <button onclick="fetchClicksByDate()">Search</button>
+                        <div id="pastClicksResult">Past Clicks: 
+                            <span id="pastClicksValue" style="font-weight: bold; color: yellow; font-size: 22px;"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="Withdrawal">
                     <button value="WithDrawal" name="Withdrawal" id="WithdrawStatus"
@@ -160,15 +169,42 @@
                 const data = await response.json();
 
                 document.getElementById('ClickValue').textContent = data.linkClicksToday;
-                console.log(data.linkClicksToday);
                 document.getElementById('UserValue').textContent = data.totalUsers;
-                console.log(data.totalUsers);
                 document.getElementById('WithdrawStatus').addEventListener('click', () => {
-                    window.location.href='WithdrawAdmin.html';
+                    window.location.href = 'WithdrawAdmin.html';
                 });
             } catch (error) {
                 console.error('Error fetching statistics:', error);
                 alert('Failed to fetch statistics.');
+            }
+        }
+
+
+        //by per det
+        async function fetchClicksByDate() {
+            const date = document.getElementById('pastDate').value;
+            if (!date) {
+                alert('Please select a date.');
+                return;
+            }
+
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = 'block';
+
+            try {
+                const response = await fetch(`${apiUrl}/statistics/date?date=${date}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('pastClicksValue').textContent = data.linkClicks;
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching clicks by date:', error);
+                alert('Failed to fetch clicks by date.');
+            } finally {
+                spinner.style.display = 'none';
             }
         }
 
