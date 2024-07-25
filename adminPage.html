@@ -26,24 +26,30 @@
         </form>
         <div id="dashboard" class="hidden">
             <div class="navbar">
-                <div class="nav-item holdData">
-                    <div id="linkClicks">Total Link Clicked Today:
-                        <span id="ClickValue" class="nav-span">Load...</span>
+                <div class="nav-item">
+                    <div id="linkClicks">Total Link Clicked Today: 
+                        <span id="ClickValue" class="nav-data">Load...</span>
                     </div>
-                    <div id="totalUsers">Total Users:
-                        <span id="UserValue" class="nav-span">Load...</span>
+                </div>
+                <div class="nav-item">
+                    <div id="totalUsers">Total Users: 
+                        <span id="UserValue" class="nav-data">Load...</span>
                     </div>
+                </div>
+                <div class="nav-item">
                     <div id="pastClicks">
                         <label for="pastDate">Select Date:</label>
                         <input type="date" id="pastDate">
                         <button onclick="fetchClicksByDate()">Search</button>
-                        <div id="pastClicksResult">Past Clicks:
-                            <span id="pastClicksValue" class="nav-span"></span>
+                        <div>Past Clicks: 
+                            <span id="pastClicksValue" class="nav-data"></span>
                         </div>
                     </div>
                 </div>
                 <div class="nav-item">
-                    <button id="WithdrawStatus" class="nav-button">Withdrawal Status</button>
+                    <button id="WithdrawStatus" onclick="window.location.href='WithdrawAdmin.html'">
+                        Withdrawal Status
+                    </button>
                 </div>
                 <div class="nav-item">
                     <a href="AdUpload.html" class="nav-link">Ad-Upload</a>
