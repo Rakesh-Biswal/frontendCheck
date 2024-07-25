@@ -26,32 +26,28 @@
         </form>
         <div id="dashboard" class="hidden">
             <div class="navbar">
-
-                <div class="holdData">
-                    <div id="linkClicks">Total Link Clicked Today: 
-                        <span id="ClickValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
+                <div class="nav-item holdData">
+                    <div id="linkClicks">Total Link Clicked Today:
+                        <span id="ClickValue" class="nav-span">Load...</span>
                     </div>
-                    <div id="totalUsers">Total Users: 
-                        <span id="UserValue" style="font-weight: bold; color: yellow; font-size: 22px;">Load...</span>
+                    <div id="totalUsers">Total Users:
+                        <span id="UserValue" class="nav-span">Load...</span>
                     </div>
                     <div id="pastClicks">
                         <label for="pastDate">Select Date:</label>
                         <input type="date" id="pastDate">
                         <button onclick="fetchClicksByDate()">Search</button>
-                        <div id="pastClicksResult">Past Clicks: 
-                            <span id="pastClicksValue" style="font-weight: bold; color: yellow; font-size: 22px;"></span>
+                        <div id="pastClicksResult">Past Clicks:
+                            <span id="pastClicksValue" class="nav-span"></span>
                         </div>
                     </div>
                 </div>
-                <div class="Withdrawal">
-                    <button value="WithDrawal" name="Withdrawal" id="WithdrawStatus"
-                        style="font-weight: Bold; cursor: pointer; font-size: 20px; padding: 5px; border-radius: 23px; background-color:rgb(27, 78, 27); color: white;">WithDrawal status</button>
+                <div class="nav-item">
+                    <button id="WithdrawStatus" class="nav-button">Withdrawal Status</button>
                 </div>
-
-                <div>
+                <div class="nav-item">
                     <a href="AdUpload.html" class="nav-link">Ad-Upload</a>
                 </div>
-                
             </div>
             <h2>Admin Dashboard</h2>
             <form id="linkForm" onsubmit="updateLinks(event)">
