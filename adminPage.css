@@ -1,4 +1,4 @@
-/* General Reset and Styling */
+/* Reset and General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
@@ -13,21 +13,19 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1200px; /* Increased max-width for desktop screens */
     padding: 20px;
     box-sizing: border-box;
 }
 
 h2, h3 {
     text-align: center;
-    color: #333;
 }
 
-/* Form Styling */
 form {
     background-color: #fff;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     margin: 20px 0;
@@ -41,7 +39,6 @@ form {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #666;
 }
 
 input[type="email"], input[type="password"], input[type="text"], input[type="number"], button {
@@ -49,69 +46,55 @@ input[type="email"], input[type="password"], input[type="text"], input[type="num
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
 }
 
 button {
-    background-color: #007BFF;
+    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    padding: 15px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+    background-color: #45a049;
 }
 
-/* Navbar Styling */
 .navbar {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
 .nav-item {
+    flex: 1;
+    min-width: 220px; /* Ensure minimum width for each item */
     background-color: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .nav-item:hover {
-    background-color: #f7f9fc;
     transform: translateY(-5px);
 }
 
-.nav-item .nav-data {
+.nav-data {
     font-weight: bold;
     color: #007BFF;
 }
 
-.nav-item a {
-    display: block;
-    text-decoration: none;
-    color: #007BFF;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.hidden {
+    display: none;
 }
 
-.nav-item a:hover {
-    background-color: #e0f0ff;
-    color: #0056b3;
-}
-
-/* Responsive Design */
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -119,48 +102,36 @@ button:hover {
 
     .nav-item {
         min-width: 100%;
-        box-sizing: border-box;
+    }
+
+    input[type="email"], input[type="password"], input[type="text"], input[type="number"], button {
+        font-size: 14px;
     }
 }
 
-/* Spinner */
 .spinner {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
-    width: 60px;
-    height: 60px;
 }
 
-.spinner div {
-    width: 12px;
-    height: 12px;
+.rect1, .rect2, .rect3, .rect4 {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
     background-color: #007BFF;
-    border-radius: 50%;
     display: inline-block;
     animation: bounce 1.2s infinite ease-in-out;
 }
 
-.spinner div:nth-child(2) {
-    animation-delay: -0.2s;
-}
-
-.spinner div:nth-child(3) {
-    animation-delay: -0.4s;
-}
-
-.spinner div:nth-child(4) {
-    animation-delay: -0.6s;
-}
-
 @keyframes bounce {
     0%, 100% {
-        transform: translateY(0);
+        transform: scale(1);
     }
     50% {
-        transform: translateY(-20px);
+        transform: scale(1.5);
     }
 }
 
