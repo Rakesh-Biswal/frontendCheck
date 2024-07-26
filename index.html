@@ -15,8 +15,8 @@
     <meta property="og:image" content="https://click-and-win.netlify.app/titleLogo.jpg" />
     <meta property="og:url" content="https://click-and-win.netlify.app" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Click-n-Win"   />
-
+    <meta property="og:site_name" content="Click-n-Win" />
+  
 
     <style>
         /* Additional CSS for the popup */
@@ -61,71 +61,10 @@
             text-align: center;
         }
 
-        .regis,
-        .closis {
+        .regis, .closis {
             display: block;
             margin: 10px auto;
             text-align: center;
-        }
-
-
-
-
-        /* Loading spinner styling */
-        .spinner {
-            display: none;
-            /* Initially hidden */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            z-index: 10;
-            transform: translate(-50%, -50%);
-        }
-
-        .dot1,
-        .dot2 {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #5652BF;
-            opacity: 0.6;
-            position: absolute;
-            animation: pulsate 1.5s infinite ease-in-out;
-        }
-
-        .dot2 {
-            animation-delay: -0.75s;
-        }
-
-        @keyframes pulsate {
-
-            0%,
-            100% {
-                transform: scale(0);
-            }
-
-            50% {
-                transform: scale(1);
-            }
-        }
-
-        /* Blur overlay styling */
-        .blur-overlay {
-            display: none;
-            /* Initially hidden */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            z-index: 5;
-        }
-
-        .blur {
-            filter: blur(1px);
         }
     </style>
 </head>
@@ -157,19 +96,12 @@
                 </ul>
             </div>
             <div class="nav-button">
-                <button class="btn white-btn" id="loginBtn" onclick="signIn()">Sign In</button>
+                <button class="btn white-btn" id="loginBtn" onclick="login()"><a href="/login.html">Sign In</a></button>
             </div>
             <div class="nav-menu-btn">
                 <i class="bx bx-menu" id="hamburger" onclick="toggleMenu()">☰</i>
             </div>
         </nav>
-
-        <div id="loadingSpinner" class="spinner">
-            <div class="dot1"></div>
-            <div class="dot2"></div>
-        </div>
-        <div id="blurOverlay" class="blur-overlay"></div>
-
         <div class="contentz">
             <h3 id="typed-text">Your Text Here</h3>
             <h2>"
@@ -184,49 +116,6 @@
     <script src="//code.tidio.co/y52anw0agxaj9ehjys9kl4woyzquvmsn.js" async></script>
     <script src="aleart.js"></script>
     <script src="menu.js"></script>
-
-    <script>
-        async function signIn() {
-            const apiUrl = "https://backend-recent-2.onrender.com";
-
-            // Show spinner and blur effect
-            document.getElementById('loadingSpinner').style.display = 'block';
-            document.getElementById('blurOverlay').style.display = 'block';
-            
-
-            try {
-                const response = await fetch(`${apiUrl}/check-ip`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    credentials: 'include'
-                });
-
-                const data = await response.json();
-
-                // Hide spinner and blur effect
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('blurOverlay').style.display = 'none';
-                
-
-                if (response.ok) {
-                    localStorage.setItem('userId', data.userId);
-                    window.location.href = `dashboard.html?userId=${data.userId}`;
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error checking IP');
-
-                // Hide spinner and blur effect in case of error
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('blurOverlay').style.display = 'none';
-                
-            }
-        }
-    </script>
 </body>
 
 </html>
