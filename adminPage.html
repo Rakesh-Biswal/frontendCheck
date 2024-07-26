@@ -35,8 +35,11 @@
                 </div>
                 <div class="nav-item" id="pastClicks">
                     <label for="pastDate">Select Date:</label>
-                    <input type="date" id="pastDate">
-                    <button onclick="fetchClicksByDate()">Search</button>
+                    <div style="display: flex; gap:24px">
+                        <input type="date" id="pastDate" style="height: 50px; width:120px; border-radius: 23px;">
+                        <button onclick="fetchClicksByDate()"
+                            style="height: 50px; width:120px; border-radius: 23px;">Search</button>
+                    </div>
                     <div>Past Clicks: <span id="pastClicksValue" class="nav-data"></span></div>
                 </div>
                 <div class="nav-item">
