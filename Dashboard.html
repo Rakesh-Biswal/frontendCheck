@@ -171,7 +171,7 @@
 
                     const viewedAdIndexes = JSON.parse(localStorage.getItem(adIndexKey)) || {};
                     const currentAdIndex = viewedAdIndexes[userId] ? viewedAdIndexes[userId] + 1 : 6;
-
+                    console.log(currentAdIndex);
                     if (clickCount % 5 === 0) {
                         try {
                             const adResponse = await fetch(`${apiUrl}/admin/get-ad?index=${currentAdIndex}`);
