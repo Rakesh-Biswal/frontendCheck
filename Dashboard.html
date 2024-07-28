@@ -178,7 +178,7 @@
                             const adData = await adResponse.json();
 
                             if (adData) {
-                                adOverlay.dataset.linkIndex = adData.linkIndex;
+                                adOverlay.dataset.linkIndex = adData.Idx;
                                 adLink.href = adData.IdxLnk;
                                 adImage.src = adData.IdxImg;
 
