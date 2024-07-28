@@ -166,6 +166,7 @@
                     // Ad Handling
                     let clickCount = parseInt(localStorage.getItem(clickCountKey)) || 0;
                     clickCount++;
+                    console.log(clickCount);
                     localStorage.setItem(clickCountKey, clickCount);
 
                     const viewedAdIndexes = JSON.parse(localStorage.getItem(adIndexKey)) || {};
