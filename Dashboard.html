@@ -68,7 +68,6 @@
             const adLink = document.getElementById('ad-link');
             const userId = new URLSearchParams(window.location.search).get('userId');
             const adIndexKey = 'ad-viewed-index';
-            const clickCountKey = 'click-count';
 
             if (!userId) {
                 window.location.href = 'login.html';
@@ -77,6 +76,25 @@
 
             spinnerOverlay.style.display = 'flex';
             document.body.classList.add('spinner-active');
+
+
+
+            try {
+                const adResponse = await fetch(`${apiUrl}/admin/get-ad`);
+                const adData = await adResponse.json();
+
+                if (adData) {
+                    adOverlay.dataset.linkIndex = adData.linkIndex;
+                    adLink.href = adData.adLink;
+                    adImage.src = adData.adImage;
+
+                } else {
+                    console.log('No ad data found');
+                }
+            } catch (error) {
+                console.error('Error fetching ad data:', error);
+            }
+
 
             try {
                 const profileResponse = await fetch(`${apiUrl}/profiles/${userId}`, {
@@ -164,65 +182,45 @@
                     });
 
                     // Ad Handling
-                    let clickCount = parseInt(localStorage.getItem(clickCountKey)) || 0;
-                    clickCount++;
-                    console.log(clickCount);
-                    localStorage.setItem(clickCountKey, clickCount);
-
                     const viewedAdIndexes = JSON.parse(localStorage.getItem(adIndexKey)) || {};
-                    const currentAdIndex = viewedAdIndexes[userId] ? viewedAdIndexes[userId] + 1 : 6;
-                    console.log(currentAdIndex);
-                    if (clickCount % 5 === 0) {
-                        try {
-                            const adResponse = await fetch(`${apiUrl}/admin/get-ad?index=${currentAdIndex}`);
-                            const adData = await adResponse.json();
+                    const currentAdIndex = parseInt(adOverlay.dataset.linkIndex);
 
-                            if (adData) {
-                                adOverlay.dataset.linkIndex = adData.Idx;
-                                adLink.href = adData.IdxLnk;
-                                adImage.src = adData.IdxImg;
+                    if (!viewedAdIndexes[userId] || viewedAdIndexes[userId] !== currentAdIndex) {
+                        adOverlay.style.display = 'flex';
+                        document.body.classList.add('ad-active');
 
-                                adOverlay.style.display = 'flex';
-                                document.body.classList.add('ad-active');
+                        adLink.addEventListener('click', (event) => {
+                            event.preventDefault();
 
-                                adLink.addEventListener('click', (event) => {
-                                    event.preventDefault();
+                            const stayTime = 10000;
+                            const startTime = Date.now();
 
-                                    const stayTime = 10000;
-                                    const startTime = Date.now();
+                            let timeoutId = setTimeout(() => {
+                                viewedAdIndexes[userId] = currentAdIndex;
+                                localStorage.setItem(adIndexKey, JSON.stringify(viewedAdIndexes));
+                                adOverlay.style.display = 'none';
+                                document.body.classList.remove('ad-active');
+                            }, stayTime);
 
-                                    let timeoutId = setTimeout(() => {
+                            const handleVisibilityChange = () => {
+                                if (document.visibilityState === 'visible') {
+                                    const elapsedTime = Date.now() - startTime;
+                                    clearTimeout(timeoutId);
+                                    if (elapsedTime >= stayTime) {
                                         viewedAdIndexes[userId] = currentAdIndex;
                                         localStorage.setItem(adIndexKey, JSON.stringify(viewedAdIndexes));
                                         adOverlay.style.display = 'none';
                                         document.body.classList.remove('ad-active');
-                                    }, stayTime);
+                                    } else {
+                                        alert("You did not stay at least 10 seconds on the ad page. The ad will reappear.");
+                                    }
+                                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                                }
+                            };
 
-                                    const handleVisibilityChange = () => {
-                                        if (document.visibilityState === 'visible') {
-                                            const elapsedTime = Date.now() - startTime;
-                                            clearTimeout(timeoutId);
-                                            if (elapsedTime >= stayTime) {
-                                                viewedAdIndexes[userId] = currentAdIndex;
-                                                localStorage.setItem(adIndexKey, JSON.stringify(viewedAdIndexes));
-                                                adOverlay.style.display = 'none';
-                                                document.body.classList.remove('ad-active');
-                                            } else {
-                                                alert("You did not stay at least 10 seconds on the ad page. The ad will reappear.");
-                                            }
-                                            document.removeEventListener('visibilitychange', handleVisibilityChange);
-                                        }
-                                    };
-
-                                    document.addEventListener('visibilitychange', handleVisibilityChange);
-                                    window.location.href = adLink.href;
-                                });
-                            } else {
-                                console.log('No ad data found');
-                            }
-                        } catch (error) {
-                            console.error('Error fetching ad data:', error);
-                        }
+                            document.addEventListener('visibilitychange', handleVisibilityChange);
+                            window.location.href = adLink.href;
+                        });
                     } else {
                         adOverlay.style.display = 'none';
                         document.body.classList.remove('ad-active');
@@ -241,7 +239,7 @@
         async function updateCoinAndLinkState(index) {
             try {
                 const userId = new URLSearchParams(window.location.search).get('userId');
-                const updateResponse = await fetch(`${ apiUrl }/update-link`, {
+                const updateResponse = await fetch(`${apiUrl}/update-link`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -272,6 +270,8 @@
                 console.error('Error:', error);
             }
         }
+
+
     </script>
 </body>
 
