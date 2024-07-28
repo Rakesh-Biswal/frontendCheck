@@ -174,7 +174,7 @@
                     console.log(currentAdIndex);
                     if (clickCount % 5 === 0) {
                         try {
-                            const adResponse = await fetch(`${apiUrl}/admin/get-ad?index=${currentAdIndex}`);
+                            const adResponse = await fetch(`${apiUrl}/admin/get-ad?index=${6}`);
                             const adData = await adResponse.json();
 
                             if (adData) {
