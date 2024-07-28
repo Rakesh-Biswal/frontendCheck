@@ -240,7 +240,7 @@
         async function updateCoinAndLinkState(index) {
             try {
                 const userId = new URLSearchParams(window.location.search).get('userId');
-                const updateResponse = await fetch(`${ apiUrl } / update - link`, {
+                const updateResponse = await fetch(`${ apiUrl } / update-link`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
