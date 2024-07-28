@@ -53,7 +53,6 @@
     <script>
         const apiUrl = "https://backend-recent-2.onrender.com";
 
-
         function insertLinkAtBeginning(container, linkBox) {
             if (container.firstChild) {
                 container.insertBefore(linkBox, container.firstChild);
@@ -241,7 +240,7 @@
         async function updateCoinAndLinkState(index) {
             try {
                 const userId = new URLSearchParams(window.location.search).get('userId');
-                const updateResponse = await fetch(`${apiUrl}/update-link`, {
+                const updateResponse = await fetch(`${ apiUrl } / update - link`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -272,8 +271,6 @@
                 console.error('Error:', error);
             }
         }
-
-
     </script>
 </body>
 
